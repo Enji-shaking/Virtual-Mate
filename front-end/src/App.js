@@ -4,6 +4,7 @@ import ToDoListTab from './ToDoListTab';
 import ChatsTab from './ChatsTab';
 import GalleryTab from './GalleryTab'
 import { Switch, Route } from 'react-router-dom';
+import TabBar from './TabBar';
 
 export default function App (props){
   return (

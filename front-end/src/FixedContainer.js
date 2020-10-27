@@ -7,9 +7,9 @@ import TabBar from './TabBar'
 class FixedContainer extends React.Component {
     render(){
     return(
-    <React.Fragment style={{overflow: 'hidden'}}>
-      <CssBaseline style={{padding: '0'}}/>
-      <Container fixed style={{padding: '0', overflow: 'hidden'}}>
+    <React.Fragment >
+      <CssBaseline/>
+      <Container fixed style={{padding: '0'}}>
         <Typography component="div" style={{width: '100%', marginBottom: '10vh', padding: '5vw', }}>
           {this.props.children}
         </Typography>

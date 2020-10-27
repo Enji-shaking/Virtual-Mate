@@ -13,16 +13,20 @@ const useStyles = makeStyles({
 
 export default function TabBar() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+
+ const path=window.location.pathname;
+ let position=0;
+  if(path==='/Chats')  position=2;
+  if(path==='/ToDoList') position=1;
+  if(path==='/Gallery') position=0;
+  if(path==='/Profile') position=3;
+const [value, setValue] = React.useState(position);
 
   return (
     <BottomNavigation
       value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
       showLabels
-      className={classes.root}
+      root={value}
       style={{position: 'fixed', bottom: '0', width: '100%', height:'10vh'}}
     >
       <BottomNavigationAction label="Gallery" icon={<Home />} component={Link} to='/' />
