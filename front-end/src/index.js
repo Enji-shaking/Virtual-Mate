@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import FixedContainer from './FixedContainer.js';
-// import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Setting from './Setting';
 import TopLayer from './TopLayer';
@@ -28,8 +27,7 @@ function Test() {
         </Picture>
         <Album/>
         <FootPrint activities={activities} />
-        </FixedContainer>
-
+      </FixedContainer>
     </Box>
   );
 }

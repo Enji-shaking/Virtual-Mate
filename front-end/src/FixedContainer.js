@@ -10,7 +10,7 @@ class FixedContainer extends React.Component {
     <React.Fragment>
       <CssBaseline style={{padding: '0'}}/>
       <Container fixed style={{padding: '0'}}>
-        <Typography component="div" style={{height: '90vh', width: '100%', margin: '0', padding: '0' }}>
+        <Typography component="div" style={{width: '100%', margin: '0', padding: '0', paddingBottom: '15vh'}}>
           {this.props.children}
         </Typography>
         <SimpleBottomNavigation/>
