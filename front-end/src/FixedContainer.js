@@ -2,18 +2,18 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import SimpleBottomNavigation from './SimpleBottomNavigation'
+import TabBar from './TabBar'
 
 class FixedContainer extends React.Component {
     render(){
     return(
-    <React.Fragment>
+    <React.Fragment style={{overflow: 'hidden'}}>
       <CssBaseline style={{padding: '0'}}/>
-      <Container fixed style={{padding: '0'}}>
-        <Typography component="div" style={{width: '100%', margin: '0', padding: '0', paddingBottom: '15vh'}}>
+      <Container fixed style={{padding: '0', overflow: 'hidden'}}>
+        <Typography component="div" style={{width: '100%', marginBottom: '10vh', padding: '5vw', }}>
           {this.props.children}
         </Typography>
-        <SimpleBottomNavigation/>
+        <TabBar/>
       </Container>
     </React.Fragment>);
     };
