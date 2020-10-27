@@ -5,7 +5,7 @@ public class Card {
 	public String Activity_Name;
 	public Image Activity_Image;
 	public Set<Tag> Related_Tags;
-	private List<User> Accomplished_Users;
+	public List<User> Accomplished_Users;
 	
 	public Card() {
 		

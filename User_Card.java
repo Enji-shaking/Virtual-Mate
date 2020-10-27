@@ -13,9 +13,14 @@ public class User_Card {
 		this.Is_Complete = false;
 	}
 	
-	private void set_Complete()
+	public void set_Complete()
 	{
 		this.Is_Complete = true;
+	}
+	
+	public Card to_Card()
+	{
+		// Fetch the Card with matching Card_ID
 	}
 
 }
