@@ -11,4 +11,12 @@ public class Image {
 		
 	}
 
+	public String getImage_Url() {
+		return Image_Url;
+	}
+
+	public void setImage_Url(String image_Url) {
+		Image_Url = image_Url;
+	}
+
 }

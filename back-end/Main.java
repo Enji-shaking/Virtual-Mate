@@ -28,12 +28,7 @@ public class Main {
 		
 		// return tag.Related_Cards
 	}
-	
-	public Card Create_Card(String activity_name, Set<Tag> related_tags, Image activity_image)
-	{
-		// Call Card constructor
-	}
-	
+		
 	public List<Card> List_Cards()
 	{
 		// depends on the implementation of database
