@@ -12,7 +12,6 @@ const useStyles = makeStyles({
 });
 
 export default function TabBar() {
-  const classes = useStyles();
 
  const path=window.location.pathname;
  let position=0;
@@ -31,7 +30,7 @@ const [value, setValue] = React.useState(position);
     >
       <BottomNavigationAction label="Gallery" icon={<Home />} component={Link} to='/' />
       <BottomNavigationAction label="My ToDo" icon={<Check />} component={Link} to='/ToDoList' />
-      <BottomNavigationAction label="Chats" icon={<Chat />}component={Link} to='/Chats' />
+      <BottomNavigationAction label="Chats" icon={<Chat />} component={Link} to='/Chats' />
       <BottomNavigationAction label="Profile" icon={<AccountBox />} component={Link} to='/Profile' />
     </BottomNavigation>
   );

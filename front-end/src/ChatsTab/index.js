@@ -6,7 +6,7 @@ export default function ChatsTab(props){
   return(
     <FixedContainer>
       Chats
-<Picture/>
+      <Picture/>
     </FixedContainer>
   );
 }

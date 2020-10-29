@@ -11,16 +11,22 @@ export default function App (props){
     <div className='App'>
           <Switch>
             <Route path='/' exact>
-              <GalleryTab/>
+              Gallery
+              <TabBar/>
+              {/* <GalleryTab/> */}
             </Route>
             <Route path='/Profile' exact>
-              <ProfileTab />
+              Profile
+              {/* <ProfileTab /> */}
+              <TabBar/>
             </Route>
             <Route path='/ToDoList' exact>
-              <ToDoListTab />
+              To Do
+              {/* <ToDoListTab /> */}
             </Route>
             <Route path='/Chats' exact>
-              <ChatsTab />
+              Chat
+              {/* <ChatsTab /> */}
             </Route>
           </Switch>
     </div>
