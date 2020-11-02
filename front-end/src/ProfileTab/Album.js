@@ -1,5 +1,5 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
+import { Box, Setting } from '@material-ui/core';
 import Picture from '../Picture'
 
 class Album extends React.Component{
