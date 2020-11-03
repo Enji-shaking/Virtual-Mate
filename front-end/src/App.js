@@ -4,14 +4,16 @@ import ToDoListTab from './ToDoListTab';
 import ChatsTab from './ChatsTab';
 import GalleryTab from './GalleryTab'
 import { Switch, Route } from 'react-router-dom';
-import TabBar from './TabBar';
-
+import AddCard from './AddCard';
 export default function App (props){
   return (
     <div className='App'>
           <Switch>
             <Route path='/' exact>
               <GalleryTab />
+            </Route>
+            <Route path='/AddActivity' exact>
+              <AddCard/>
             </Route>
             <Route path='/Profile' exact>
               <ProfileTab />

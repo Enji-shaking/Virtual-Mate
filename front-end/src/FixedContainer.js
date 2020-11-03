@@ -9,7 +9,7 @@ class FixedContainer extends React.Component {
     render(){
     return(
     <React.Fragment >
-        <TopLayer displayType='logo'/>
+        <TopLayer displayType={this.props.displayType}/>
       <CssBaseline/>
       <Container fixed style={{padding: '0'}}>
         <Typography component="div" style={{width: '100%', marginBottom: '10vh', padding: '5vw', }}>

@@ -3,6 +3,7 @@ import CloudDoneIcon from '@material-ui/icons/CloudDone';
 import ReplyIcon from '@material-ui/icons/Reply';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
+import { useHistory } from "react-router-dom";
 
 export default function TopLayer(props) { 
     const colorStyle = {
@@ -10,11 +11,11 @@ export default function TopLayer(props) {
         color: '#54BEF5',
         display: 'flex',
     };
-    console.log(props.displayType);
+    let history = useHistory();
     return (
         <Box style={colorStyle}>
-            {props.displayType==='logo'?<CloudDoneIcon/>:<IconButton onClick= {() => { this.props.history.goBack(); }}><ReplyIcon/></IconButton>}
-            {props.displayType==='logo'?<span>Virtual Mates</span>:<span></span>}
+            {props.displayType!=='return'?<CloudDoneIcon/>:<IconButton onClick= {() => {history.goBack(); }}><ReplyIcon style={{ color: '#54BEF5' }} /></IconButton>}
+            {props.displayType!=='return'?<span>Virtual Mates</span>:<span></span>}
         </Box>
         
     )

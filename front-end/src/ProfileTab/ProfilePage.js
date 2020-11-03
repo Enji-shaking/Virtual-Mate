@@ -20,8 +20,8 @@ export default function ProfilePage(props){
         </Picture>
         <Album/>
         <FootPrint activities={activities} />
-        <Album/>
-        <FootPrint activities={activities} />
+      
+        
       </FixedContainer>
     </Box>
   );
