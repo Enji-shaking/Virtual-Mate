@@ -6,6 +6,9 @@ import GalleryTab from "./GalleryTab";
 import { Switch, Route } from "react-router-dom";
 import AddCard from "./AddCard";
 import PeopleInCard from "./PeopleInCard";
+import Login from "./Login";
+import Register from "./Register";
+
 export default function App(props) {
   return (
     <div className="App">
@@ -27,6 +30,12 @@ export default function App(props) {
         </Route>
         <Route path="/PlInCard" exact>
           <PeopleInCard />
+        </Route>
+        <Route path="/Login" exact>
+          <Login />
+        </Route>
+        <Route path="/Register" exact>
+          <Register />
         </Route>
       </Switch>
     </div>
