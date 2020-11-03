@@ -34,7 +34,7 @@ export default function GalleryCard(props) {
     margin: "5px",
   };
   return (
-    <Link to="/PlInCard?status=0">
+    <Link to="/PlInCard">
       <div style={cardStyle}>
         <div className="title">Title</div>
         <img src="../logo192.png" style={imgStyle}></img>

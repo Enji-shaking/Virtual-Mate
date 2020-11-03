@@ -22,6 +22,7 @@ export default function ProfilePage(props) {
           <p>My name</p>
         </Picture>
         <Album />
+        <FootPrint activities={activities} />
       </FixedContainer>
     </Box>
   );
