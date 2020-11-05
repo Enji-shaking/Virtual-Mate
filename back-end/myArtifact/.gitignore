@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### mykey ###
-!.markFirebasePassport1.json
+!**/markFirebasePassport1.json
