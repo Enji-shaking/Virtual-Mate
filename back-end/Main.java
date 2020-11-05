@@ -22,21 +22,21 @@ public class Main {
 		return true;
 	}
 	
-	public Set<Card> Search_Tag (String tag_name)
+	public Set<Card> SearchTag (String tag_name)
 	{
 		// Fetch the Tag
 		
 		// return tag.Related_Cards
 	}
 		
-	public List<Card> List_Cards()
+	public List<Card> ListCards()
 	{
 		// depends on the implementation of database
 		
 		// return the list of cards that will be displayed in Gallery
 	}
 	
-	public void Add_Card_to_User(int user_id, int card_id)
+	public void AddCardtoUser(int user_id, int card_id)
 	{
 		// Fetch the User
 		

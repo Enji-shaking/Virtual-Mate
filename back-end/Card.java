@@ -1,21 +1,55 @@
 import java.util.*;
 
 public class Card {
-	public int Card_ID;
-	public String Activity_Name;
-	public Image Activity_Image;
-	public Set<Tag> Related_Tags;
-	private List<User> Accomplished_Users;
+
+	private int cardID;
+	private String activityName;
+	private Image activityImage;
+	private Set<Tag> relatedTags;
+	private List<User> accomplishedUsers;
 	
 	public Card() {
 		
 	}
 
-	public List<User> getAccomplished_Users() {
-		return Accomplished_Users;
+	public int getCardID() {
+		return cardID;
 	}
 
-	public void setAccomplished_Users(List<User> accomplished_Users) {
-		Accomplished_Users = accomplished_Users;
+	public void setCardID(int cardID) {
+		this.cardID = cardID;
 	}
+
+	public String getActivityName() {
+		return activityName;
+	}
+
+	public void setActivityName(String activityName) {
+		this.activityName = activityName;
+	}
+
+	public Image getActivityImage() {
+		return activityImage;
+	}
+
+	public void setActivityImage(Image activityImage) {
+		this.activityImage = activityImage;
+	}
+
+	public Set<Tag> getRelatedTags() {
+		return relatedTags;
+	}
+
+	public void setRelatedTags(Set<Tag> relatedTags) {
+		this.relatedTags = relatedTags;
+	}
+
+	public List<User> getAccomplishedUsers() {
+		return accomplishedUsers;
+	}
+
+	public void setAccomplishedUsers(List<User> accomplishedUsers) {
+		this.accomplishedUsers = accomplishedUsers;
+	}
+
 }

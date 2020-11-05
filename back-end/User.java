@@ -2,15 +2,15 @@ import java.util.*;
 
 public class User {
 
-	public String User_Name;
-	public int User_ID;
-	public String Email;
+	private String userName;
+	private int userID;
+	private String email;
 	private String password;
-	public boolean Is_Online;
-	public List<User_Card> Cards_Planned;
-	private List<User_Card> Cards_Accomplished;
-	private List<Image> User_Images;
-	private List<Chat> Kept_Chats;
+	private boolean isOnline;
+	private List<UserCard> cardsPlanned;
+	private List<UserCard> cardsAccomplished;
+	private List<Image> userImages;
+	private List<Chat> keptChats;
 	
 	
 	public User() {
@@ -19,23 +19,47 @@ public class User {
 	
 	public void set_Online()
 	{
-		this.Is_Online = true;
+		this.isOnline = true;
 	}
 	
-	public void Remove_Card(User_Card to_remove)
+	public void Remove_Card(UserCard to_remove)
 	{
 		// Search the list Cards_Planned
 		
 		// Remove this card from Cards_Planned
 	}
 	
-	public void Complete_Card(User_Card to_complete)
+	public void Complete_Card(UserCard to_complete)
 	{
-		to_complete.set_Complete();
+		to_complete.setComplete();
 		Remove_Card(to_complete);
-		Cards_Accomplished.add(to_complete);
-		Card completed_card = to_complete.to_Card();
-		completed_card.getAccomplished_Users().add(this);
+		cardsAccomplished.add(to_complete);
+		Card completed_card = to_complete.toCard();
+		completed_card.getAccomplishedUsers().add(this);
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -46,21 +70,47 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Image> getUser_Images() {
-		return User_Images;
+	public boolean isOnline() {
+		return isOnline;
 	}
 
-	public void setUser_Images(List<Image> user_Images) {
-		User_Images = user_Images;
+	public void setOnline(boolean isOnline) {
+		this.isOnline = isOnline;
 	}
 
-	public List<Chat> getKept_Chats() {
-		return Kept_Chats;
+	public List<UserCard> getCardsPlanned() {
+		return cardsPlanned;
 	}
 
-	public void setKept_Chats(List<Chat> kept_Chats) {
-		Kept_Chats = kept_Chats;
+	public void setCardsPlanned(List<UserCard> cardsPlanned) {
+		this.cardsPlanned = cardsPlanned;
 	}
+
+	public List<UserCard> getCardsAccomplished() {
+		return cardsAccomplished;
+	}
+
+	public void setCardsAccomplished(List<UserCard> cardsAccomplished) {
+		this.cardsAccomplished = cardsAccomplished;
+	}
+
+	public List<Image> getUserImages() {
+		return userImages;
+	}
+
+	public void setUserImages(List<Image> userImages) {
+		this.userImages = userImages;
+	}
+
+	public List<Chat> getKeptChats() {
+		return keptChats;
+	}
+
+	public void setKeptChats(List<Chat> keptChats) {
+		this.keptChats = keptChats;
+	}
+
+
 	
 
 }
