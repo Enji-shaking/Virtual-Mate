@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Main {
 
-	public boolean Register(int user_id, String password)
+	public boolean Register(String username, String password, String email)
 	{
 		// Call User constructor
 		
@@ -10,28 +10,38 @@ public class Main {
 		return true;
 	}
 	
-	public boolean Login(int user_id, String password)
+	public String Login(String identifier, String password) // identifier can be either username or email as its value
 	{
-		// Fetch the user with corresponding User_ID
+		String userId = null;
+		// Fetch the user with corresponding identifier
 		
 		// Confirm password
 		
-		// Call set_Online() for this user
+		// Call setOnline() for this user
+		
+		// Success
+		return userId;
+	}
+	
+	
+	public boolean Logout(String userId, String userHashedPass)
+	{
 		
 		// Success
 		return true;
-	}
+	}	
 	
-	public Set<Card> SearchTag (String tag_name)
+	public int CreateCard(String cardName, Image image, List<String> Tags)
 	{
-		// Fetch the Tag
+		int cardId;
+		// call Card constructor
 		
-		// return tag.Related_Cards
+		// Success
+		return cardId;
 	}
 		
-	public List<Card> ListCards()
+	public List<Card> ListCards(String tag)
 	{
-		// depends on the implementation of database
 		
 		// return the list of cards that will be displayed in Gallery
 	}
@@ -43,6 +53,13 @@ public class Main {
 		// Fetch the Card
 		
 		// user.Cards_Planned.add(card);
+	}
+	
+	public Set<Card> SearchTag (String tag_name)
+	{
+		// Fetch the Tag
+		
+		// return tag.Related_Cards
 	}
 	
 	public static void main(String[] args) {

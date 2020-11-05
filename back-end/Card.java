@@ -11,7 +11,7 @@ public class Card {
 	public Card() {
 		
 	}
-
+	
 	public int getCardID() {
 		return cardID;
 	}
@@ -44,12 +44,8 @@ public class Card {
 		this.relatedTags = relatedTags;
 	}
 
-	public List<User> getAccomplishedUsers() {
-		return accomplishedUsers;
-	}
-
-	public void setAccomplishedUsers(List<User> accomplishedUsers) {
-		this.accomplishedUsers = accomplishedUsers;
+	public void addAccomplishedUsers(User accomplishedUser) {
+		accomplishedUsers.add(accomplishedUser);
 	}
 
 }
