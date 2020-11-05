@@ -21,6 +21,22 @@ public class User {
 		this.password = password;
 		this.isOnline = true;
 	}
+	public User() {
+		
+	}
+	
+	public User(String userName, 
+			String email,
+			String password) {
+	super();
+	this.userName = userName;
+	this.userId = 0;
+	this.email = email;
+	this.password = password;
+	this.isOnline = true;
+	}
+	
+	
 	
 	public String getUserName() {
 		return userName;

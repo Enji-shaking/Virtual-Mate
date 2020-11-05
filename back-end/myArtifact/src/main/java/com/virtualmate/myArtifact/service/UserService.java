@@ -15,7 +15,7 @@ public class UserService {
 	private final UserDao userDao;
 	
 	@Autowired
-	public UserService(@Qualifier("dummyDao") UserDao userDao) {
+	public UserService(@Qualifier("firebaseDao") UserDao userDao) {
 		this.userDao = userDao;
 	}
 	
@@ -23,7 +23,7 @@ public class UserService {
 		return userDao.addUser(user);
 	}
 	
-	public List<User> getAllUsers() {
+	public List<User> getAllUsers() throws Exception {
 		return userDao.getAllUsers();
 	}
 	

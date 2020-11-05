@@ -25,7 +25,7 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public List<User> getAllUsers(){
+	public List<User> getAllUsers() throws Exception{
 		return userService.getAllUsers();
 	}
 }
