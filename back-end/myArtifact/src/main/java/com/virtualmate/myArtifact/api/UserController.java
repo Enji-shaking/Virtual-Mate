@@ -26,16 +26,16 @@ public class UserController {
 	public boolean addAlbumUser(@RequestBody User user) {
 		return userService.addAlbumUser(user);
 	}
-	
+
 	@PostMapping("login")
 	public boolean loginUser(@RequestBody User user) {
-		// return true;
+		user.setUUID();
 		return userService.loginUser(user);
+
 	}
 
 	@PostMapping("logout")
 	public boolean logoutUser(@RequestBody User user) {
-		// return true;
 		return userService.logoutUser(user);
 	}
 

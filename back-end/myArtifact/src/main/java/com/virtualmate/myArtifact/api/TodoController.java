@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("api/todo")
@@ -31,10 +32,20 @@ public class TodoController {
         return todoService.getTodoList();
     }
 
+    public static class AddTodoItemWrapper{
+        public int cardId;
+        public User user;
+
+        public AddTodoItemWrapper(@JsonProperty("user") User user, @JsonProperty("cardId") int cardId) {
+            this.user = user;
+            this.cardId = cardId;
+        }
+    }
     @PostMapping("add")
-    public boolean addTodoItem(@RequestBody User user, @JsonProperty("cardId") UUID cardId){
-            //may need to use @RequestParam("CardId") UUID cardId
-            return todoService.addTodoItem();
+    public @ResponseBody boolean addTodoItem(@RequestBody AddTodoItemWrapper wrapper){
+        return true;    
+        //may need to use @RequestParam("CardId") UUID cardId
+            // return todoService.addTodoItem( wrapper.user, wrapper.cardId);
     }
 
     @PostMapping("mark")

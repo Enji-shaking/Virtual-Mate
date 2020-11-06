@@ -1,5 +1,6 @@
 package com.virtualmate.myArtifact.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.virtualmate.myArtifact.model.User;
 import com.virtualmate.myArtifact.service.ChatService;
 
@@ -22,7 +23,22 @@ public class ChatController {
     @PostMapping("album/add")
 	public boolean addAlbumUser(@RequestBody User user) {
 		return chatService.addAlbumUser(user);
-	}
+    }
+    
+    public static class CheckConnectionWithWrapper{
+        private int cardId;
+        public User userSelf;
+        public User userOther;
+
+        public CheckConnectionWithWrapper(@JsonProperty("userSelf") User userSelf,  @JsonProperty("userOther") User userOther, @JsonProperty("cardId") int cardId) {
+            this.userSelf = userSelf;
+            this.userOther = userOther;
+            this.cardId = cardId;
+        }
+        public CheckConnectionWithWrapper(){
+            
+        }
+    }
 }
 
     

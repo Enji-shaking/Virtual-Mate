@@ -29,29 +29,16 @@ public class User {
 	/* 	we use integer to represent an card's state in a user's to-do list
 		1,2,3 means to-do, done, done and would like to do again
 	*/
-	// @XmlRootElement
-	// class UUIDAdapter extends XmlAdapter<String, UUID> {
-	// 	@Override
-	// 	public UUID unmarshal(String v) throws Exception {
-	// 		return UUID.fromString(v);
-	// 	}
-	
-	// 	@Override
-	// 	public String marshal(UUID v) throws Exception {
-	// 		return v.toString();
-	// 	}
-	// }
+
 
 	public User(@JsonProperty("userName") String userName, 
 			@JsonProperty("email") String email,
-			@JsonProperty("password") String password,) {
+			@JsonProperty("password") String password,
+			@JsonProperty("userId") String userIdTemp) {
 		super();
 		this.userName = userName;
-		// if(userId == null){
-			this.userId = UUID.randomUUID();
-		// }else{
-			this.userId = userId;
-		// }
+		if(userIdTemp != null)
+			this.userId = java.util.UUID.fromString(userIdTemp);
 		this.email = email;
 		this.password = password;
 		this.userHashedPass = password;
@@ -147,6 +134,8 @@ public class User {
 		this.chats = chats;
 	}
 	
-	
+	public void setUUID(){
+		this.userId = UUID.randomUUID();
+	}
 
 }
