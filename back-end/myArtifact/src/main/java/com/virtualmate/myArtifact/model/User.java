@@ -14,12 +14,10 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 public class User {
-
 	private String userName;
 	private UUID userId;
 	private String email;
 	private String password;
-	private String userHashedPass; //generated in User constructor
 	private boolean isOnline;
 	private Map<UUID,Integer> cardsTodo; 
 	private UUID avatar;
@@ -41,7 +39,6 @@ public class User {
 			this.userId = java.util.UUID.fromString(userIdTemp);
 		this.email = email;
 		this.password = password;
-		this.userHashedPass = password;
 		this.isOnline = true;
 		this.cardsTodo = new HashMap<UUID,Integer>();
 		this.avatar = null;
@@ -84,14 +81,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getUserHashedPass() {
-		return userHashedPass;
-	}
-
-	public void setUserHashedPass(String userHashedPass) {
-		this.userHashedPass = userHashedPass;
 	}
 
 	public boolean isOnline() {
