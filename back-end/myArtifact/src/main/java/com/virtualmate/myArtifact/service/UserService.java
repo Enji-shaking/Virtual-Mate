@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.virtualmate.myArtifact.dao.UserDao;
+import com.virtualmate.myArtifact.model.Card;
 import com.virtualmate.myArtifact.model.User;
 
 @Service
@@ -25,6 +26,22 @@ public class UserService {
 	
 	public List<User> getAllUsers() throws Exception {
 		return userDao.getAllUsers();
+	}
+
+	public boolean addAlbumUser(User user) {
+		return false;
+	}
+
+	public boolean loginUser(User user) {
+		return false;
+	}
+
+	public boolean logoutUser(User user) {
+		return false;
+	}
+
+	public List<Card> getInfoUserOther(User user) {
+		return null;
 	}
 	
 }

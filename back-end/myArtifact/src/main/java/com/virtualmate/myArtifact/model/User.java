@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+
 public class User {
 
 	private String userName;
@@ -24,12 +29,29 @@ public class User {
 	/* 	we use integer to represent an card's state in a user's to-do list
 		1,2,3 means to-do, done, done and would like to do again
 	*/
+	// @XmlRootElement
+	// class UUIDAdapter extends XmlAdapter<String, UUID> {
+	// 	@Override
+	// 	public UUID unmarshal(String v) throws Exception {
+	// 		return UUID.fromString(v);
+	// 	}
+	
+	// 	@Override
+	// 	public String marshal(UUID v) throws Exception {
+	// 		return v.toString();
+	// 	}
+	// }
+
 	public User(@JsonProperty("userName") String userName, 
 			@JsonProperty("email") String email,
-			@JsonProperty("password") String password) {
+			@JsonProperty("password") String password,) {
 		super();
 		this.userName = userName;
-		this.userId = UUID.randomUUID();
+		// if(userId == null){
+			this.userId = UUID.randomUUID();
+		// }else{
+			this.userId = userId;
+		// }
 		this.email = email;
 		this.password = password;
 		this.userHashedPass = password;
