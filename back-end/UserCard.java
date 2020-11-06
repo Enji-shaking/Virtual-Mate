@@ -36,4 +36,6 @@ public class UserCard extends Card{
 		this.completeTime = completeTime;
 	}
 
+
+
 }

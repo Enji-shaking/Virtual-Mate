@@ -5,26 +5,53 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.virtualmate.myArtifact.model.User;
 import com.virtualmate.myArtifact.service.UserService;
 
-@RequestMapping("api/virtualmate/user")
+@RequestMapping("api/user")
 @RestController
 public class UserController {
 	
-	private final UserService userService;
+	public final UserService userService;
 	
+
 	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-	
-	@PostMapping
-	public void addUser(@RequestBody User user) {
-		userService.addUser(user);
+
+	@PostMapping("album/add")
+	public boolean addAlbumUser(@RequestBody User user) {
+		return userService.addAlbumUser(user);
 	}
 	
-	@GetMapping
+	@PostMapping("login")
+	public boolean loginUser(@RequestBody User user) {
+		// return true;
+		return userService.loginUser(user);
+	}
+
+	@PostMapping("logout")
+	public boolean logoutUser(@RequestBody User user) {
+		// return true;
+		return userService.logoutUser(user);
+	}
+
+
+	@DeleteMapping("album/delete")
+	public boolean deleteAlbumUser(@RequestBody User user, @JsonProperty("idx") int idx) { //maybe  @RequestParam("idx") inx idx
+		return userService.deleteAlbumUser(user, idx);
+	}
+	
+	@GetMapping("{userId_other}")
+	public List<Card> getInfoUserOther(@RequestBody User user) {
+		//userId: String
+		//userHashedPass: String
+		return userService.getInfoUserOther(user);
+	}
+	
+	@GetMapping("testing")
 	public List<User> getAllUsers() throws Exception{
 		return userService.getAllUsers();
 	}
