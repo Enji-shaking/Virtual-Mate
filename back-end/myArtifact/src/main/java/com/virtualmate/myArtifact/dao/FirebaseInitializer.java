@@ -16,8 +16,10 @@ import com.google.firebase.cloud.FirestoreClient;
 
 @Service
 public class FirebaseInitializer {
+	
 	@PostConstruct
 	private void initDB() throws IOException {
+		
 		InputStream serviceAccount = new FileInputStream("./markFirebasePassport2.json");
 		GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
 		FirebaseOptions options = new FirebaseOptions.Builder()

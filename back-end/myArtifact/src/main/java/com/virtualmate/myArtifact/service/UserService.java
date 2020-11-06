@@ -15,7 +15,7 @@ public class UserService {
 	private final UserDao userDao;
 	
 	@Autowired
-	public UserService(@Qualifier("firebaseDao") UserDao userDao) {
+	public UserService(@Qualifier("dummyDao") UserDao userDao) {
 		this.userDao = userDao;
 	}
 	

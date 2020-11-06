@@ -26,7 +26,6 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
 @Repository("firebaseDao") //let sb to know to inject this later
-@Service
 public class FirebaseDataAccessService implements UserDao {
 	
 	@Autowired
@@ -38,7 +37,7 @@ public class FirebaseDataAccessService implements UserDao {
 		Firestore db = dbInitializer.getFirebase();
 
 		ApiFuture<WriteResult> future = db.collection("Users").document(user.getEmail()).set(user);
-		
+
 		//display progress on server terminal
 		try {
 			System.out.println("Update time : " + future.get().getUpdateTime() + " User " + user.getUserName() + " created!");

@@ -13,6 +13,8 @@ public class DummyDataAccessService implements UserDao {
 	
 	@Override
 	public int addUser(User user) {
+		// TODO Auto-generated method stub
+//		DB.add(new User(user))
 		System.out.printf("user %s successfully added\n",user.getUserName());
 		DB.add(user);
 		return 0;
