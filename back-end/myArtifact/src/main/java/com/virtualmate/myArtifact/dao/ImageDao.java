@@ -8,6 +8,8 @@ public interface ImageDao {
 
 	Image getImageById(String imageId);
 	
+	Image getImageByUrl(String imageUrl);
+	
 	List<Image> getImageList();
 	
 }

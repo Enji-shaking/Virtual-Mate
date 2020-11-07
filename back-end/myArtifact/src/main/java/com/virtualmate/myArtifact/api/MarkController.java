@@ -36,12 +36,13 @@ public class MarkController {
 	public MarkController(@Qualifier("fbDaoUser") UserDao userDao, 
 						  @Qualifier("fbDaoTag") TagDao tagDao,
 						  @Qualifier("fbDaoCard") CardDao cardDao,
-						  @Qualifier("fbDaoChat") ChatDao chatDao) {
+						  @Qualifier("fbDaoChat") ChatDao chatDao,
+						  @Qualifier("fbDaoImage") ImageDao imageDao) {
 		this.tagDao = tagDao;
 		this.userDao = userDao;
 		this.cardDao = cardDao;
-		this.imageDao = null;
 		this.chatDao = chatDao;
+		this.imageDao = imageDao;
 	}
 	
 	@PostMapping("getRequestBody")
@@ -140,6 +141,31 @@ public class MarkController {
     @GetMapping("getChatList")
     public List<Chat> getChatList1(){
     	return chatDao.getChatList();	
+    }
+    
+    
+	/*	------------------------------ Image Dao Test Start ------------------------------	*/
+    
+    @PostMapping("setImage")
+    public int setImage1(@RequestBody Image Image) {
+//    	System.out.println(Image);
+//    	return 1;
+    	return imageDao.setImage(Image);
+    }
+    
+    @PostMapping("getImageById")
+    public Image getImageById1(@RequestBody Image image) {
+    	return imageDao.getImageById(image.getImageId());
+    }
+    
+    @PostMapping("getImageByUrl")
+    public Image getImageByUsers1(@RequestBody Image image) {
+    	return imageDao.getImageByUrl(image.getImageUrl());
+    }
+    
+    @GetMapping("getImageList")
+    public List<Image> getImageList1(){
+    	return imageDao.getImageList();	
     }
     
 }
