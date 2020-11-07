@@ -28,20 +28,5 @@ public class UserService {
 		return userDao.getAllUsers();
 	}
 
-	public boolean addAlbumUser(User user) {
-		return false;
-	}
-
-	public boolean loginUser(User user) {
-		return false;
-	}
-
-	public boolean logoutUser(User user) {
-		return false;
-	}
-
-	public List<Card> getInfoUserOther(User user) {
-		return null;
-	}
 	
 }

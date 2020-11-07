@@ -10,20 +10,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.virtualmate.myArtifact.model.Card;
 import com.virtualmate.myArtifact.model.User;
 import com.virtualmate.myArtifact.service.UserService;
+import com.virtualmate.myArtifact.submodel.UserCredentials;
 
 @RequestMapping("api/user")
 @RestController
 public class UserController {
 	
 	public final UserService userService;
-	public static class UserCredentials{
-		public UUID userId;
-		public String password;
-		public UserCredentials(@JsonProperty("userId") String userIdTemp, @JsonProperty("password") String password) {
-			this.userId = java.util.UUID.fromString(userIdTemp);
-            this.password = password;
-        }
-	}
+	// public static class UserCredentials{
+	// 	public UUID userId;
+	// 	public String password;
+	// 	public UserCredentials(@JsonProperty("userId") String userIdTemp, @JsonProperty("password") String password) {
+	// 		this.userId = java.util.UUID.fromString(userIdTemp);
+    //         this.password = password;
+    //     }
+	// }
 	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
@@ -31,18 +32,18 @@ public class UserController {
 
 	@PostMapping("album/add")
 	public boolean addAlbumUser(@RequestBody UserCredentials userCredentials) {
-		return userService.addAlbumUser(userCredentials.userId, userCredentials.password);
+		return userService.addAlbumUser(userCredentials.getUserId, userCredentials.getPassword);
 	}
 
 	@PostMapping("login")
 	public boolean loginUser(@RequestBody UserCredentials userCredentials) {
-		return userService.loginUser(userCredentials.userId, userCredentials.password);
+		return userService.loginUser(userCredentials.getUserId, userCredentials.getPassword);
 
 	}
 
 	@PostMapping("logout")
 	public boolean logoutUser(@RequestBody UserCredentials userCredentials) {
-		return userService.logoutUser(userCredentials.userId, userCredentials.password);
+		return userService.logoutUser(userCredentials.getUserId, userCredentials.getPassword);
 	}
 
 	public static class deleteingWrapper{
@@ -65,13 +66,13 @@ public class UserController {
 	@DeleteMapping("album/delete")
 	public boolean deleteAlbumUser(@RequestBody deleteingWrapper wrapper) {
 		// return true;
-		return userService.deleteAlbumUser(wrapper.userCredentials.userId, wrapper.userCredentials.password, wrapper.idx);
+		return userService.deleteAlbumUser(wrapper.userCredentials.getUserId, wrapper.userCredentials.getPassword, wrapper.idx);
 	}
 	
 	@GetMapping("{userId_other}")
 	public List<Card> getInfoUserOther(@RequestBody UserCredentials userCredentials, @PathVariable String userId_other) {
 		// return null;
-		return userService.getInfoUserOther(userCredentials.userId, java.util.UUID.fromString(userId_other));
+		return userService.getInfoUserOther(userCredentials.getUserId, java.util.UUID.fromString(userId_other));
 	}
 	
 	@GetMapping("testing")
