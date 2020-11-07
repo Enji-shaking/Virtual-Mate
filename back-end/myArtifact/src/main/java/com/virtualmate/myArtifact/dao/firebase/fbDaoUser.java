@@ -20,16 +20,14 @@ public class fbDaoUser implements UserDao {
 	
 	@Autowired
 	FirebaseInitializer dbInitializer;
-	
-//	@Override
 
 	@Override
 	public int setUser(User user) {
 		Firestore db = dbInitializer.getFirebase();
 		
 		User precedence = null;
-		precedence = getUserByName(user.getUserName());
-		if(getUserByName(user.getUserName())!=null) {
+		precedence = getUserByEmail(user.getEmail());
+		if(precedence!=null) {
 			user.setUserId(precedence.getUserId());
 		}
 		
@@ -60,9 +58,9 @@ public class fbDaoUser implements UserDao {
 	}
 	
 	@Override
-	public User getUserByName(String userName) {
+	public User getUserByEmail(String email) {
 		Firestore db = dbInitializer.getFirebase();
-		ApiFuture<QuerySnapshot> future = db.collection("Users").whereEqualTo("userName",userName).get();
+		ApiFuture<QuerySnapshot> future = db.collection("Users").whereEqualTo("email",email).get();
 		List<QueryDocumentSnapshot> documents = null;
 		try {
 			documents = future.get().getDocuments();
@@ -110,11 +108,7 @@ public class fbDaoUser implements UserDao {
 		}
 
 		return userList;
-	}
-
-
-
-	
+	}	
 	
 
 }

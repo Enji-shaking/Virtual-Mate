@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.virtualmate.myArtifact.dao.CardDao;
+import com.virtualmate.myArtifact.dao.ChatDao;
+import com.virtualmate.myArtifact.dao.ImageDao;
 import com.virtualmate.myArtifact.dao.TagDao;
 import com.virtualmate.myArtifact.dao.UserDao;
 import com.virtualmate.myArtifact.model.*;
-import com.virtualmate.myArtifact.service.MarkService;
+import com.virtualmate.myArtifact.dao.firebase.*;
 import com.virtualmate.myArtifact.submodel.UserCredentials;
 
 //Created by Mark for Dao Test only, Do not modify
@@ -24,47 +27,51 @@ import com.virtualmate.myArtifact.submodel.UserCredentials;
 @RestController
 public class MarkController {
 	private final TagDao tagDao;
+	private final UserDao userDao;
+	private final CardDao cardDao;
+	private final ImageDao imageDao;
+	private final ChatDao chatDao;
 	
 	@Autowired
-	public MarkController(@Qualifier("fbDaoTag") TagDao tagDao) {
+	public MarkController(@Qualifier("fbDaoUser") UserDao userDao, 
+						  @Qualifier("fbDaoTag") TagDao tagDao,
+						  @Qualifier("fbDaoCard") CardDao cardDao,
+						  @Qualifier("fbDaoChat") ChatDao chatDao) {
 		this.tagDao = tagDao;
+		this.userDao = userDao;
+		this.cardDao = cardDao;
+		this.imageDao = null;
+		this.chatDao = chatDao;
 	}
 	
-//	@PostMapping("registerUser")
-//	public int registerUser(@RequestBody User user) {
-//		System.out.println(user.toString());
-//		return userDao.setUser(user);
-//	}
-//
-//	@PostMapping("getUserByUUID")
-//	public User getUserByUUID(@RequestBody UserCredentials userCredential) {
-//		UUID userId = userCredential.getUserId();
-//		String password = userCredential.getPassword();
-//		return userDao.getUser(userId);
-//	}
-//	
-//	@GetMapping("getUserList")
-//	public List<User> getUserListCall(){
-//		return userDao.getUserList();
-//	}
+	@PostMapping("getRequestBody")
+	public void process(@RequestBody UserCredentials userCredential) {
+		System.out.println(userCredential.toString());
+	}
+
+	/*	------------------------------ User Dao Test Start ------------------------------	*/
 	
-	
-	
-    @PostMapping("getRequestBody")
-    public void process(@RequestBody UserCredentials userCredential) {
-        System.out.println(userCredential.toString());
+	@PostMapping("setUser")
+	public int setUser1(@RequestBody User user) {
+		return userDao.setUser(user);
+	}
+    
+    @PostMapping("getUserById")
+    public User getUserById1(@RequestBody User user) {
+    	return userDao.getUserById(user.getUserId());
+    }
+    
+    @PostMapping("getUserByEmail")
+    public User getTagByName1(@RequestBody User user) {
+    	return userDao.getUserByEmail(user.getEmail());
     }
     
     @GetMapping("getUserList")
-    public List<Tag> getUserList() {
-//    	return markService.userList();
-    	try {
-			return tagDao.getTagList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	return null;
-    }
+    public List<User> getUserList1(){
+    	return userDao.getUserList();
+    }	
+	
+	/*	------------------------------ Tag Dao Test Start ------------------------------	*/
     
     @PostMapping("setTag")
     public int setTag1(@RequestBody Tag tag) {
@@ -85,4 +92,54 @@ public class MarkController {
     public List<Tag> getTagList1(){
     	return tagDao.getTagList();
     }
+    
+    
+	/*	------------------------------ Card Dao Test Start ------------------------------	*/
+    
+    @PostMapping("setCard")
+    public int setTag1(@RequestBody Card card) {
+    	return cardDao.setCard(card);
+    }
+    
+    @PostMapping("getCardById")
+    public Card getCardById1(@RequestBody Card card) {
+    	return cardDao.getCardById(card.getCardId());
+    }
+    
+    @PostMapping("getCardByName")
+    public Card getCardByName1(@RequestBody Card card) {
+    	return cardDao.getCardByName(card.getActivityName());
+    }
+    
+    @GetMapping("getCardList")
+    public List<Card> getCardList1(){
+    	return cardDao.getCardList();
+    }
+    
+    
+	/*	------------------------------ Chat Dao Test Start ------------------------------	*/
+    
+    @PostMapping("setChat")
+    public int setChat1(@RequestBody Chat chat) {
+//    	System.out.println(chat);
+//    	return 1;
+    	return chatDao.setChat(chat);
+    }
+    
+    @PostMapping("getChatById")
+    public Chat getChatById1(@RequestBody Chat chat) {
+    	return chatDao.getChatById(chat.getChatId());
+    }
+    
+//    @PostMapping("getChatByUsers")
+//    public Chat getChatByUsers1(@RequestBody Chat chat) {
+//    	List<String> tmp = chat.getUsers();
+//    	return chatDao.getChatByUsers(tmp.get(0),tmp.get(1));
+//    }
+    
+    @GetMapping("getChatList")
+    public List<Chat> getChatList1(){
+    	return chatDao.getChatList();	
+    }
+    
 }

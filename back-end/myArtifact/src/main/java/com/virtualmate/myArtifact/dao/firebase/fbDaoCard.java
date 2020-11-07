@@ -5,9 +5,11 @@ import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.virtualmate.myArtifact.dao.CardDao;
 import com.virtualmate.myArtifact.dao.FirebaseInitializer;
-import com.virtualmate.myArtifact.dao.TagDao;
-import com.virtualmate.myArtifact.model.Tag;
+import com.virtualmate.myArtifact.dao.CardDao;
+import com.virtualmate.myArtifact.model.Card;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
@@ -15,26 +17,26 @@ import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 
-@Repository("fbDaoTag") //let sb to know to inject this later
-public class fbDaoTag implements TagDao {
+@Repository("fbDaoCard") //let sb to know to inject this later
+public class fbDaoCard implements CardDao {
 	
 	@Autowired
 	FirebaseInitializer dbInitializer;
 
 	@Override
-	public int setTag(Tag tag) {
+	public int setCard(Card card) {
 		Firestore db = dbInitializer.getFirebase();
 		
-		Tag precedence = null;
-		precedence = getTagByName(tag.getTagName());
+		Card precedence = null;
+		precedence = getCardByName(card.getActivityName());
 		if(precedence!=null) {
-			tag.setTagId(precedence.getTagId());
+			card.setCardId(precedence.getCardId());
 		}
 		
-		ApiFuture<WriteResult> future = db.collection("Tags").document(tag.getTagId()).set(tag);
+		ApiFuture<WriteResult> future = db.collection("Cards").document(card.getCardId()).set(card);
 		
 		try {
-			System.out.println("Update time : " + future.get().getUpdateTime() + tag.toString() + " created!");
+			System.out.println("Update time : " + future.get().getUpdateTime() + card.toString() + " created!");
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
@@ -42,25 +44,25 @@ public class fbDaoTag implements TagDao {
 	}
 
 	@Override
-	public Tag getTagById(String tagId) {
+	public Card getCardById(String cardId) {
 		Firestore db = dbInitializer.getFirebase();
-		ApiFuture<DocumentSnapshot> future = db.collection("Tags").document(tagId).get();
-		Tag myTag = null;
+		ApiFuture<DocumentSnapshot> future = db.collection("Cards").document(cardId).get();
+		Card myCard = null;
 		try {
-			myTag = future.get().toObject(Tag.class);
+			myCard = future.get().toObject(Card.class);
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
-		if (myTag!=null) {
-			System.out.println(myTag.toString());
+		if (myCard!=null) {
+			System.out.println(myCard.toString());
 		}
-		return myTag;
+		return myCard;
 	}
 	
 	@Override
-	public Tag getTagByName(String tagName) {
+	public Card getCardByName(String activityName) {
 		Firestore db = dbInitializer.getFirebase();
-		ApiFuture<QuerySnapshot> future = db.collection("Tags").whereEqualTo("tagName",tagName).get();
+		ApiFuture<QuerySnapshot> future = db.collection("Cards").whereEqualTo("activityName",activityName).get();
 		List<QueryDocumentSnapshot> documents = null;
 		try {
 			documents = future.get().getDocuments();
@@ -74,17 +76,17 @@ public class fbDaoTag implements TagDao {
 			System.out.println("Oh fk, your database is Jammed!");
 		}
 		
-		Tag myTag = documents.get(0).toObject(Tag.class);
-		System.out.println(myTag.toString());
-		return myTag;
+		Card myCard = documents.get(0).toObject(Card.class);
+		System.out.println(myCard.toString());
+		return myCard;
 	}
 
 	@Override
-	public List<Tag> getTagList() {
+	public List<Card> getCardList() {
 		Firestore db = dbInitializer.getFirebase();
-		List<Tag> tagList = new ArrayList<Tag>();
+		List<Card> cardList = new ArrayList<Card>();
 		
-		ApiFuture<QuerySnapshot> future = db.collection("Tags").get();
+		ApiFuture<QuerySnapshot> future = db.collection("Cards").get();
 		List<QueryDocumentSnapshot> documents = null;
 		try {
 			documents = future.get().getDocuments();
@@ -93,22 +95,22 @@ public class fbDaoTag implements TagDao {
 		}
 		
 		if (documents==null) {
-			System.out.println("get tagList failed!");
-			return tagList;
+			System.out.println("get cardList failed!");
+			return cardList;
 		}
 		
 		for (DocumentSnapshot document : documents) {
-			tagList.add(document.toObject(Tag.class));
+			cardList.add(document.toObject(Card.class));
 		}
 		
 		try {
-			System.out.println("Update time : " + future.get().getReadTime() + " tagList " + "returned!");
+			System.out.println("Update time : " + future.get().getReadTime() + " cardList " + "returned!");
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
 
-		return tagList;
-	}
-
+		return cardList;
+	}	
+	
 
 }

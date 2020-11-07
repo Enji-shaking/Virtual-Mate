@@ -8,6 +8,8 @@ public interface ChatDao {
 
 	Chat getChatById(String charId);
 	
+//	Chat getChatByUsers(String userA, String userB);
+	
 	List<Chat> getChatList();
 	
 }
