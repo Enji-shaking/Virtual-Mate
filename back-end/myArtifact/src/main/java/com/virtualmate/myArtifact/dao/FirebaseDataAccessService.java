@@ -36,11 +36,16 @@ public class FirebaseDataAccessService implements UserDao {
 		//get firestore object
 		Firestore db = dbInitializer.getFirebase();
 
-		ApiFuture<WriteResult> future = db.collection("Users").document(user.getEmail()).set(user);
+		ApiFuture<WriteResult> future = db.collection("Users")
+											.document(user.getEmail())
+											.set(user);
 
 		//display progress on server terminal
 		try {
-			System.out.println("Update time : " + future.get().getUpdateTime() + " User " + user.getUserName() + " created!");
+			System.out.println("Update time : " 
+								+ future.get().getUpdateTime() 
+								+ " User " + user.getUserName() 
+								+ " created!");
 		} catch (InterruptedException | ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,13 +66,92 @@ public class FirebaseDataAccessService implements UserDao {
 		
 		//display progress on server terminal
 		try {
-			System.out.println("Update time : " + future.get().getReadTime() + " Userlist " + "returned!");
+			System.out.println("Update time : " 
+								+ future.get().getReadTime() 
+								+ " Userlist " 
+								+ "returned!");
 		} catch (InterruptedException | ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return userList;
+	}
+
+	@Override
+	public int userRegister(User user) {
+		Firestore db = dbInitializer.getFirebase();
+		
+		ApiFuture<WriteResult> future = db.collection("Users")
+				.document(user.getUserId().toString())
+				.set(user);
+		
+		//display progress on server terminal
+		try {
+			System.out.println("Update time : " 
+								+ future.get().getUpdateTime() 
+								+ " User " + user.getUserName() 
+								+ " created!");
+		} catch (InterruptedException | ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean userPwdCheck(UUID userId, String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int userLogout(UUID userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int userLogin(UUID userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int userAvatarSet(UUID userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int userAlbumAdd(UUID userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int userAlbumDel(UUID userId, int idx) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public User userRetrive(UUID userId) {
+		Firestore db = dbInitializer.getFirebase();
+		ApiFuture<DocumentSnapshot> future = db.collection("Users").document(userId.toString()).get();
+		System.out.println(future);
+		User myUser = null;
+		try {
+			myUser = future.get().toObject(User.class);
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+		if (myUser!=null) {
+			System.out.println(myUser.toString());
+		}
+
+		return myUser;
 	}
 
 }
