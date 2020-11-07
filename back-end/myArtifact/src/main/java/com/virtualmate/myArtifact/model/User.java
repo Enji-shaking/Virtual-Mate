@@ -29,8 +29,6 @@ public class User {
 	private List<String> album;
 	private List<String> chats;
 	
-
-
 	public User(@JsonProperty("userName") String userName, 
 			@JsonProperty("email") String email,
 			@JsonProperty("password") String password) {
@@ -48,9 +46,7 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "User [userName=" + userName 
-					+ ", userId=" + userId 
-					+ ", email=" + email + "]";
+		return "User [userName=" + userName + ", userId=" + userId + ", email=" + email + "]";
 	}
 
 

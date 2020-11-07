@@ -2,31 +2,37 @@ package com.virtualmate.myArtifact.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Card {
 
 	private String activityName;
-	private Image activityImage;
-	private UUID cardId;
-	private List<UUID> relatedTagsId;
-	private	List<UUID> finishedUsersId;
+	private String activityImageId;
+	private String cardId;
+	private List<String> relatedTagsId;
+	private	List<String> finishedUsersId;
 	
-	public Card(String cardName, Image image) {
+	public Card(@JsonProperty("cardName") String cardName, 
+				@JsonProperty("imageId") String imageId) {
 		super();
 		this.activityName = cardName;
-		this.activityImage = image;
-		this.cardId = UUID.randomUUID();
-		this.relatedTagsId = new ArrayList<UUID>();
-		this.finishedUsersId = new ArrayList<UUID>();
+		this.activityImageId = imageId;
+		this.cardId = UUID.randomUUID().toString();
+		this.relatedTagsId = new ArrayList<String>();
+		this.finishedUsersId = new ArrayList<String>();
 	}
 	
 	public Card() {
 		
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Card [activityName=" + activityName + ", activityImageId=" + activityImageId + ", cardId=" + cardId + "]";
+	}
+
 	public String getActivityName() {
 		return activityName;
 	}
@@ -35,35 +41,39 @@ public class Card {
 		this.activityName = activityName;
 	}
 
-	public Image getActivityImage() {
-		return activityImage;
+	public String getActivityImageId() {
+		return activityImageId;
 	}
 
-	public void setActivityImage(Image activityImage) {
-		this.activityImage = activityImage;
+	public void setActivityImageId(String activityImageId) {
+		this.activityImageId = activityImageId;
 	}
 
-	public UUID getCardId() {
+	public String getCardId() {
 		return cardId;
 	}
 
-	public void setCardId(UUID cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
 
-	public List<UUID> getRelatedTagsId() {
+	public List<String> getRelatedTagsId() {
 		return relatedTagsId;
 	}
 
-	public void setRelatedTagsId(List<UUID> relatedTagsId) {
+	public void setRelatedTagsId(List<String> relatedTagsId) {
 		this.relatedTagsId = relatedTagsId;
 	}
 
-	public List<UUID> getFinishedUsersId() {
+	public List<String> getFinishedUsersId() {
 		return finishedUsersId;
 	}
 
-	public void setFinishedUsersId(List<UUID> finishedUsersId) {
+	public void setFinishedUsersId(List<String> finishedUsersId) {
 		this.finishedUsersId = finishedUsersId;
 	}
+
+
+
+	
 }

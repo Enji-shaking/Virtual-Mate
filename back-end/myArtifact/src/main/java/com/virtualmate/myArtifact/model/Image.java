@@ -1,31 +1,43 @@
 package com.virtualmate.myArtifact.model;
 
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 public class Image {
 	
-	private String imageurl;
-	private UUID imageId; 
+	private String imageUrl;
+	private String imageId; 
 	
-	public Image(String imageurl) {
+	public Image(@JsonProperty("imageUrl") String imageUrl) {
 		super();
-		this.imageurl = imageurl;
-		this.imageId = UUID.randomUUID();
+		this.imageUrl = imageUrl;
+		this.imageId = UUID.randomUUID().toString();
 	}
 	
 	public Image() {
 
 	}
-	
-	public String getImageurl() {
-		return imageurl;
+
+	@Override
+	public String toString() {
+		return "Image [imageUrl=" + imageUrl + ", imageId=" + imageId + "]";
 	}
-	public void setImageurl(String imageurl) {
-		this.imageurl = imageurl;
+
+	public String getImageUrl() {
+		return imageUrl;
 	}
-	public UUID getImageId() {
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getImageId() {
 		return imageId;
 	}
-	public void setImageId(UUID imageId) {
+
+	public void setImageId(String imageId) {
 		this.imageId = imageId;
 	}
+	
+
 }

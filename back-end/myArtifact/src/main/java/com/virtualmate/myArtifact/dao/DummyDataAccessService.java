@@ -26,51 +26,22 @@ public class DummyDataAccessService implements UserDao {
 	}
 
 	@Override
-	public int userRegister(User user) {
+	public int setUser(User user) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public boolean userPwdCheck(UUID userId, String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int userLogout(UUID userId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int userLogin(UUID userId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int userAvatarSet(UUID userId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int userAlbumAdd(UUID userId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int userAlbumDel(UUID userId, int idx) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public User userRetrive(UUID userId) {
+	public User getUser(UUID userId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<User> getUserList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

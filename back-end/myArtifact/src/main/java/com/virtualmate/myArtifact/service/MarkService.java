@@ -23,21 +23,21 @@ public class MarkService {
 		this.userDao = userDao;
 	}
 	
-	public int userRegister(User user) {
-		return userDao.userRegister(user);
-	}
-	
-	public User userRetrive(UUID userId,String password) {
-		return userDao.userRetrive(userId);
-	}
-	
-	public List<User> userList(){
-		try {
-			return userDao.getAllUsers();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
+//	public int userRegister(User user) {
+//		return userDao.userRegister(user);
+//	}
+//	
+//	public User userRetrive(UUID userId,String password) {
+//		return userDao.userRetrive(userId);
+//	}
+//	
+//	public List<User> userList(){
+//		try {
+//			return userDao.getAllUsers();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 }
