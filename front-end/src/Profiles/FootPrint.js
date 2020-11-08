@@ -31,7 +31,6 @@ class FootPrint extends React.Component {
     ));
     return (
       <div>
-        <div style={{margin:'2.5vh 0'}}>Your Footprint</div>
        {list}
       </div>
     );

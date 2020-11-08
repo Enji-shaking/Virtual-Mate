@@ -19,7 +19,7 @@ class Picture extends React.Component{
         };
         return(
             <Box style={{textAlign: 'center'}}>
-                <img src="logo192.png" style={myStyle}></img>
+                <img src="/logo192.png" style={myStyle}></img>
                 {this.props.children}
             </Box>
         )
