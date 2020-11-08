@@ -19,7 +19,7 @@ export default function GalleryCard(props) {
     border: "0.5vw dashed #54BEF5",
     borderRadius: "12%",
     width: "35vw",
-    height: "50vw",
+    height: "56vw",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -28,8 +28,8 @@ export default function GalleryCard(props) {
   };
 
   const imgStyle = {
-    width: "15vw",
-    height: "15vw",
+    width: "21vw",
+    height: "21vw",
     position: "center",
     margin: "1.2vw",
   };
