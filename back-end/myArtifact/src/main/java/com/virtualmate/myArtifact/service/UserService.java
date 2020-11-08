@@ -30,12 +30,24 @@ public class UserService {
 	}
 	public boolean loginUser(UUID UUID, String password){
 		User user = userDao.getUserById(UUID.toString());
-		if(user==null){
+		if(user==null || user.isOnline()){
 			return false;
 		}
 		if(user.getPassword().equals(password)){
+			user.setOnline(true);
+			userDao.setUser(user);
 			return true;
 		}
+	}
+	public boolean loginOut(UUID UUID, String password){
+		//TODO does loginout requires password?
+		User user = userDao.getUserById(UUID.toString());
+		if(user==null || !user.isOnline()){
+			return false;
+		}
+		user.setOnline(false);
+		userDao.setUser(user);
+		return true;
 	}
 
 
