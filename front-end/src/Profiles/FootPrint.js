@@ -9,14 +9,7 @@ class FootPrint extends React.Component {
     activities: [],
   };
   render() {
-    const FlexBox = {
-      display: 'flex',
-      flexWrap: 'wrap',
-      width: '80%',
-      alignContent: 'spaceBetween',
-      margin: 'auto',
-    };
-
+  
     const activities = this.props.activities;
 
     const list = activities.map((activity) => (
@@ -26,19 +19,19 @@ class FootPrint extends React.Component {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          width: '80vw',
+          width: '85vw',
         }}
       >
         <div style={{display:'flex',alignItems:'center'}}>
         <Avatar src={activity.pic} alt={activity.id} />
-        <div style={{padding: '10px'}}> {'Activity' + activity.id}</div>
+        <div style={{padding: '0px 5vw',fontSize:'1em',fontWeight:'500'}}> {'Activity' + activity.id}</div>
         </div>
-        <div style={{}}> {activity.date}</div>
+        <div style={{fontSize:'0.6em'}}> {activity.date}</div>
       </div>
     ));
     return (
       <div>
-        <p>Your Footprint</p>
+        <div style={{margin:'2.5vh 0'}}>Your Footprint</div>
        {list}
       </div>
     );

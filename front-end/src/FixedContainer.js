@@ -12,8 +12,8 @@ class FixedContainer extends React.Component {
     <React.Fragment >
         <TopLayer displayType={this.props.displayType}/>
       <CssBaseline/>
-      <Container fixed style={{padding: '0',color:'#4F4F4F'}}>
-        <div style={{width: '100%', marginBottom: '10vh', padding: '5vw',color:'#4F4F4F'}}>
+      <Container fixed style={{padding: '0'}}>
+        <div style={{width: '100%', marginBottom: '10vh', padding: '5vw',fontFamily:'sans-serif, Roboto',fontStyle:'normal'}}>
           {this.props.children}
         </div>
         <TabBar/>

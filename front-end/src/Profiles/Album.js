@@ -9,15 +9,15 @@ class Album extends React.Component{
             display: 'flex',
             flexWrap: 'wrap',
             width: '80%',
-            margin: 'auto'
+            paddingTop:'2vh',
+            margin:'auto',
         };
         const ImgItem = {
             flex: '1 0 21%',
             margin: '5px',
         };
         return(
-            <Box>
-                <p>Your Album</p>
+   
                 <Box style={ImgBox}>
                     <Box style={ImgItem}><Picture/></Box>
                     <Box style={ImgItem}><Picture/></Box>
@@ -30,7 +30,7 @@ class Album extends React.Component{
 
                     
                 </Box>
-            </Box>
+       
         )
     }
 }
