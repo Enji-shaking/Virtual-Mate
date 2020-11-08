@@ -8,7 +8,7 @@ export default function CardView(props) {
   
   let avatars = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  let done = true;
+  let done = Math.random()<0.4?true:false;
 
   return (
     <FixedContainer>
@@ -46,7 +46,7 @@ export default function CardView(props) {
           </div>
         ) : (
           <div>
-              <div style={{zIndex:'2', margin:'auto',width:'70vw',position:'relative',top:'15vh',marginTop:'1.5vh'}}>
+              <div style={{zIndex:'2', margin:'auto',maxWidth:'60vw',position:'relative',top:'15vh',marginTop:'1.5vh'}}>
               <LockOpenRoundedIcon /> Complete This Activty To View
             </div>
           <div

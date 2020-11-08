@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -14,6 +15,7 @@ const useStyles = makeStyles({
 });
 
 export default function GalleryCard(props) {
+  const history = useHistory();
   const classes = useStyles();
   const cardStyle = {
     border: "0.5vw dashed #54BEF5",
@@ -54,7 +56,8 @@ export default function GalleryCard(props) {
         >
           #tag1#tag1#tag1#tag1
         </div>
-        <Button className={classes.root} href="/ToDoList" style={{maxWidth:'90%'}}>
+        <Button className={classes.root} style={{maxWidth:'90%'}} onClick={(e)=>{e.preventDefault();
+        history.push('/ToDoList')}}>
           <span style={{fontSize:'3vw'}}>{props.canAdd ? "Add To My List" : "View In My List"}</span>
         </Button>
       </div>
