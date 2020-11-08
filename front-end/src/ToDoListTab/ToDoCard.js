@@ -13,20 +13,20 @@ export default function ToDoCard(props) {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "5px",
-    margin: "15px 20px",
+    padding: "1.2vw",
+    margin: "3.6vw 4.8vw",
   };
 
   const imgStyle = {
     width: "15vw",
     height: "15vw",
     position: "center",
-    margin: "5px",
+    margin: "1.2vw",
   };
   return (
-    <Link to="/PlInCard?status=1">
+    <Link to="/PlInCard?status=1" style={{textDecoration:'none',color:'black'}}>
       <div style={cardStyle}>
-        <div className="title">Title</div>
+        <div className="title" style={{fontSize: '4.3vw'}}>Title</div>
         <img src="../logo192.png" style={imgStyle}></img>
         <div
           className="tags"
@@ -34,8 +34,8 @@ export default function ToDoCard(props) {
             width: "90%",
             height: "29%",
             wordWrap: "break-word",
-            margin: "5px",
-            fontSize: "0.8em",
+            margin: "1.2vw",
+            fontSize: "3vw",
           }}
         >
           #tag1#tag1#tag1#tag1
