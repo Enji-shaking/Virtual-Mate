@@ -19,11 +19,11 @@ export default function GalleryCard(props) {
     border: "0.5vw dashed #54BEF5",
     borderRadius: "12%",
     width: "35vw",
-    height: "56vw",
+    height: "50vw",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "1.2vw",
+    padding: "1.3vw",
     margin: "3.6vw 4.8vw",
   };
 
@@ -31,7 +31,7 @@ export default function GalleryCard(props) {
     width: "21vw",
     height: "21vw",
     position: "center",
-    margin: "1.2vw",
+   
   };
   return (
     <Link to="/PlInCard" style={{textDecoration:'none',color:'black'}}>
@@ -42,9 +42,9 @@ export default function GalleryCard(props) {
           className="tags"
           style={{
             width: "90%",
-            height: "23%",
+            height: "18%",
             wordWrap: "break-word",
-            margin: "1.2vw",
+            margin: "0.5vw 0vw 1.8vw 0vw ",
             fontSize: "3vw",
           }}
         >
