@@ -33,8 +33,12 @@ export default function GalleryCard(props) {
     position: "center",
    
   };
+
+  let id='2';
+
   return (
-    <Link to="/PlInCard" style={{textDecoration:'none',color:'black'}}>
+  
+    <Link to={`/ActivityCard/${id}`} style={{textDecoration:'none',color:'black'}}>
       <div style={cardStyle}>
         <div className="title" style={{fontSize: '4.3vw'}}>Title</div>
         <img src="../logo192.png" style={imgStyle}></img>

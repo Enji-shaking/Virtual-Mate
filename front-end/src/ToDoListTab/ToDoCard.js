@@ -39,12 +39,12 @@ export default function ToDoCard(props) {
   const Deleteid = Deleteopen ? 'delete' : undefined;
   const Completeopen= Boolean(Complete);
   const completeId=Completeopen ? 'complete' : undefined;
-  
+  let id='1';
   return (
-    <Link to="/PlInCard?status=1" style={{textDecoration:'none',color:'black'}}>
+    <Link to={`/ActivityCard/${id}`} style={{textDecoration:'none',color:'black'}}>
       <div style={cardStyle}>
         <div className="title" style={{fontSize: '4.3vw'}}>Title</div>
-        <img src="../logo192.png" style={imgStyle}></img>
+        <img src="/logo192.png" style={imgStyle}></img>
         <div
           className="tags"
           style={{
@@ -131,7 +131,7 @@ export default function ToDoCard(props) {
         <div style={{padding:'5px',backgroundColor: '#54BEF5',color:'white',textAlign:'center',display:'flex',flexDirection:'column',alignItems: 'center'}} onClick={(e)=>{e.preventDefault()}}>
            Completed?
           <div style={{display: 'flex',justifyContent:'center'}}>
-            <ButtonBase component={Link} to='/PlInCard' style={{color:'white',margin: '5px 15px'}} >YES</ButtonBase>
+            <ButtonBase component={Link} to={`/ActivityCard/${id}`} style={{color:'white',margin: '5px 15px'}} >YES</ButtonBase>
             <ButtonBase style={{color:'white', margin: '5px 15px'}} onClick={()=>setComplete(null)}>NO</ButtonBase>
           </div>
         </div>

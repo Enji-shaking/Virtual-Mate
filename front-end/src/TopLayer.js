@@ -15,7 +15,7 @@ export default function TopLayer(props) {
     let history = useHistory();
     return (
         <Box style={colorStyle}>
-            {props.displayType!=='return'?<img src='logo.png' style={{width:'38.6vw',margin:'6px 3px'}}></img>:<IconButton onClick= {() => {history.goBack(); }}><ReplyIcon style={{ color: '#54BEF5',fontSize:'7vw' }} /></IconButton>}
+            {props.displayType!=='return'?<img src='/logo.png' style={{width:'38.6vw',margin:'6px 3px'}}></img>:<IconButton onClick= {() => {history.goBack(); }}><ReplyIcon style={{ color: '#54BEF5',fontSize:'7vw' }} /></IconButton>}
         </Box>
         
     )

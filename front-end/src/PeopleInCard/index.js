@@ -8,7 +8,7 @@ export default function CardView(props) {
   console.log(props);
   let avatars = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  let done = false;
+  let done = true;
 
   return (
     <FixedContainer>
@@ -22,7 +22,7 @@ export default function CardView(props) {
         <div style={{ textAlign: 'center', fontSize: '1.3em' }}>Card Name</div>
         <img
           style={{ maxWidth: '78.5vw', height: 'auto', margin: '15px 0px' }}
-          src="./logo192.png"
+          src="/logo192.png"
         ></img>
         <div style={{ textAlign: 'center', fontSize: '1em' }}>
           Completed By {avatars.length} People

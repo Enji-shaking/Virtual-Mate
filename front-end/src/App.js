@@ -8,6 +8,7 @@ import AddCard from "./AddCard";
 import CardView from "./PeopleInCard";
 import Login from "./Login";
 import Register from "./Register";
+import { Card } from "@material-ui/core";
 
 export default function App(props) {
   return (
@@ -28,9 +29,7 @@ export default function App(props) {
         <Route path="/Chats" exact>
           <ChatsTab />
         </Route>
-        <Route path="/PlInCard" exact>
-          <CardView />
-        </Route>
+        <Route path='/ActivityCard/:id' component={CardView} />
         <Route path="/Login" exact>
           <Login />
         </Route>
