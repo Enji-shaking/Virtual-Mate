@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import ProfileTab from "./ProfileTab/ProfilePage";
+import ProfileTab from "./Profiles/PersonalProfile";
 import ToDoListTab from "./ToDoListTab";
 import ChatsTab from "./ChatsTab";
 import GalleryTab from "./GalleryTab";
 import { Switch, Route } from "react-router-dom";
 import AddCard from "./AddCard";
-import PeopleInCard from "./PeopleInCard";
+import CardView from "./PeopleInCard";
 import Login from "./Login";
 import Register from "./Register";
 
@@ -29,7 +29,7 @@ export default function App(props) {
           <ChatsTab />
         </Route>
         <Route path="/PlInCard" exact>
-          <PeopleInCard />
+          <CardView />
         </Route>
         <Route path="/Login" exact>
           <Login />
