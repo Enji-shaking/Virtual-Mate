@@ -25,6 +25,7 @@ export default function GalleryCard(props) {
     alignItems: "center",
     padding: "1.3vw",
     margin: "3.6vw 4.8vw",
+    color:'#4F4F4F'
   };
 
   const imgStyle = {

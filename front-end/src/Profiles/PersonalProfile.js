@@ -9,9 +9,9 @@ import FootPrint from "./FootPrint";
 
 export default function ProfilePage(props) {
   const activities = [
-    { pic: "logo192.png", date: "2000-08-10" },
-    { pic: "logo192.png", date: "2000-08-10" },
-    { pic: "logo192.png", date: "2000-08-10" },
+    { pic: "logo192.png", date: "2000-08-10", id:'1'},
+    { pic: "logo192.png", date: "2000-08-10", id:'2'},
+    { pic: "logo192.png", date: "2000-08-10",id:'3' },
   ];
 
   return (
