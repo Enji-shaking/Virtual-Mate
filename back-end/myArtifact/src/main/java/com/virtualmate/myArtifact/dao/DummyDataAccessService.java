@@ -1,6 +1,7 @@
 package com.virtualmate.myArtifact.dao;
 
 import java.util.*;
+import com.virtualmate.myArtifact.model.User;
 
 import org.springframework.stereotype.Repository;
 

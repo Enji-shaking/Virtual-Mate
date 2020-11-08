@@ -1,6 +1,7 @@
 package com.virtualmate.myArtifact.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +28,15 @@ public class UserService {
 	public List<User> getAllUsers() throws Exception {
 		return userDao.getAllUsers();
 	}
+	public boolean loginUser(UUID UUID, String password){
+		User user = userDao.getUserById(UUID.toString());
+		if(user==null){
+			return false;
+		}
+		if(user.getPassword().equals(password)){
+			return true;
+		}
+	}
 
-	
+
 }
