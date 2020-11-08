@@ -10,6 +10,8 @@ export default function GalleryTab(props) {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    position: 'relative',
+    bottom:'1.2vw'
   };
   const searchBar = {
     border: '1px solid #54BEF5',
@@ -29,10 +31,10 @@ export default function GalleryTab(props) {
         </div>
       </div>
 
-      <div style={{display:'flex',justifyContent:'flex-end',marginTop:'6px'}}>
+      <div style={{display:'flex',justifyContent:'flex-end',marginTop:'0.7vw'}}>
       <IconButton style={{padding:'0'}} href='/AddActivity'> <AddBoxIcon style={{color:'#54BEF5'}} ></AddBoxIcon></IconButton>
       </div>
-      <div className="cardDisplay" style={displayStyle}>
+      <div className="cardDisplay" style={displayStyle} >
         <GalleryCard canAdd={true} />
         <GalleryCard canAdd={true} />
         <GalleryCard canAdd={false} />
