@@ -28,8 +28,17 @@ public class UserService {
 	public List<User> getAllUsers() throws Exception {
 		return userDao.getAllUsers();
 	}
-	public boolean loginUser(UUID UUID, String password){
-		User user = userDao.getUserById(UUID.toString());
+	public boolean registerUser(User user){
+		if(user==null){
+			return false;
+		}
+		if(userDao.setUser(user)==1){
+			return true;
+		}
+		return false;
+	}
+	public boolean loginUser(UUID uuid, String password){
+		User user = userDao.getUserById(uuid.toString());
 		if(user==null || user.isOnline()){
 			return false;
 		}

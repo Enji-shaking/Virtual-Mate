@@ -30,11 +30,10 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@PostMapping("album/add")
-	public boolean addAlbumUser(@RequestBody UserCredentials userCredentials) {
-		return userService.addAlbumUser(userCredentials.getUserId, userCredentials.getPassword);
+	@PostMapping("register")
+	public boolean registerUser(@RequestBody User user) {
+		return userService.registerUser(user);
 	}
-
 	@PostMapping("login")
 	public boolean loginUser(@RequestBody UserCredentials userCredentials) {
 		return userService.loginUser(userCredentials.getUserId, userCredentials.getPassword);
