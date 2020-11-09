@@ -17,7 +17,7 @@ public class UserService {
 	private final UserDao userDao;
 	
 	@Autowired
-	public UserService(@Qualifier("dummyDao") UserDao userDao) {
+	public UserService(@Qualifier("dummyDaoUser") UserDao userDao) {
 		this.userDao = userDao;
 	}
 	
@@ -29,31 +29,34 @@ public class UserService {
 		return userDao.getAllUsers();
 	}
 	public boolean registerUser(User user){
+		//validate the user
 		if(user==null){
 			return false;
 		}
-		if(userDao.setUser(user)==1){
-			return true;
-		}
-		return false;
+		//set the user
+		return userDao.setUser(user) == 1;
 	}
 	public boolean loginUser(UUID uuid, String password){
 		User user = userDao.getUserById(uuid.toString());
+		//validate user: 1. if null 2. if online
 		if(user==null || user.isOnline()){
 			return false;
 		}
+		//login if password is true
 		if(user.getPassword().equals(password)){
 			user.setOnline(true);
 			userDao.setUser(user);
 			return true;
 		}
 	}
-	public boolean loginOut(UUID UUID, String password){
+	public boolean logoutUser(UUID UUID, String password){
 		//TODO does loginout requires password?
+		//validate user: 1. if null 2. if online
 		User user = userDao.getUserById(UUID.toString());
 		if(user==null || !user.isOnline()){
 			return false;
 		}
+		//update the user, firebaseDao has checked prev user
 		user.setOnline(false);
 		userDao.setUser(user);
 		return true;

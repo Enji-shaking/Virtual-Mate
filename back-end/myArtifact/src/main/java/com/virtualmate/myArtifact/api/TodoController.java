@@ -29,33 +29,32 @@ public class TodoController {
     
     @GetMapping("list")
     public List<Card> getTodoList(@RequestBody User user){
-        return todoService.getTodoList();
+        return todoService.getTodoList(user);
     }
 
     public static class AddTodoItemWrapper{
-        public int cardId;
+        public String cardId;
         public User user;
 
-        public AddTodoItemWrapper(@JsonProperty("user") User user, @JsonProperty("cardId") int cardId) {
+        public AddTodoItemWrapper(@JsonProperty("user") User user, @JsonProperty("cardId") String cardId) {
             this.user = user;
             this.cardId = cardId;
         }
     }
     @PostMapping("add")
     public @ResponseBody boolean addTodoItem(@RequestBody AddTodoItemWrapper wrapper){
-        return true;    
         //may need to use @RequestParam("CardId") UUID cardId
-            // return todoService.addTodoItem( wrapper.user, wrapper.cardId);
+        return todoService.addTodoItem( wrapper.user, wrapper.cardId);
     }
 
     @PostMapping("mark")
-    public boolean markTodoItem(@RequestBody User user, @JsonProperty("cardId") UUID cardId){
-        return todoService.markTodoItem();
+    public boolean markTodoItem(@RequestBody User user, @JsonProperty("cardId") String cardId){
+        return todoService.markTodoItem(user, cardId);
     }
 
     @PostMapping("remove")
-    public boolean removeTodoItem(@RequestBody User user, @JsonProperty("cardId") UUID cardId){
-        return todoService.removeTodoItem();
+    public boolean removeTodoItem(@RequestBody User user, @JsonProperty("cardId") String cardId){
+        return todoService.removeTodoItem(user, cardId);
     }
     
     
