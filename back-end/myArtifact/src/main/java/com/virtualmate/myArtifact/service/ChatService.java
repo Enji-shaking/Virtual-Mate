@@ -11,8 +11,6 @@ public class ChatService {
         
     }
 
-	public boolean addAlbumUser(User user) {
-		return false;
-	}
+
     
 }
