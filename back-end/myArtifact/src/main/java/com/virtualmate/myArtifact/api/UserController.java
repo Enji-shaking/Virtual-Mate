@@ -39,7 +39,6 @@ public class UserController {
 		return userService.loginUser(userCredentials.getUserId(), userCredentials.getPassword());
 
 	}
-
 	@PostMapping("logout")
 	public boolean logoutUser(@RequestBody UserCredentials userCredentials) {
 		return userService.logoutUser(userCredentials.getUserId(), userCredentials.getPassword());
@@ -62,16 +61,21 @@ public class UserController {
 			"idx": "5"
 		}
 	*/
-	@DeleteMapping("album/delete")
-	public boolean deleteAlbumUser(@RequestBody deleteingWrapper wrapper) {
+	@PostMapping("album")
+	public boolean addAlbum(@RequestBody deleteingWrapper wrapper) {
 		// return true;
-		return userService.deleteAlbumUser(wrapper.userCredentials.getUserId, wrapper.userCredentials.getPassword, wrapper.idx);
+		return userService.addAlbum(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.idx);
+	}
+	@DeleteMapping("album")
+	public boolean deleteAlbumAt(@RequestBody deleteingWrapper wrapper) {
+		// return true;
+		return userService.deleteAlbumAt(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.idx);
 	}
 	
 	@GetMapping("{userId_other}")
 	public List<Card> getInfoUserOther(@RequestBody UserCredentials userCredentials, @PathVariable String userId_other) {
 		// return null;
-		return userService.getInfoUserOther(userCredentials.getUserId, java.util.UUID.fromString(userId_other));
+		return userService.getInfoUserOther(userCredentials.getUserId(), java.util.UUID.fromString(userId_other));
 	}
 	
 	@GetMapping("testing")
