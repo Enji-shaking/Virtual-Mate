@@ -1,12 +1,15 @@
 package com.virtualmate.myArtifact.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.virtualmate.myArtifact.dao.CardDao;
 import com.virtualmate.myArtifact.dao.UserDao;
 import com.virtualmate.myArtifact.model.Card;
 import com.virtualmate.myArtifact.model.User;
@@ -26,7 +29,7 @@ public class UserService {
 	}
 	
 	public List<User> getAllUsers() throws Exception {
-		return userDao.getAllUsers();
+		return userDao.getUserList();
 	}
 	public boolean registerUser(User user){
 		//validate the user
@@ -48,6 +51,8 @@ public class UserService {
 			userDao.setUser(user);
 			return true;
 		}
+		else
+			return false;
 	}
 	public boolean logoutUser(UUID UUID, String password){
 		//TODO does loginout requires password?
@@ -61,6 +66,44 @@ public class UserService {
 		userDao.setUser(user);
 		return true;
 	}
+	
+	//delete the indicated image (by idx) from the album of the indicated user (by UUID)
+	public boolean deleteAlbumAt(UUID UUID, String password, int idx){
+		User user = userDao.getUserById(UUID.toString());
+		//validate user credential		
+		if (!validate(UUID, password)) 
+			return false;
+		try {
+			user.getAlbum().remove(idx);
+		} catch (IndexOutOfBoundsException e){
+			return false;}
+		//successful
+		return true;
+	}
 
+	//return the list of cards completed by the other user and is in the list of the current user
+	public List<Card> getInfoUserOther(UUID user, UUID other){
+		List<Card> cards = new ArrayList<>();
+		User u = userDao.getUserById(user.toString());
+		User o = userDao.getUserById(other.toString());
+		/* 	we use integer to represent an card's state in a user's to-do list
+		1,2,3 means to-do, done, done and would like to do again
+		 */
+		for (Entry<String, Integer> uEntry : u.getCardsTodo().entrySet()){
+			for (Entry<String, Integer> oEntry : o.getCardsTodo().entrySet()){
+				if (uEntry.getKey().equals(oEntry.getKey()) && (oEntry.getValue() == 2 || oEntry.getValue() == 3)){
+					cards.add(CardDao.getCardById(uEntry.getKey()));} //static function??
+			}		
+		}
+		return cards;
+	}
+	
+	public boolean validate(UUID UUID, String password)
+	{
+		if (password.equals(userDao.getUserById(UUID.toString()).getPassword()))
+			return true;
+		else
+			return false;
+	}
 
 }
