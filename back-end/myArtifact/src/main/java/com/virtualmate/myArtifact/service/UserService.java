@@ -51,6 +51,8 @@ public class UserService {
 			userDao.setUser(user);
 			return true;
 		}
+		else
+			return false;
 	}
 	public boolean logoutUser(UUID UUID, String password){
 		//TODO does loginout requires password?
@@ -66,10 +68,10 @@ public class UserService {
 	}
 	
 	//delete the indicated image (by idx) from the album of the indicated user (by UUID)
-	public boolean deleteAlbumUser(UUID UUID, String password, int idx){
+	public boolean deleteAlbumAt(UUID UUID, String password, int idx){
 		User user = userDao.getUserById(UUID.toString());
 		//validate user credential		
-		if (!user.validate(UUID, password))  //this function is in src/User.java
+		if (!validate(UUID, password)) 
 			return false;
 		try {
 			user.getAlbum().remove(idx);
@@ -94,6 +96,14 @@ public class UserService {
 			}		
 		}
 		return cards;
+	}
+	
+	public boolean validate(UUID UUID, String password)
+	{
+		if (password.equals(userDao.getUserById(UUID.toString()).getPassword()))
+			return true;
+		else
+			return false;
 	}
 
 }
