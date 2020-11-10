@@ -7,7 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.virtualmate.myArtifact.model.Card;
 import com.virtualmate.myArtifact.model.User;
 import com.virtualmate.myArtifact.service.TodoService;
+import com.virtualmate.myArtifact.submodel.UserCredentials;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("api/todo")
+@RequestMapping("api/user/todo")
 @RestController
 public class TodoController {
 	private final TodoService todoService;
@@ -28,33 +30,35 @@ public class TodoController {
     
     
     @GetMapping("list")
-    public List<Card> getTodoList(@RequestBody User user){
-        return todoService.getTodoList(user);
+    public List<Card> getTodoList(@RequestBody UserCredentials userCredentials){
+        return todoService.getTodoList(userCredentials.getUserId(), userCredentials.getPassword());
     }
 
-    public static class AddTodoItemWrapper{
+    public static class TargetItemWrapper{
         public String cardId;
-        public User user;
+        public UserCredentials userCredentials;
 
-        public AddTodoItemWrapper(@JsonProperty("user") User user, @JsonProperty("cardId") String cardId) {
-            this.user = user;
+        public TargetItemWrapper(@JsonProperty("userCred") UserCredentials userCredentials, @JsonProperty("cardId") String cardId) {
+            this.userCredentials = userCredentials;
             this.cardId = cardId;
         }
     }
     @PostMapping("add")
-    public @ResponseBody boolean addTodoItem(@RequestBody AddTodoItemWrapper wrapper){
+    public @ResponseBody boolean addTodoItem(@RequestBody TargetItemWrapper wrapper){
         //may need to use @RequestParam("CardId") UUID cardId
-        return todoService.addTodoItem( wrapper.user, wrapper.cardId);
+        return todoService.addTodoItem( wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.cardId);
     }
 
     @PostMapping("mark")
-    public boolean markTodoItem(@RequestBody User user, @JsonProperty("cardId") String cardId){
-        return todoService.markTodoItem(user, cardId);
+    public boolean markTodoItem(@RequestBody TargetItemWrapper wrapper){
+        return todoService.markTodoItem( wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.cardId);
+        //if completed, set to incompleted. If incompleted, set to completed
+        
     }
 
-    @PostMapping("remove")
-    public boolean removeTodoItem(@RequestBody User user, @JsonProperty("cardId") String cardId){
-        return todoService.removeTodoItem(user, cardId);
+    @DeleteMapping("remove")
+    public boolean removeTodoItem(@RequestBody TargetItemWrapper wrapper){
+        return todoService.removeTodoItem(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.cardId);
     }
     
     

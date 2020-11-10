@@ -9,6 +9,7 @@ import com.virtualmate.myArtifact.submodel.UserCredentials;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +27,11 @@ public class CardController {
     public static class CardWrapper{
         public UserCredentials userCredentials;
         public Card myCard;
-        public CardWrapper(@JsonProperty("userCred") UserCredentials userCredentials,@JsonProperty("card") Card myCard) {
+        public List<String> tagNames;
+        public CardWrapper(@JsonProperty("userCred") UserCredentials userCredentials, @JsonProperty("card") Card myCard, @JsonProperty("tags") List<String> tagNames) {
 			this.userCredentials = userCredentials;
 			this.myCard = myCard;
+			this.tagNames = tagNames;
 		}
     }
     /*
@@ -40,17 +43,26 @@ public class CardController {
         card:{
             cardName: xxx,
             imageId: xxx
-        }    
+        },
+        tags:{
+            tagName
+        }
     }
     */
     @PostMapping("create")
     public List<Card> createCard(@RequestBody CardWrapper cardWrapper){
+        //The reason I incorporate user credential here is to make sure that only admins could create cards
+
         return cardService.createCard(cardWrapper.userCredentials.getUserId(), cardWrapper.userCredentials.getPassword(),
-            cardWrapper.myCard
+            cardWrapper.myCard,
+            cardWrapper.tagNames
         );
         //to service guy, remember to check user, then only pass the card object to dao
+        //tagNames here incorporate all the tag names the frontend passed. The reason why I use tagname if to let the clients easily create new tags. 
+        //So what the service guy needs to do here is to iterate through the tagNames and check if there's a tag exist. If not, create a new one and insert to the database
     }
 
+    
     //Given tag names, display all matching cards in the gallery. Given an empty tag name, display all cards.
     /*
         { tagName: xxx }
@@ -61,6 +73,10 @@ public class CardController {
         // To service guy, go get the Tag object first, then grab the "relatedCardsId" arraylist and then grab all the related cards in a loop
     }
 
-    
+    @GetMapping("{cardId}/users")
+    public List<User> getUsersByCardId(@PathVariable String cardId){
+        return cardService.getUsersByCardId(cardId);
+        // To service guy, grab the card object first, then iterate the "finishedUsersId"
+    }
 
 }
