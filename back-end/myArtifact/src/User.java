@@ -71,7 +71,7 @@ public class User {
 		return true;
 	}
 	
-	public void set_Online()
+	public void setOnline()
 	{
 		this.isOnline = true;
 	}

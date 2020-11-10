@@ -65,13 +65,13 @@ public class UserController {
 	@DeleteMapping("album/delete")
 	public boolean deleteAlbumUser(@RequestBody deleteingWrapper wrapper) {
 		// return true;
-		return userService.deleteAlbumUser(wrapper.userCredentials.getUserId, wrapper.userCredentials.getPassword, wrapper.idx);
+		return userService.deleteAlbumUser(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.idx);
 	}
 	
 	@GetMapping("{userId_other}")
 	public List<Card> getInfoUserOther(@RequestBody UserCredentials userCredentials, @PathVariable String userId_other) {
 		// return null;
-		return userService.getInfoUserOther(userCredentials.getUserId, java.util.UUID.fromString(userId_other));
+		return userService.getInfoUserOther(userCredentials.getUserId(), java.util.UUID.fromString(userId_other));
 	}
 	
 	@GetMapping("testing")
