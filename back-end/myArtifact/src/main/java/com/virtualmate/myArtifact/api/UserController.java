@@ -61,15 +61,15 @@ public class UserController {
 			"idx": "5"
 		}
 	*/
-	@PostMapping("album")
-	public boolean addAlbum(@RequestBody deleteingWrapper wrapper) {
-		// return true;
-		return userService.addAlbum(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.idx);
-	}
 	@DeleteMapping("album")
 	public boolean deleteAlbumAt(@RequestBody deleteingWrapper wrapper) {
 		// return true;
 		return userService.deleteAlbumAt(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.idx);
+	}
+	@PostMapping("album")
+	public boolean addAlbum(@RequestBody deleteingWrapper wrapper) {
+		// return true;
+		return userService.addAlbum(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.idx);
 	}
 	
 	@GetMapping("{userId_other}")
