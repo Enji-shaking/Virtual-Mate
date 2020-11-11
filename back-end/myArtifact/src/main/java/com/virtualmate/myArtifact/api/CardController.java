@@ -50,7 +50,7 @@ public class CardController {
     }
     */
     @PostMapping("create")
-    public List<Card> createCard(@RequestBody CardWrapper cardWrapper){
+    public Card createCard(@RequestBody CardWrapper cardWrapper){
         //The reason I incorporate user credential here is to make sure that only admins could create cards
 
         return cardService.createCard(cardWrapper.userCredentials.getUserId(), cardWrapper.userCredentials.getPassword(),
