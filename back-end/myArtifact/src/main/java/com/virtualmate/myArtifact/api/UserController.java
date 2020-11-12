@@ -66,10 +66,28 @@ public class UserController {
 		// return true;
 		return userService.deleteAlbumAt(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.idx);
 	}
+	/*
+		{
+			"userCred":{
+				"userId": "fe96f7ec-7e8a-431f-9a3c-3298cd55238b",
+				"password": "xxx"
+			},
+			"imageURL": "5"
+		}
+	*/
+	public static class addingWrapper{
+		public UserCredentials userCredentials;
+		public String imageURL;
+		public addingWrapper(@JsonProperty("userCred") UserCredentials userCredentials,@JsonProperty("imageURL") String imageURL) {
+			this.userCredentials = userCredentials;
+			this.imageURL = imageURL;
+		}
+	}
+	
 	@PostMapping("album")
-	public boolean addAlbum(@RequestBody deleteingWrapper wrapper) {
+	public boolean addAlbum(@RequestBody addingWrapper wrapper) {
 		// return true;
-		return userService.addAlbum(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.idx);
+		return userService.addAlbum(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.imageURL);
 	}
 	
 	@GetMapping("{userId_other}")
