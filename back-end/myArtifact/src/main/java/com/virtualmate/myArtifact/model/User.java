@@ -28,6 +28,18 @@ public class User {
 	private String avatar;
 	private List<String> album;
 	private List<String> chats;
+	/*
+		use integer to represent friend's status.
+		<String,Integer> = <userId, friend's status>
+		Let user A be this user, user B be other user stored in map
+		1 -> A request B
+		2 -> A receive request from B
+		3 -> A reject B
+		4 -> A is rejected by B
+		5 -> A and B are friends
+	*/
+	private Map<String,Integer> friendStatus;
+
 	
 	public User(@JsonProperty("userName") String userName, 
 			@JsonProperty("email") String email,
@@ -113,6 +125,14 @@ public class User {
 
 	public void setCardsTodo(Map<String, Integer> cardsTodo) {
 		this.cardsTodo = cardsTodo;
+	}
+	public Map<String, Integer> getFriendStatus() {
+		return friendStatus;
+	}
+
+
+	public void setFriendStatus(Map<String, Integer> friendStatus) {
+		this.friendStatus=friendStatus;
 	}
 
 

@@ -10,22 +10,28 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.virtualmate.myArtifact.dao.CardDao;
+import com.virtualmate.myArtifact.dao.ImageDao;
 import com.virtualmate.myArtifact.dao.UserDao;
 import com.virtualmate.myArtifact.model.Card;
+import com.virtualmate.myArtifact.model.Image;
 import com.virtualmate.myArtifact.model.User;
 
 @Service
 public class UserService {
 	
 	private final UserDao userDao;
+	private final ImageDao imageDao;
+	private final CardDao cardDao;
 	
 	@Autowired
-	public UserService(@Qualifier("dummyDaoUser") UserDao userDao) {
+	public UserService(@Qualifier("dummyDaoUser") UserDao userDao, ImageDao imageDao, CardDao cardDao) {
 		this.userDao = userDao;
+		this.imageDao = imageDao;
+		this.cardDao = cardDao;
 	}
 	
 	public int addUser(User user) {
-		return userDao.addUser(user);
+		return userDao.setUser(user);
 	}
 	
 	public List<User> getAllUsers() throws Exception {
@@ -80,6 +86,23 @@ public class UserService {
 		//successful
 		return true;
 	}
+	
+	//create an image using given imageUrl and put it into this user's album
+	public boolean addAlbum(UUID UUID, String password, String imageUrl)
+	{
+		User user = userDao.getUserById(UUID.toString());
+		//validate user credential		
+		if (!validate(UUID, password)) 
+			return false;
+		try {
+			Image image = new Image(imageUrl);
+			imageDao.setImage(image);
+			user.getAlbum().add(imageUrl);
+		} catch (IndexOutOfBoundsException e){
+			return false;}
+		//successful
+		return true;
+	}
 
 	//return the list of cards completed by the other user and is in the list of the current user
 	public List<Card> getInfoUserOther(UUID user, UUID other){
@@ -92,11 +115,12 @@ public class UserService {
 		for (Entry<String, Integer> uEntry : u.getCardsTodo().entrySet()){
 			for (Entry<String, Integer> oEntry : o.getCardsTodo().entrySet()){
 				if (uEntry.getKey().equals(oEntry.getKey()) && (oEntry.getValue() == 2 || oEntry.getValue() == 3)){
-					cards.add(CardDao.getCardById(uEntry.getKey()));} //static function??
+					cards.add(cardDao.getCardById(uEntry.getKey()));} 
 			}		
 		}
 		return cards;
 	}
+	
 	
 	public boolean validate(UUID UUID, String password)
 	{

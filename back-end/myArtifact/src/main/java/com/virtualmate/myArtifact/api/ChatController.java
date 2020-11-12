@@ -56,7 +56,7 @@ public class ChatController {
     @PostMapping("request")
     public boolean requestChat(@RequestBody withOtherWrapper wrapper){
         return chatService.requestChat(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(),
-        java.util.UUID.fromString(wrapper.userId_other);
+        java.util.UUID.fromString(wrapper.userId_other));
     }
     
     @GetMapping("list")
