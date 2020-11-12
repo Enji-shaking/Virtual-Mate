@@ -32,11 +32,11 @@ public class User {
 		use integer to represent friend's status.
 		<String,Integer> = <userId, friend's status>
 		Let user A be this user, user B be other user stored in map
-		0 -> A request B
-		1 -> A receive request from B
-		2 -> A reject B
-		3 -> A is rejected by B
-		4 -> A and B are friends
+		1 -> A request B
+		2 -> A receive request from B
+		3 -> A reject B
+		4 -> A is rejected by B
+		5 -> A and B are friends
 	*/
 	private Map<String,Integer> friendStatus;
 
