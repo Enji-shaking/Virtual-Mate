@@ -42,20 +42,20 @@ public class ChatController {
 				"userId": "fe96f7ec-7e8a-431f-9a3c-3298cd55238b",
 				"password": "xxx"
 			},
-			"idother": "5"
+			"userId_other": "5"
 		}
 	*/
     @GetMapping("canchat")
 	public int CheckConnectionWith(@RequestBody withOtherWrapper wrapper) {
 		// return null;
         return chatService.getInfoUserOther(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(),
-        java.util.UUID.fromString(wrapper.userId_other));
+        wrapper.userId_other);
     }
     
     @PostMapping("request")
     public boolean requestChat(@RequestBody withOtherWrapper wrapper){
         return chatService.requestChat(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(),
-        java.util.UUID.fromString(wrapper.userId_other));
+        wrapper.userId_other);
     }
     
     @GetMapping("list")
