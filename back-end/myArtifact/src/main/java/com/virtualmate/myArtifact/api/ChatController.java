@@ -28,7 +28,6 @@ public class ChatController {
     }
 
 
-    
     public static class withOtherWrapper{
         public UserCredentials userCredentials;
         public String userId_other;
@@ -69,10 +68,10 @@ public class ChatController {
         return chatService.getChatRequest(userCredentials.getUserId(), userCredentials.getPassword());
     }
 
-    //api/chat/acceptance?accepted=1
+    //api/chat/acceptance?accepted=1&&requestId=2
     @PostMapping("acceptance")
-    public boolean acceptRequest(@RequestBody withOtherWrapper wrapper, @RequestParam("accepted") boolean accepted){
-        return chatService.acceptRequest(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), accepted);
+    public boolean acceptRequest(@RequestBody withOtherWrapper wrapper, @RequestParam("accepted") boolean accepted, @RequestParam("requestId") int requestId){
+        return chatService.acceptRequest(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), accepted, requestId);
     }
 
 }
