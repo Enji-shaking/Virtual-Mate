@@ -9,6 +9,7 @@ import CardView from "./PeopleInCard";
 import Login from "./Login";
 import Register from "./Register";
 import OtherUserPage from './Profiles/OtherUserPage';
+import Completed from './ToDoListTab/Completed';
 
 export default function App(props) {
   return (
@@ -36,6 +37,8 @@ export default function App(props) {
         </Route>
         <Route path="/Register" exact>
           <Register />
+        </Route>
+        <Route path="/Completed/:id" component={Completed}>
         </Route>
       </Switch>
     </div>

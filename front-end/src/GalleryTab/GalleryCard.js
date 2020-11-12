@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 export default function GalleryCard(props) {
   const useStyles = makeStyles({
@@ -41,6 +42,9 @@ export default function GalleryCard(props) {
   let tags=props.tags?props.tags:['#tag1 #tag2 #tag3 #tag4 #tag5 #tag6'];
   let url=props.url?props.url:'/logo192.png';
   
+  let user=null;
+  let pass = null;
+
   return (
     <Link
       to={`/ActivityCard/${id}`}
@@ -61,14 +65,29 @@ export default function GalleryCard(props) {
             fontSize: '3vw',
           }}
         >
-          {tags.map((tag)=>tag)}
+          {tags.map((tag)=>tag+' ')}
         </div>
         <Button
           className={classes.root}
           style={{ maxWidth: '90%' }}
           onClick={(e) => {
             e.preventDefault();
-            history.push('/ToDoList');
+            if(props.canAdd){
+              axios.post('http://localhost:8080/api/user/todo/add', {
+                cardId:id,
+                userId:user,
+                userHashedPass: pass
+              })
+              .then(function (response) {
+                history.push('/ToDoList');
+              })
+              .catch(function(error){
+                alert('something is wrong');
+                history.go(0);
+            });}
+            else{
+                history.push('/ToDoList');
+            }
           }}
         >
           <span style={{ fontSize: '3vw'}}>
