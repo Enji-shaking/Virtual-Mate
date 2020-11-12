@@ -78,6 +78,12 @@ public class CardController {
     public List<User> getUsersByCardId(@PathVariable String cardId){
         return cardService.getUsersByCardId(cardId);
         // To service guy, grab the card object first, then iterate the "finishedUsersId"
+    
     }
+    @GetMapping("all")
+    public List<User> getAllCards(){
+        return cardService.getAllCards();
+    }
+
 
 }

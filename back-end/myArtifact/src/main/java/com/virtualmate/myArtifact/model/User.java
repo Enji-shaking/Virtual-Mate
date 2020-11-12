@@ -21,9 +21,10 @@ public class User {
 	private String email;
 	private String password;
 	private boolean isOnline;
-	/* 	we use integer to represent an card's state in a user's to-do list
+	/* 	
+		we use integer to represent an card's state in a user's to-do list
 		1,2,3 means to-do, done, done and would like to do again
-	 */
+	 */ 
 	private Map<String,Integer> cardsTodo; 
 	private String avatar;
 	private List<String> album;

@@ -88,8 +88,8 @@ public class UserController {
 		return userService.addAlbum(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.imageURL);
 	}
 	
-	@GetMapping("{userId_other}")
-	public List<Card> getInfoUserOther(@RequestBody UserCredentials userCredentials, @PathVariable String userId_other) {
+	@GetMapping("{userId_other}/cards")
+	public User getInfoUserOther(@RequestBody UserCredentials userCredentials, @PathVariable String userId_other) {
 		return userService.getInfoUserOther(userCredentials.getUserId(), java.util.UUID.fromString(userId_other));
 	}
 	
