@@ -93,6 +93,7 @@ public class UserController {
 		return userService.getInfoUserOther(userCredentials.getUserId(), java.util.UUID.fromString(userId_other));
 	}
 	
+	
 	@GetMapping("testing")
 	public List<User> getAllUsers() throws Exception{
 		return userService.getAllUsers();
