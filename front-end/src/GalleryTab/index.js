@@ -1,4 +1,4 @@
-import React,{useState,useEffect}  from 'react';
+import React,{useState,useEffect, useReducer}  from 'react';
 import FixedContainer from '../FixedContainer.js';
 import SearchIcon from '@material-ui/icons/Search';
 import AddBoxIcon from '@material-ui/icons/AddBox';
@@ -8,10 +8,11 @@ import GalleryCard from './GalleryCard';
 
 export default function GalleryTab(props) {
 
-    const [data, setData] = useState([{cardId:'tester',cardName:'testCard',
+    const [data, setData] = useState([{cardId:'tester',cardName:'test',
     cardImage:'/logo.png',
     cardTags:['#test1','#test2']
     }]);
+    
     useEffect(() => {
       const fetchData = async () => {
         const result = await axios(
@@ -66,6 +67,8 @@ export default function GalleryTab(props) {
   };
 
   const [searchContent,changeSearch]=useState('');
+
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   function Search(){
    
