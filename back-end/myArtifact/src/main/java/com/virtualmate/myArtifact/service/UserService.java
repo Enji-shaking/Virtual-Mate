@@ -87,6 +87,7 @@ public class UserService {
 		return true;
 	}
 	
+	//create an image using given imageUrl and put it into this user's album
 	public boolean addAlbum(UUID UUID, String password, String imageUrl)
 	{
 		User user = userDao.getUserById(UUID.toString());
