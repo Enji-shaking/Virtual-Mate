@@ -126,6 +126,14 @@ public class User {
 	public void setCardsTodo(Map<String, Integer> cardsTodo) {
 		this.cardsTodo = cardsTodo;
 	}
+	public Map<String, Integer> getFriendStatus() {
+		return friendStatus;
+	}
+
+
+	public void setFriendStatus(Map<String, Integer> friendStatus) {
+		this.friendStatus=friendStatus;
+	}
 
 
 	public String getAvatar() {
