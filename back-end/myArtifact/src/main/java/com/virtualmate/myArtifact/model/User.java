@@ -28,6 +28,18 @@ public class User {
 	private String avatar;
 	private List<String> album;
 	private List<String> chats;
+	/*
+		use integer to represent friend's status.
+		<String,Integer> = <userId, friend's status>
+		Let user A be this user, user B be other user stored in map
+		0 -> A request B
+		1 -> A receive request from B
+		2 -> A reject B
+		3 -> A is rejected by B
+		4 -> A and B are friends
+	*/
+	private Map<String,Integer> friendStatus;
+
 	
 	public User(@JsonProperty("userName") String userName, 
 			@JsonProperty("email") String email,
