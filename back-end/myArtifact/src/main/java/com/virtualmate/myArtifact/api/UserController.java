@@ -1,7 +1,7 @@
 package com.virtualmate.myArtifact.api;
 
 import java.util.List;
-import java.util.UUID;
+// import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -63,7 +63,6 @@ public class UserController {
 	*/
 	@DeleteMapping("album")
 	public boolean deleteAlbumAt(@RequestBody deleteingWrapper wrapper) {
-		// return true;
 		return userService.deleteAlbumAt(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.idx);
 	}
 	/*
@@ -86,13 +85,11 @@ public class UserController {
 	
 	@PostMapping("album")
 	public boolean addAlbum(@RequestBody addingWrapper wrapper) {
-		// return true;
 		return userService.addAlbum(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.imageURL);
 	}
 	
 	@GetMapping("{userId_other}")
 	public List<Card> getInfoUserOther(@RequestBody UserCredentials userCredentials, @PathVariable String userId_other) {
-		// return null;
 		return userService.getInfoUserOther(userCredentials.getUserId(), java.util.UUID.fromString(userId_other));
 	}
 	
