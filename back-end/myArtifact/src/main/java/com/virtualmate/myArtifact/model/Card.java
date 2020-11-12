@@ -72,8 +72,4 @@ public class Card {
 	public void setFinishedUsersId(List<String> finishedUsersId) {
 		this.finishedUsersId = finishedUsersId;
 	}
-
-
-
-	
 }

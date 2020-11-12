@@ -20,7 +20,9 @@ public class FirebaseInitializer {
 	@PostConstruct
 	private void initDB() throws IOException {
 		
-		InputStream serviceAccount = new FileInputStream("./markFirebasePassport2.json");
+//		InputStream serviceAccount = new FileInputStream("./markFirebasePassport2.json");
+		InputStream serviceAccount = this.getClass().getClassLoader().getResourceAsStream("markFirebasePassport3.json");
+
 		GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
 		FirebaseOptions options = new FirebaseOptions.Builder()
 		    .setCredentials(credentials)

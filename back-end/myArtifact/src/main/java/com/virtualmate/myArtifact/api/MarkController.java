@@ -122,8 +122,6 @@ public class MarkController {
     
     @PostMapping("setChat")
     public int setChat1(@RequestBody Chat chat) {
-//    	System.out.println(chat);
-//    	return 1;
     	return chatDao.setChat(chat);
     }
     

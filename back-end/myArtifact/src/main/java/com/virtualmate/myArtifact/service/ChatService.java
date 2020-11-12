@@ -11,6 +11,7 @@ import java.util.UUID;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +21,8 @@ public class ChatService {
 	private final UserDao userDao;
 
 	@Autowired
-    public ChatService(UserDao userDao, ChatDao chatDao) {
+    public ChatService(@Qualifier("dummyDaoUser") UserDao userDao, 
+    					@Qualifier("dummyDaoChat") ChatDao chatDao) {
 		this.chatDao = chatDao;
 		this.userDao = userDao;       
     }
