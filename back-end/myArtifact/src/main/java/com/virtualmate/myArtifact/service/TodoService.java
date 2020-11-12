@@ -3,6 +3,7 @@ package com.virtualmate.myArtifact.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.virtualmate.myArtifact.dao.CardDao;
 import com.virtualmate.myArtifact.dao.UserDao;
@@ -24,7 +25,8 @@ public class TodoService {
     	this.cardDao = cardDao;
     }
 
-	public List<Card> getTodoList(User user) {
+	public List<Card> getTodoList(UUID userId, String password) {
+		User user = userDao.getUserById(userId.toString());
 		//validate user
 		if(user==null){
 			return null;
@@ -42,7 +44,8 @@ public class TodoService {
 		return list;
 	}
 
-	public boolean addTodoItem(User user,String cardId) {
+	public boolean addTodoItem(UUID userId, String password,String cardId) {
+		User user = userDao.getUserById(userId.toString());
 		//check if user/cardId is valid
 		if(user==null || cardId==null || cardId.isEmpty()){
 			return false;
@@ -51,11 +54,12 @@ public class TodoService {
 		user.getCardsTodo().put(cardId,1);
 		//userDao has checked the previous user
 		userDao.setUser(user);
-
+		return true;
 	}
 
-	public boolean markTodoItem(User user, String cardId) {
+	public boolean markTodoItem(UUID userId, String password,String cardId) {
 		//check if user/cardId is valid
+		User user = userDao.getUserById(userId.toString());
 		if(user==null || cardId==null || cardId.isEmpty()){
 			return false;
 		}
@@ -63,9 +67,11 @@ public class TodoService {
 		user.getCardsTodo().replace(cardId,2);
 		//update the user
 		userDao.setUser(user);
+		return true;
 	}
 
-	public boolean removeTodoItem(User user, String cardId) {
+	public boolean removeTodoItem(UUID userId, String password,String cardId) {
+		User user = userDao.getUserById(userId.toString());
 		//check if user/cardId is valid
 		if(user==null || cardId==null || cardId.isEmpty()){
 			return false;
@@ -74,6 +80,7 @@ public class TodoService {
 		user.getCardsTodo().remove(cardId);
 		//update the user
 		userDao.setUser(user);
+		return true;
 	}
     
 }
