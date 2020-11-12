@@ -61,12 +61,12 @@ public class ChatController {
     
     @GetMapping("list")
 	public List<Chat> getChatList(@RequestBody UserCredentials userCredentials) {
-        return UserService.getChatList(userCredentials.getUserId(), userCredentials.getPassword());
+        return chatService.getChatList(userCredentials.getUserId(), userCredentials.getPassword());
     }
 
     @GetMapping("request")
-	public List<Chat> getChatRequest(@RequestBody UserCredentials userCredentials) {
-        return UserService.getChatRequest(userCredentials.getUserId(), userCredentials.getPassword());
+	public List<User> getChatRequest(@RequestBody UserCredentials userCredentials) {
+        return chatService.getChatRequest(userCredentials.getUserId(), userCredentials.getPassword());
     }
 
     //api/chat/acceptance?accepted=1
