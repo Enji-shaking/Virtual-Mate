@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -14,6 +15,7 @@ const useStyles = makeStyles({
 });
 
 export default function GalleryCard(props) {
+  const history = useHistory();
   const classes = useStyles();
   const cardStyle = {
     border: "0.5vw dashed #54BEF5",
@@ -23,35 +25,40 @@ export default function GalleryCard(props) {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "5px",
-    margin: "15px 20px",
+    padding: "1.3vw",
+    margin: "3.6vw 4.8vw",
   };
 
   const imgStyle = {
-    width: "15vw",
-    height: "15vw",
+    width: "21vw",
+    height: "21vw",
     position: "center",
-    margin: "5px",
+   
   };
+
+  let id='2';
+
   return (
-    <Link to="/PlInCard">
+  
+    <Link to={`/ActivityCard/${id}`} style={{textDecoration:'none',color:'black'}}>
       <div style={cardStyle}>
-        <div className="title">Title</div>
+        <div className="title" style={{fontSize: '4.3vw'}}>Title</div>
         <img src="../logo192.png" style={imgStyle}></img>
         <div
           className="tags"
           style={{
             width: "90%",
-            height: "29%",
+            height: "18%",
             wordWrap: "break-word",
-            margin: "5px",
-            fontSize: "0.8em",
+            margin: "0.5vw 0vw 1.8vw 0vw ",
+            fontSize: "3vw",
           }}
         >
           #tag1#tag1#tag1#tag1
         </div>
-        <Button className={classes.root} href="/ToDoList">
-          {props.canAdd ? "Add To My List" : "View In My List"}
+        <Button className={classes.root} style={{maxWidth:'90%'}} onClick={(e)=>{e.preventDefault();
+        history.push('/ToDoList')}}>
+          <span style={{fontSize:'3vw'}}>{props.canAdd ? "Add To My List" : "View In My List"}</span>
         </Button>
       </div>
     </Link>

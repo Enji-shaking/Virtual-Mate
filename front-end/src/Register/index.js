@@ -7,28 +7,27 @@ export default function Register(props) {
     margin: "auto",
   };
   return (
-    <FixedContainer>
-      <div style={middle}> Register </div>
-      <form>
+    <FixedContainer displayType='return'>
+     <div style={{display: 'flex',flexDirection:'column',alignItems:'center',height:'65vh',justifyContent:'center'}}>
+      <div style={{ textAlign: 'center', fontSize: '1.5em' }}>Register</div>
+      <form style={{color:'white',padding:'0px 5px',textAlign:'center'}}>
         <Input
-          placeHolder="username"
-          width="400px"
-          height="50px"
+          placeholder="Username"
           name="username"
         ></Input>
         <Input
-          placeHolder="password"
-          width="400px"
-          height="50px"
+          placeholder="Password"
           name="password"
         ></Input>
         <Input
-          placeHolder="email"
-          width="400px"
-          height="50px"
+          placeholder="Email"
           name="email"
         ></Input>
+        
+         <input type="submit" value="Register" style={{marginTop:'50px',backgroundColor: '#54BEF5',padding: '5px',border:'none',color:"white",width:'28vw',height:'4vh'}}/>
+     
       </form>
+      </div>
     </FixedContainer>
   );
 }

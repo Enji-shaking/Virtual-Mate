@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import TabBar from './TabBar'
 import TopLayer from './TopLayer';
+import { Divider } from '@material-ui/core';
 
 class FixedContainer extends React.Component {
     render(){
@@ -12,9 +13,9 @@ class FixedContainer extends React.Component {
         <TopLayer displayType={this.props.displayType}/>
       <CssBaseline/>
       <Container fixed style={{padding: '0'}}>
-        <Typography component="div" style={{width: '100%', marginBottom: '10vh', padding: '5vw', }}>
+        <div style={{width: '100%', marginBottom: '10vh', padding: '5vw',fontFamily:'sans-serif, Roboto',fontStyle:'normal'}}>
           {this.props.children}
-        </Typography>
+        </div>
         <TabBar/>
       </Container>
     </React.Fragment>);
