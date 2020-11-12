@@ -60,7 +60,4 @@ public class TodoController {
     public boolean removeTodoItem(@RequestBody TargetItemWrapper wrapper){
         return todoService.removeTodoItem(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.cardId);
     }
-    
-    
-
 }

@@ -24,8 +24,7 @@ public class CardService {
         this.tagDao = tagDao;
     }
 
-    public List<Card> createCard(UUID userId, String password, Card card, List<String> tags){
-        List<Card> list = new ArrayList<Card>();
+    public Card createCard(UUID userId, String password, Card card, List<String> tags){
         //validate the user
         if(userDao.getUserById(userId.toString())==null){
             return null;
@@ -43,7 +42,7 @@ public class CardService {
         card.setRelatedTagsId(tagIds);
         //create the card with cardDao
         cardDao.setCard(card);
-        return list;
+        return card;
     }
     public List<Card> getCardsByTag(String tagName){
         List<String> cardId = tagDao.getTagByName(tagName).getRelatedCardsId();
