@@ -1,10 +1,11 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import FixedContainer from '../FixedContainer.js';
 import Avatar from '@material-ui/core/Avatar';
 import Album from './Album';
 import FootPrint from './FootPrint';
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import axios from 'axios';
 
 const useStyles = makeStyles({
   root: {
@@ -17,8 +18,18 @@ const useStyles = makeStyles({
 });
 
 export default function OtherUserPage(props) {
-  let name = props.match.params.id;
-
+  let id = props.match.params.id;
+  const [user, setOther] = useState([ { Username: 'tester', Userid: 'testUser', Avatar: '/logo.png',footPrint:[],Album:[] }]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        `http://localhost:8080/api/user/${id}`,
+      );
+      setOther(result.data);
+    };
+    fetchData();
+  }, []);
+ 
   const activities = [
     { pic: '/logo192.png', date: '2000-08-10', id: '1' },
     { pic: '/logo192.png', date: '2000-08-10', id: '2' },
@@ -51,9 +62,9 @@ export default function OtherUserPage(props) {
           src={img}
           style={{ width: '17vw', height: '17vw', margin: '1.5vh' }}
         ></Avatar>
-        {name.toString() + "'s page"}
+        {id.toString() + "'s page"}
         <div style={{ width: '85vw', marginTop: '5vh' }}>
-          {name.toString() + "'s Album"}
+          {id.toString() + "'s Album"}
           <Album />
         </div>
         <div>
