@@ -67,12 +67,6 @@ public class TodoService {
 		user.getCardsTodo().replace(cardId,2);
 		//update the user
 		userDao.setUser(user);
-		//add the card's finished users
-		Card card = cardDao.getCardById(cardId);
-		List<String> finishedUserInCard = card.getFinishedUsersId();
-		finishedUserInCard.add(userId.toString());
-		card.setFinishedUsersId(finishedUserInCard);
-		cardDao.setCard(card);
 		return true;
 	}
 

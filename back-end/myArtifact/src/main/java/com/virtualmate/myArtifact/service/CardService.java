@@ -38,12 +38,6 @@ public class CardService {
                 tagDao.setTag(new Tag(s));
             }
             tagIds.add(tagDao.getTagByName(s).getTagId());
-            //add the card in the tags
-            Tag tag = tagDao.getTagByName(s);
-            List<String> cardInTag = tag.getRelatedCardsId();
-            cardInTag.add(card.getCardId());
-            tag.setRelatedCardsId(cardInTag);
-            tagDao.setTag(tag);
         }
         //set the tags to the card, since they are read separately
         card.setRelatedTagsId(tagIds);
