@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.virtualmate.myArtifact.model.Card;
+import com.virtualmate.myArtifact.model.Tag;
 import com.virtualmate.myArtifact.model.User;
 import com.virtualmate.myArtifact.service.CardService;
 import com.virtualmate.myArtifact.submodel.UserCredentials;
@@ -84,6 +85,9 @@ public class CardController {
     public List<User> getAllCards(){
         return cardService.getAllCards();
     }
-
+    @GetMapping("tag/{tagId}")
+    public Tag getTagById(@PathVariable String tagId){
+        return cardService.getTagById(tagId);
+    }
 
 }
