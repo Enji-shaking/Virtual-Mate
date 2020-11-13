@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import FixedContainer from '../FixedContainer.js';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import LockOpenRoundedIcon from '@material-ui/icons/LockOpenRounded';
+import axios from 'axios';
 
 export default function CardView(props) {
-  
   let avatars = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  let { id } = useParams();
 
-  let done = Math.random()<0.4?true:false;
+  const [users, setUsers] = useState([
+    { Username: 'tester', Userid: 'testUser', Avatar: '/logo.png' },
+  ]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(`http://localhost:8080/api/card/${id}/users`);
+      setUsers(result.data);
+    };
+    fetchData();
+  }, []);
+
+  let userId='testUser';
+  let done = false;
+  for(let i=0;i<users.length;i++) {
+    console.log(users[i]);
+    if (users[i].Userid === userId) {
+      done = true;
+      break;
+    }
+  };
 
   return (
     <FixedContainer>
@@ -34,10 +54,31 @@ export default function CardView(props) {
           >
             {avatars.map((avatar) => {
               return (
-                <Link to={`/User/${avatar.toString()}`} key={avatar.toString()}>
+                <Link
+                  to={`/User/${
+                    avatar.Userid ? avatar.Userid : avatar.toString()
+                  }`}
+                  key={avatar.Userid ? avatar.Userid : avatar.toString()}
+                >
                   <Avatar
                     alt={avatar.toString()}
-                    src="https://material-ui.com/static/images/avatar/1.jpg"
+                    src={avatar.Avatar?avatar.Avatar:"https://material-ui.com/static/images/avatar/1.jpg"}
+                    style={{ width: '20vw', height: '20vw', margin: '5vw' }}
+                  ></Avatar>
+                </Link>
+              );
+            })}
+            {users.map((avatar) => {
+              return (
+                <Link
+                  to={`/User/${
+                    avatar.Userid ? avatar.Userid : avatar.toString()
+                  }`}
+                  key={avatar.Userid ? avatar.Userid : avatar.toString()}
+                >
+                  <Avatar
+                    alt={avatar.toString()}
+                    src={avatar.Avatar?avatar.Avatar:"https://material-ui.com/static/images/avatar/1.jpg"}
                     style={{ width: '20vw', height: '20vw', margin: '5vw' }}
                   ></Avatar>
                 </Link>
@@ -46,21 +87,28 @@ export default function CardView(props) {
           </div>
         ) : (
           <div>
-              <div style={{zIndex:'2', margin:'auto',maxWidth:'60vw',position:'relative',top:'15vh',marginTop:'1.5vh'}}>
+            <div
+              style={{
+                zIndex: '2',
+                margin: 'auto',
+                maxWidth: '60vw',
+                position: 'relative',
+                top: '15vh',
+                marginTop: '1.5vh',
+              }}
+            >
               <LockOpenRoundedIcon /> Complete This Activty To View
             </div>
-          <div
-            style={{
-              width: '90vw',
-              height: '30vh',
-              filter: 'blur(50px)',
-              backgroundColor: '#54BEF5',
-              opacity:'0.6',
-              zIndex:'1',
-            }}
-          >
-          </div>
-        
+            <div
+              style={{
+                width: '90vw',
+                height: '30vh',
+                filter: 'blur(50px)',
+                backgroundColor: '#54BEF5',
+                opacity: '0.6',
+                zIndex: '1',
+              }}
+            ></div>
           </div>
         )}
       </div>
