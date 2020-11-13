@@ -105,7 +105,7 @@ public class UserService {
 	}
 
 	//return the list of cards completed by the other user and is in the list of the current user
-	public List<Card> getInfoUserOther(UUID user, UUID other){
+	public List<Card> getSharedCardsOther(UUID user, UUID other){
 		List<Card> cards = new ArrayList<>();
 		User u = userDao.getUserById(user.toString());
 		User o = userDao.getUserById(other.toString());
@@ -119,6 +119,11 @@ public class UserService {
 			}		
 		}
 		return cards;
+	}
+	
+	public User getInfoUserOther(UUID user, UUID other){
+		User o = userDao.getUserById(other.toString());
+		return o;
 	}
 	
 	
