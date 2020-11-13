@@ -24,7 +24,7 @@ public class UserService {
 	private final CardDao cardDao;
 	
 	@Autowired
-	public UserService(@Qualifier("dummyDaoUser") UserDao userDao, @Qualifier("dummyDaoImage") ImageDao imageDao, @Qualifier("dummyDaoCard") CardDao cardDao) {
+	public UserService(@Qualifier("FbDaoUser") UserDao userDao, @Qualifier("FbDaoImage") ImageDao imageDao, @Qualifier("FbDaoCard") CardDao cardDao) {
 		this.userDao = userDao;
 		this.imageDao = imageDao;
 		this.cardDao = cardDao;
