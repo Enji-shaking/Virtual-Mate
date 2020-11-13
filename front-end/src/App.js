@@ -10,7 +10,7 @@ import Login from "./Login";
 import Register from "./Register";
 import OtherUserPage from './Profiles/OtherUserPage';
 import Completed from './ToDoListTab/Completed';
-
+import Request from './Profiles/RequestChat';
 export default function App(props) {
   return (
     <div className="App">
@@ -39,6 +39,8 @@ export default function App(props) {
           <Register />
         </Route>
         <Route path="/Completed/:id" component={Completed}>
+        </Route>
+        <Route path="/Request/:id" component={Request}>
         </Route>
       </Switch>
     </div>
