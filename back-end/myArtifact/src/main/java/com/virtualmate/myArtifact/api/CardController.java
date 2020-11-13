@@ -82,7 +82,7 @@ public class CardController {
     
     }
     @GetMapping("all")
-    public List<User> getAllCards(){
+    public List<Card> getAllCards(){
         return cardService.getAllCards();
     }
     @GetMapping("tag/{tagId}")
