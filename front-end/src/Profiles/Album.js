@@ -8,12 +8,12 @@ class Album extends React.Component{
         const ImgBox = {
             display: 'flex',
             flexWrap: 'wrap',
-            width: '80%',
+            width: '95%',
             paddingTop:'2vh',
             margin:'auto',
         };
         const ImgItem = {
-            flex: '1 0 21%',
+            flex: '1 0 30%',
             margin: '5px',
         };
         return(
@@ -25,10 +25,6 @@ class Album extends React.Component{
                     <Box style={ImgItem}><Picture/></Box>
                     <Box style={ImgItem}><Picture/></Box>
                     <Box style={ImgItem}><Picture/></Box>
-                    <Box style={ImgItem}><Picture/></Box>
-                    <Box style={ImgItem}><Picture/></Box>
-
-                    
                 </Box>
        
         )

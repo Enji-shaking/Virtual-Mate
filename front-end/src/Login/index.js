@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FixedContainer from '../FixedContainer';
 import Input from './Input.js';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Login(props) {
   const middle = {
     margin: 'auto',
   };
+  const inputSize = {
+    display: 'block',
+    marginTop: '50px',
+    backgroundColor: '#54BEF5',
+    color: 'white',
+    width: '60vw',
+    height: '5.5vh',
+    textAlign: 'center',
+    border: 'none',
+  };
+  const[email,setEmail]=useState("Username/Email");
+  const [pass,setPass]=useState("Password");
+  const [error,setError]=useState(false);
   return (
     <FixedContainer>
       <div
@@ -22,9 +36,38 @@ export default function Login(props) {
         <form
           style={{ color: 'white', padding: '0px 5px', textAlign: 'center' }}
         >
-          <Input placeholder="Username/Email" name="username"></Input>
+          <input
+            type="text"
+            value={email}
+            name="username"
+            style={inputSize}
+            id="username"
+            onClick={() => {
+              if (
+                email === "Username/Email"
+              ) {
+                setEmail('');
+              }
+            }}
+            onChange={(e)=>setEmail(e.target.value)}
+          />
 
-          <Input placeholder="Password" name="password"></Input>
+          <input
+            type="text"
+            value={pass}
+            name="password"
+            style={inputSize}
+            id="password"
+            onClick={() => {
+              if (
+                pass === "Password"
+              ) {
+                setPass('');
+              }
+            }}
+            onChange={(e)=>setPass(e.target.value)}
+          />
+          <div style={error?{color:'red',textAlign:'center'}:{visibility:'hidden'}}>Invalid Password or Username</div>
 
           <input
             type="submit"
@@ -37,6 +80,26 @@ export default function Login(props) {
               color: 'white',
               width: '28vw',
               height: '4vh',
+            }}
+            onClick={(e)=>{
+              e.preventDefault();
+              if(email !== "Username/Email" && pass !== "Password"){
+                axios.post('http://localhost:8080/api/user/login', {  
+              identifier: email,
+              password: pass
+              })
+              .then(function (response) {
+                if(response){
+                  console.log('isLoggedIn');
+                }
+                else{
+                  setError(true);
+                }
+              })
+              }
+              else{
+                setError(true);
+              }
             }}
           />
         </form>
@@ -56,7 +119,6 @@ export default function Login(props) {
               fontSize: '3.5vw',
             }}
           >
-            {' '}
             Register
           </Link>
           <Link
@@ -67,7 +129,6 @@ export default function Login(props) {
               fontSize: '3.5vw',
             }}
           >
-            {' '}
             Forget Password
           </Link>
         </div>
