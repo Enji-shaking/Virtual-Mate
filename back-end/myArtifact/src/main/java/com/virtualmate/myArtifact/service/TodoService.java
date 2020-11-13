@@ -20,7 +20,7 @@ public class TodoService {
 	private final UserDao userDao;
 	private final CardDao cardDao;
 	@Autowired
-    public TodoService(@Qualifier("dummyDaoUser") UserDao userDao, @Qualifier("dummyDaoCard") CardDao cardDao) {
+    public TodoService(@Qualifier("FbDaoUser") UserDao userDao, @Qualifier("FbDaoCard") CardDao cardDao) {
     	this.userDao = userDao;
     	this.cardDao = cardDao;
     }
