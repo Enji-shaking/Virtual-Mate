@@ -8,6 +8,7 @@ import com.virtualmate.myArtifact.model.Tag;
 import com.virtualmate.myArtifact.model.User;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,5 +60,11 @@ public class CardService {
             users.add(userDao.getUserById(s));
         }
         return users;
+    }
+    public List<Card> getAllCards(){
+        return cardDao.getCardList();
+    }
+    public Tag getTagById(String tagId){
+        return tagDao.getTagById(tagId);
     }
 }
