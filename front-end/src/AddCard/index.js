@@ -148,7 +148,7 @@ export default function AddCard(props) {
         <div style={{ fontSize: '2.5vw' }}>
           {' '}
           Note:<br></br> Card Name has to be within 15 charaters; Tags shall be
-          entered seperated by ',' no white space after comma
+          entered seperated by ',' no white space after comma, and the characters shall be within 35 (excluding comma)
         </div>
       </div>
     </FixedContainer>

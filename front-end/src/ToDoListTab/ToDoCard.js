@@ -92,6 +92,7 @@ export default function ToDoCard(props) {
             wordWrap: 'break-word',
             margin: '0.5vw 0vw 1.8vw 0vw ',
             fontSize: '3vw',
+            textAlign: 'center',
           }}
         >
           {tags.map((tag) => tag+' ')}

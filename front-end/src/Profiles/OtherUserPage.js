@@ -35,7 +35,7 @@ export default function OtherUserPage(props) {
   const curr=null;
   const pass=null;
 
-  const [result, setResult]=useState(0);
+  const [result, setResult]=useState(2);
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
