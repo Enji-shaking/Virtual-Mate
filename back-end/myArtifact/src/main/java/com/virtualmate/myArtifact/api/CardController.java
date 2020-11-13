@@ -71,7 +71,7 @@ public class CardController {
     */
     @GetMapping("list")
     public List<Card> getCardsByTag(@JsonProperty("tagName") String tagName){
-        return cardService.getCardsByTag("tagName");
+        return cardService.getCardsByTag(tagName);
         // To service guy, go get the Tag object first, then grab the "relatedCardsId" arraylist and then grab all the related cards in a loop
     }
 

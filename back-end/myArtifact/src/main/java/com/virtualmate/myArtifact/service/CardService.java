@@ -46,8 +46,12 @@ public class CardService {
         return card;
     }
     public List<Card> getCardsByTag(String tagName){
-        List<String> cardId = tagDao.getTagByName(tagName).getRelatedCardsId();
+        Tag tag = tagDao.getTagByName(tagName);
         List<Card> cards = new ArrayList<Card>();
+        if(tag == null){
+            return cards;
+        }
+        List<String> cardId = tag.getRelatedCardsId();
         for(String s:cardId){
             cards.add(cardDao.getCardById(s));
         }

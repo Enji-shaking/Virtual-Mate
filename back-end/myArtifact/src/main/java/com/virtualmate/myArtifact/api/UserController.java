@@ -17,14 +17,7 @@ import com.virtualmate.myArtifact.submodel.UserCredentials;
 public class UserController {
 	
 	public final UserService userService;
-	// public static class UserCredentials{
-	// 	public UUID userId;
-	// 	public String password;
-	// 	public UserCredentials(@JsonProperty("userId") String userIdTemp, @JsonProperty("password") String password) {
-	// 		this.userId = java.util.UUID.fromString(userIdTemp);
-    //         this.password = password;
-    //     }
-	// }
+
 	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
@@ -36,6 +29,7 @@ public class UserController {
 	}
 	@PostMapping("login")
 	public boolean loginUser(@RequestBody UserCredentials userCredentials) {
+		// return true;
 		return userService.loginUser(userCredentials.getUserId(), userCredentials.getPassword());
 
 	}
@@ -104,6 +98,7 @@ public class UserController {
 	public List<User> getAllUsers() throws Exception{
 		return userService.getAllUsers();
 	}
+
 
 
 }

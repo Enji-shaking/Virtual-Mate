@@ -52,6 +52,7 @@ public class UserService {
 			return false;
 		}
 		//login if password is true
+		String x = user.getPassword();
 		if(user.getPassword().equals(password)){
 			user.setOnline(true);
 			userDao.setUser(user);
