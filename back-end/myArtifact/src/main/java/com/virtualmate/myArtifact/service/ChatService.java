@@ -21,8 +21,8 @@ public class ChatService {
 	private final UserDao userDao;
 
 	@Autowired
-    public ChatService(@Qualifier("FbDaoUser") UserDao userDao, 
-    					@Qualifier("FbDaoChat") ChatDao chatDao) {
+    public ChatService(@Qualifier("fbDaoUser") UserDao userDao, 
+    					@Qualifier("fbDaoChat") ChatDao chatDao) {
 		this.chatDao = chatDao;
 		this.userDao = userDao;       
     }

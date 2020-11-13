@@ -19,7 +19,7 @@ public class CardService {
     private final CardDao cardDao;
     private final UserDao userDao;
     private final TagDao tagDao;
-    public CardService(@Qualifier("FbDaoCard") CardDao cardDao, @Qualifier("FbDaoUser") UserDao userDao, @Qualifier("FbDaoTag") TagDao tagDao) {
+    public CardService(@Qualifier("fbDaoCard") CardDao cardDao, @Qualifier("fbDaoUser") UserDao userDao, @Qualifier("fbDaoTag") TagDao tagDao) {
         this.cardDao = cardDao;
         this.userDao = userDao;
         this.tagDao = tagDao;
