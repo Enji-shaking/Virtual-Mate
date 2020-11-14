@@ -57,9 +57,9 @@ export default function CardView(props) {
             {avatars.map((avatar) => {
               return (
                 <Link
-                  to={`/User/${
+                  to={avatar.userId!=user?`/User/${
                     avatar.userId ? avatar.userId : avatar.toString()
-                  }`}
+                  }`:'/Profile'}
                   key={avatar.userId ? avatar.userId : avatar.toString()}
                 >
                   <Avatar

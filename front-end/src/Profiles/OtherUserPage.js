@@ -21,32 +21,31 @@ const useStyles = makeStyles({
 export default function OtherUserPage(props) {
   const history=useHistory();
   let id = props.match.params.id;
-  const [user, setOther] = useState([ { Username: 'tester', Userid: 'testUser', Avatar: '/logo.png',footPrint:[],Album:[] }]);
+  let user='f9396883-8b6b-449f-97db-4ce4929b97fe';
+  let pass = '123456';
+  const [profile, setOther] = useState();
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        `http://localhost:8080/api/user/${id}`,
+        `http://localhost:8080/api/user/${id}`,{params:{"userId":user}}
       );
       setOther(result.data);
     };
     fetchData();
   }, []);
-  
-  const curr=null;
-  const pass=null;
 
   const [result, setResult]=useState(2);
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        `http://localhost:8080/api/chat/canchat`,{params:{userId: curr,
-        userHashedPass: pass,
-        userId_other: id
+        `http://localhost:8080/api/chat/canchat`,{params:{"userId":user,
+        "password": pass,
+        "userId_other": id
         }}
       );
       setResult(result.data);
     };
-    fetchData();
+    if(id!=user)fetchData();
   }, []);
 
   function requestButton(){
@@ -80,14 +79,19 @@ export default function OtherUserPage(props) {
 
   }
  
-  const activities = [
-    { pic: '/logo192.png', date: '2000-08-10', id: '1' },
-    { pic: '/logo192.png', date: '2000-08-10', id: '2' },
-    { pic: '/logo192.png', date: '2000-08-10', id: '3' },
-    { pic: '/logo192.png', date: '2000-08-10', id: '4' },
-    { pic: '/logo192.png', date: '2000-08-10', id: '5' },
-    { pic: '/logo192.png', date: '2000-08-10', id: '6' },
-  ];
+  const [activities,setactivity]=useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get(
+        'http://localhost:8080/api/user/cards',{params:{"userId":user,"userId_other":id
+        }}
+      );
+      console.log(result);
+      setactivity(result.data);
+    };
+    if(id!=user)fetchData();
+  }, []);
+
 
   let img =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSeKZbcVtvtJKKvj5jnN11zgX82gll4TsnmFg&usqp=CAU';
@@ -107,9 +111,9 @@ export default function OtherUserPage(props) {
           src={img}
           style={{ width: '17vw', height: '17vw', margin: '1.5vh' }}
         ></Avatar>
-        {id.toString() + "'s page"}
+        {profile&&profile.userName?profile.userName+ "'s page":''}
         <div style={{ width: '85vw', marginTop: '5vh' }}>
-          {id.toString() + "'s Album"}
+          {profile&&profile.userName?profile.userName:'' + "'s Album"}
           <Album />
         </div>
         <div>
