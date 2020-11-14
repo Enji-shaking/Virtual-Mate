@@ -39,11 +39,28 @@ export default function GalleryCard(props) {
 
   let cardName=props.cardName?props.cardName:'Title';
   let id=props.id?props.id:'2';
-  let tags=props.tags?props.tags:['#tag1 #tag2 #tag3 #tag4 #tag5 #tag6'];
+  let tagIds=props.tags?props.tags:[];
   let url=props.url?props.url:'/logo192.png';
+
+  let user='f3e2a8b4-e95e-45f2-a94e-f88833f07383';
+  let pass = '123456';
+ 
+  const [tags,setTag]=useState([]);
+
+  let request =[]
+  tagIds.forEach(element => {
+    request.push(axios.get(`http://localhost:8080/api/card/tag/${element}`));
+  });
   
-  let user=null;
-  let pass = null;
+  useEffect(() => {
+    const fetchData = async function() {
+        const response = await axios.all(request);     
+        setTag(response);
+    };  
+      fetchData();
+  }, []);
+
+
 
   return (
     <Link
@@ -66,7 +83,7 @@ export default function GalleryCard(props) {
             textAlign: 'center',
           }}
         >
-          {tags.map((tag)=>tag+' ')}
+          {tags.map((tag)=>tag.data.tagName+' ')}
         </div>
         <Button
           className={classes.root}
@@ -75,11 +92,12 @@ export default function GalleryCard(props) {
             e.preventDefault();
             if(props.canAdd){
               axios.post('http://localhost:8080/api/user/todo/add', {
-                cardId:id,
-                userId:user,
-                userHashedPass: pass
+                "cardId":id,
+                "userCred":{"userId":user,
+                "password": pass}
               })
               .then(function (response) {
+                console.log(response);
                 history.push('/ToDoList');
               })
               .catch(function(error){

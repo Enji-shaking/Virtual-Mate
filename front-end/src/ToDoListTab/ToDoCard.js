@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { Button, IconButton, ButtonBase } from '@material-ui/core';
 import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 import AssignmentTurnedInOutlinedIcon from '@material-ui/icons/AssignmentTurnedInOutlined';
@@ -27,10 +27,26 @@ export default function ToDoCard(props) {
 
   let cardName = props.cardName ? props.cardName : 'Title';
   let id = props.id ? props.id : '1';
-  let tags = props.tags ? props.tags : ['#tag1 #tag2 #tag3 #tag4 #tag5 #tag6'];
+  let tagIds = props.tags ? props.tags : [];
   let url = props.url ? props.url : '/logo192.png';
-  let userId = null;
-  let pass = null;
+
+  let user='f3e2a8b4-e95e-45f2-a94e-f88833f07383';
+  let pass = '123456';
+
+  const [tags,setTag]=useState([]);
+
+  let request =[]
+  tagIds.forEach(element => {
+    request.push(axios.get(`http://localhost:8080/api/card/tag/${element}`));
+  });
+  
+  useEffect(() => {
+    const fetchData = async function() {
+        const response = await axios.all(request);     
+        setTag(response);
+    };  
+      fetchData();
+  }, []);
 
   const [Delete, setDelete] = React.useState(null);
   const [Complete, setComplete] = React.useState(null);
@@ -51,10 +67,9 @@ export default function ToDoCard(props) {
   function deleteTodo() {
     axios
       .post('http://localhost:8080/api/user/todo/remove', {
-        cardId: id,
-        userId: userId,
-        userHashedPass: pass
-      })
+        cardId:id,
+        userCred:{"userId":user,
+          "password": pass}})
       .then((response) => {
         if (!response) {
           alert('something is wrong');
@@ -65,9 +80,8 @@ export default function ToDoCard(props) {
   function complete(){
     axios.post('http://localhost:8080/api/user/todo/mark',{
       cardId:id,
-      userId: userId,
-      userHashedPass: pass
-    }).then((response)=>{
+      userCred:{"userId":user,
+        "password": pass}}).then((response)=>{
       if(!response){
         alert('something is wrong');
       }
@@ -95,7 +109,7 @@ export default function ToDoCard(props) {
             textAlign: 'center',
           }}
         >
-          {tags.map((tag) => tag+' ')}
+          {tags.map((tag)=>tag.data.tagName+' ')}
         </div>
         <div
           style={{

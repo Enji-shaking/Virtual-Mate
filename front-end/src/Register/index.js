@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import FixedContainer from '../FixedContainer';
 import axios from 'axios';
-import { Autorenew } from '@material-ui/icons';
+import {useHistory} from 'react-router-dom';
 
 export default function Register(props) {
   const middle = {
@@ -25,7 +25,7 @@ export default function Register(props) {
   const [user, setUser] = useState('Username');
   const [pass, setPass] = useState('Password');
   const [error, setError] = useState(false);
-
+  const history=useHistory();
   return (
     <FixedContainer displayType="return">
       <div
@@ -111,14 +111,12 @@ export default function Register(props) {
                 user != 'Username'
               ) {
                 axios
-                  .post('http://localhost:8080/api/user/register', {
-                    userName: user,
-                    userHashedPass: pass,
-                    email: email,
-                  })
+                  .post('http://localhost:8080/api/user/register', {"userName": user,
+                  "password":pass,
+                  "email": email,})
                   .then(function (response) {
-                    if (response) {
-                      console.log('isRegistered');
+                    if (response.data) {
+                      history.push('/logIn');
                     } else {
                       setError(true);
                     }

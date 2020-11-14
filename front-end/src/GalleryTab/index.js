@@ -23,26 +23,31 @@ export default function GalleryTab(props) {
       fetchData();
     }, []);
 
-    
     const [currentTodo, setCurrent] = useState([{cardId:'tester',cardName:'testCard',
     cardImage:'/logo.png',
     cardTags:['#test1','#test2']
     }]);
+
+    let user='f3e2a8b4-e95e-45f2-a94e-f88833f07383';
+    let pass = '123456';
+
     useEffect(() => {
       const fetchData = async () => {
-        const result = await axios(
-          'http://localhost:8080/api/user/todo/list',
+        const result = await axios.get(
+          'http://localhost:8080/api/user/todo/list',{params:{"userId":user,
+          "password": pass}}
         );
+        // console.log(result);
         setCurrent(result.data);
       };
-      fetchData();
+      if(user&&pass)fetchData();
     }, []);
-   
+  
     
     let todo=new Set();
-    for(let i=0;i<currentTodo.length;i++){
-      todo.add(currentTodo[i].cardId);
-    }
+    // for(let i=0;i<currentTodo.length;i++){
+    //   todo.add(currentTodo[i].cardId);
+    // }
   
     function add(id){
       if (todo.has(id)){
@@ -89,8 +94,7 @@ export default function GalleryTab(props) {
       };
       fetchData();
     }, []);
-
-    console.log(search);
+    
     return search;
   }
 
@@ -119,7 +123,7 @@ export default function GalleryTab(props) {
         <GalleryCard canAdd={false} />
         <GalleryCard canAdd={true} />
         {
-          data.map((card)=><GalleryCard canAdd={add(card.cardId)} key={card.cardId} id={card.cardId} url={card.cardImage} tags={card.cardTags} cardName={card.cardName}/> )
+          data.map((card)=><GalleryCard canAdd={add(card.cardId)} key={card.cardId} id={card.cardId} url={card.activityImageId} tags={card.relatedTagsId} cardName={card.activityName}/> )
         }
       </div>
     </FixedContainer>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import FixedContainer from '../FixedContainer';
-import Input from './Input.js';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -18,9 +17,9 @@ export default function Login(props) {
     textAlign: 'center',
     border: 'none',
   };
-  const[email,setEmail]=useState("Username/Email");
-  const [pass,setPass]=useState("Password");
-  const [error,setError]=useState(false);
+  const [email, setEmail] = useState('Username/Email');
+  const [pass, setPass] = useState('Password');
+  const [error, setError] = useState(false);
   return (
     <FixedContainer>
       <div
@@ -43,13 +42,11 @@ export default function Login(props) {
             style={inputSize}
             id="username"
             onClick={() => {
-              if (
-                email === "Username/Email"
-              ) {
+              if (email === 'Username/Email') {
                 setEmail('');
               }
             }}
-            onChange={(e)=>setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <input
@@ -59,15 +56,21 @@ export default function Login(props) {
             style={inputSize}
             id="password"
             onClick={() => {
-              if (
-                pass === "Password"
-              ) {
+              if (pass === 'Password') {
                 setPass('');
               }
             }}
-            onChange={(e)=>setPass(e.target.value)}
+            onChange={(e) => setPass(e.target.value)}
           />
-          <div style={error?{color:'red',textAlign:'center'}:{visibility:'hidden'}}>Invalid Password or Username</div>
+          <div
+            style={
+              error
+                ? { color: 'red', textAlign: 'center' }
+                : { visibility: 'hidden' }
+            }
+          >
+            Invalid Password or Username
+          </div>
 
           <input
             type="submit"
@@ -81,23 +84,23 @@ export default function Login(props) {
               width: '28vw',
               height: '4vh',
             }}
-            onClick={(e)=>{
+            onClick={(e) => {
               e.preventDefault();
-              if(email !== "Username/Email" && pass !== "Password"){
-                axios.post('http://localhost:8080/api/user/login', {  
-              identifier: email,
-              password: pass
-              })
-              .then(function (response) {
-                if(response){
-                  console.log('isLoggedIn');
-                }
-                else{
-                  setError(true);
-                }
-              })
-              }
-              else{
+              if (email !== 'Username/Email' && pass !== 'Password') {
+                axios
+                  .post('http://localhost:8080/api/user/login', {
+                    userId: email,
+                    password: pass,
+                  })
+                  .then(function (response) {
+                    console.log(response);
+                    if (response.data) {
+                      console.log('isLoggedIn');
+                    } else {
+                      setError(true);
+                    }
+                  });
+              } else {
                 setError(true);
               }
             }}

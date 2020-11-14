@@ -66,12 +66,24 @@ export default function AddCard(props) {
       setError(true);
       return;
     }
-    axios.post('http://localhost:8080/api/cards/create', {
-      cardName: name,
-      Tags: tags,
-      Image: img,
-    });
-    history.push('/');
+    const userId='f3e2a8b4-e95e-45f2-a94e-f88833f07383';
+    const password='123456'
+    
+    const photoFormData = JSON.stringify(
+      {userCred:{userId:userId,password:password},card:{"cardName":name},
+    "tags": {tags}});
+    console.log(photoFormData);
+
+    // axios({
+    //   method: "POST",
+    //   url: 'http://localhost:8080/api/cards/create',
+    //   data: photoFormData,
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data; boundary=${form._boundary}'
+    //   }
+    // });
+
+    // history.push('/');
   }
   const [img, changeImg] = useState(null);
   function handleChange(e) {
