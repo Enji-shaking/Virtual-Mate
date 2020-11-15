@@ -89,8 +89,8 @@ export default function Login(props) {
               if (email !== 'Username/Email' && pass !== 'Password') {
                 axios
                   .post('http://localhost:8080/api/user/login', {
-                    userId: email,
-                    password: pass,
+                    "userId": email,
+                    "password": pass,
                   })
                   .then(function (response) {
                     console.log(response);
@@ -99,7 +99,9 @@ export default function Login(props) {
                     } else {
                       setError(true);
                     }
-                  });
+                  }).catch(function(error){
+                    setError(true);
+                  })
               } else {
                 setError(true);
               }

@@ -26,6 +26,7 @@ export default function Register(props) {
   const [pass, setPass] = useState('Password');
   const [error, setError] = useState(false);
   const history=useHistory();
+  
   return (
     <FixedContainer displayType="return">
       <div

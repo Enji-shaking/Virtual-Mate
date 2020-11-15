@@ -19,6 +19,14 @@ export default function CardView(props) {
     fetchData();
   }, []);
 
+  let set=new Set();
+  // let list =[];
+  // avatars.forEach((avatar)=>{
+  //   if(!set.has(avatar.userId)){
+  //     list.push(Avatar);
+  //     set.add(avatar.userId);
+  //   }  
+  // })
  
   let user='f3e2a8b4-e95e-45f2-a94e-f88833f07383';
   let pass = '123456';
@@ -31,6 +39,8 @@ export default function CardView(props) {
       break;
     }
   };
+
+
 
   return (
     <FixedContainer>
@@ -55,7 +65,10 @@ export default function CardView(props) {
             style={{ display: 'flex', flexWrap: 'wrap' }}
           >
             {avatars.map((avatar) => {
-              return (
+          
+              if(!set.has(avatar.userId)){
+              set.add(avatar.userId);
+              return(
                 <Link
                   to={avatar.userId!=user?`/User/${
                     avatar.userId ? avatar.userId : avatar.toString()
@@ -68,7 +81,8 @@ export default function CardView(props) {
                     style={{ width: '20vw', height: '20vw', margin: '5vw' }}
                   ></Avatar>
                 </Link>
-              );
+              );}
+             
             })}
             
           </div>

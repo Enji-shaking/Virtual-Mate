@@ -7,17 +7,20 @@ import FootPrint from './FootPrint';
 import axios from 'axios';
 export default function ProfilePage(props) {
   
-   let id=null;
-    const [user, setOther] = useState( { Username: 'tester', Userid: 'testUser', Avatar: '/logo.png',footPrint:[],Album:[] });
-    useEffect(() => {
-      const fetchData = async () => {
-        const result = await axios(
-          `http://localhost:8080/api/user/${id}`,
-        );
-        setOther(result.data);
-      };
-      fetchData();
-    }, []);
+  let user='f9396883-8b6b-449f-97db-4ce4929b97fe';
+  let pass = '123456';
+  const [profile, setOther] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get(
+        'http://localhost:8080/api/user/'+user,
+      );
+      console.log(result);
+      setOther(result.data);
+    };
+    fetchData();
+  }, []);
+
   const activities = [
     { pic: 'logo192.png', date: '2000-08-10', id: '1' },
     { pic: 'logo192.png', date: '2000-08-10', id: '2' },
