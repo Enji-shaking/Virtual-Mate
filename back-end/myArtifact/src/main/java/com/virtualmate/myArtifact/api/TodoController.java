@@ -8,17 +8,19 @@ import com.virtualmate.myArtifact.model.Card;
 import com.virtualmate.myArtifact.model.User;
 import com.virtualmate.myArtifact.service.TodoService;
 import com.virtualmate.myArtifact.submodel.UserCredentials;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("api/user/todo")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class TodoController {
 	private final TodoService todoService;
@@ -30,8 +32,8 @@ public class TodoController {
     
     
     @GetMapping("list")
-    public List<Card> getTodoList(@RequestBody UserCredentials userCredentials){
-        return todoService.getTodoList(userCredentials.getUserId(), userCredentials.getPassword());
+    public List<Card> getTodoList(@RequestParam String userId, String password ){
+        return todoService.getTodoList(java.util.UUID.fromString(userId),password);
     }
 
     public static class TargetItemWrapper{
@@ -56,7 +58,7 @@ public class TodoController {
         
     }
 
-    @DeleteMapping("remove")
+    @PostMapping("remove")
     public boolean removeTodoItem(@RequestBody TargetItemWrapper wrapper){
         return todoService.removeTodoItem(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.cardId);
     }

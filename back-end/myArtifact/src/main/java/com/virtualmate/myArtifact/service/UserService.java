@@ -122,7 +122,7 @@ public class UserService {
 		return cards;
 	}
 	
-	public User getInfoUserOther(UUID user, UUID other){
+	public User getInfoUserOther(UUID other){
 		User o = userDao.getUserById(other.toString());
 		return o;
 	}

@@ -13,6 +13,7 @@ import com.virtualmate.myArtifact.service.UserService;
 import com.virtualmate.myArtifact.submodel.UserCredentials;
 
 @RequestMapping("api/user")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class UserController {
 	
@@ -83,14 +84,14 @@ public class UserController {
 	}
 	
 	//the front end call both the functions below and process the info himself
-	@GetMapping("{userId_other}/cards")
-	public List<Card> getSharedCardsOther(@RequestBody UserCredentials userCredentials, @PathVariable String userId_other) {
-		return userService.getSharedCardsOther(userCredentials.getUserId(), java.util.UUID.fromString(userId_other));
+	@GetMapping("cards")
+	public List<Card> getSharedCardsOther(@RequestParam String userId, String userId_other) {
+		return userService.getSharedCardsOther(java.util.UUID.fromString(userId), java.util.UUID.fromString(userId_other));
 	}
 
 	@GetMapping("{userId_other}")
-	public User getInfoUserOther(@RequestBody UserCredentials userCredentials, @PathVariable String userId_other) {
-		return userService.getInfoUserOther(userCredentials.getUserId(), java.util.UUID.fromString(userId_other));
+	public User getInfoUserOther(@PathVariable String userId_other) {
+		return userService.getInfoUserOther(java.util.UUID.fromString(userId_other));
 	}
 	
 	

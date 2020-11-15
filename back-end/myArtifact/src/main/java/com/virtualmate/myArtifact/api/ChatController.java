@@ -10,6 +10,7 @@ import com.virtualmate.myArtifact.service.UserService;
 import com.virtualmate.myArtifact.submodel.UserCredentials;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("api/chat")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class ChatController {
     private final ChatService chatService;
@@ -46,10 +48,10 @@ public class ChatController {
 		}
 	*/
     @GetMapping("canchat")
-	public int CheckConnectionWith(@RequestBody withOtherWrapper wrapper) {
+	public int CheckConnectionWith(@RequestParam String userId, String password,String userId_other) {
 		// return null;
-        return chatService.getInfoUserOther(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(),
-        wrapper.userId_other);
+        return chatService.getInfoUserOther(java.util.UUID.fromString(userId), password,
+        		userId_other);
     }
     
     @PostMapping("request")
@@ -59,13 +61,13 @@ public class ChatController {
     }
     
     @GetMapping("list")
-	public List<Chat> getChatList(@RequestBody UserCredentials userCredentials) {
-        return chatService.getChatList(userCredentials.getUserId(), userCredentials.getPassword());
+	public List<Chat> getChatList(@RequestParam String userId, String password) {
+        return chatService.getChatList(java.util.UUID.fromString(userId), password);
     }
 
     @GetMapping("request")
-	public List<User> getChatRequest(@RequestBody UserCredentials userCredentials) {
-        return chatService.getChatRequest(userCredentials.getUserId(), userCredentials.getPassword());
+	public List<User> getChatRequest(@RequestParam String userId, String password) {
+        return chatService.getChatRequest(java.util.UUID.fromString(userId), password);
     }
 
     //api/chat/acceptance?accepted=1&&requestId=2
