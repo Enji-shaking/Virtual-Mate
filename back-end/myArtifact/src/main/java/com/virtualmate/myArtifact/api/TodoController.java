@@ -32,8 +32,8 @@ public class TodoController {
     
     
     @GetMapping("list")
-    public List<Card> getTodoList(@RequestPara("userId") String userId, @RequestPara("password") String password ){
-        return todoService.getTodoList(java.util.UUID.fromString(userId),password);
+    public List<Card> getTodoList(@RequestParam("userId") String userId, @RequestParam("password") String password ){
+        return todoService.getTodoList(userId,password);
     }
 
     public static class TargetItemWrapper{

@@ -29,7 +29,7 @@ public class UserController {
 		return userService.registerUser(user);
 	}
 	@PostMapping("login")
-	public String loginUser(@RequestBody UserCredentials userCredentials) {
+	public boolean loginUser(@RequestBody UserCredentials userCredentials) {
 		// return true;
 		return userService.loginUser(userCredentials.getUserId(), userCredentials.getPassword());
 
