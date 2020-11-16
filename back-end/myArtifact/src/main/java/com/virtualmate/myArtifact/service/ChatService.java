@@ -27,9 +27,9 @@ public class ChatService {
 		this.userDao = userDao;       
     }
 
-	public int getInfoUserOther(UUID UUID, String password, String userId_other)
+	public int getInfoUserOther(String UUID, String password, String userId_other)
 	{
-		User A = userDao.getUserById(UUID.toString());
+		User A = userDao.getUserById(UUID);
 		User B = userDao.getUserById(userId_other);
 		//validate user credential		
 		if (!validate(UUID, password)) 
@@ -38,9 +38,9 @@ public class ChatService {
 		return A.getFriendStatus().get(B.getUserId());
 	}
 	
-	public boolean requestChat(UUID UUID, String password, String userId_other)
+	public boolean requestChat(String UUID, String password, String userId_other)
 	{
-		User A = userDao.getUserById(UUID.toString());
+		User A = userDao.getUserById(UUID);
 		User B = userDao.getUserById(userId_other);
 		//validate user credential		
 		if (!validate(UUID, password)) 
@@ -53,7 +53,7 @@ public class ChatService {
 		return true;
 	}
 	
-	public List<Chat> getChatList(UUID UUID, String password)
+	public List<Chat> getChatList(String UUID, String password)
 	{
 		//validate user credential		
 		if (!validate(UUID, password)) 
@@ -62,9 +62,9 @@ public class ChatService {
 	}
 	
 	//return a list of requests that user has received
-	public List<User> getChatRequest(UUID UUID, String password)
+	public List<User> getChatRequest(String UUID, String password)
 	{
-		User user = userDao.getUserById(UUID.toString());
+		User user = userDao.getUserById(UUID);
 		List<User> request = new ArrayList<User>();
 		//validate user credential		
 		if (!validate(UUID, password)) 
@@ -77,9 +77,9 @@ public class ChatService {
 		return request;
 	}
 	
-	public boolean acceptRequest(UUID UUID, String password, boolean accepted, String userId_other)
+	public boolean acceptRequest(String UUID, String password, boolean accepted, String userId_other)
 	{
-		User A = userDao.getUserById(UUID.toString());
+		User A = userDao.getUserById(UUID);
 		User B = userDao.getUserById(userId_other);
 		//validate user credential		
 		if (!validate(UUID, password)) 
@@ -89,14 +89,14 @@ public class ChatService {
 		//A accept B's request
 		A.getFriendStatus().replace(B.getUserId(), 5);
 		B.getFriendStatus().replace(A.getUserId(), 5);
-		chatDao.getChatList().add(new Chat(UUID.toString(), userId_other));
+		chatDao.getChatList().add(new Chat(UUID, userId_other));
 		//success
 		return true;
 	}
 
-	public boolean validate(UUID UUID, String password)
+	public boolean validate(String UUID, String password)
 	{
-		if (password.equals(userDao.getUserById(UUID.toString()).getPassword()))
+		if (password.equals(userDao.getUserById(UUID).getPassword()))
 			return true;
 		else
 			return false;
