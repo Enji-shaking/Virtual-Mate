@@ -26,7 +26,7 @@ public class TodoService {
     }
 
 	public List<Card> getTodoList(UUID userId, String password) {
-		User user = userDao.getUserById(userId.toString());
+		User user = userDao.getUserById(userId);
 		//validate user
 		if(user==null){
 			return null;
@@ -44,8 +44,8 @@ public class TodoService {
 		return list;
 	}
 
-	public boolean addTodoItem(UUID userId, String password,String cardId) {
-		User user = userDao.getUserById(userId.toString());
+	public boolean addTodoItem(String userId, String password,String cardId) {
+		User user = userDao.getUserById(userId);
 		//check if user/cardId is valid
 		if(user==null || cardId==null || cardId.isEmpty()){
 			return false;
@@ -57,9 +57,9 @@ public class TodoService {
 		return true;
 	}
 
-	public boolean markTodoItem(UUID userId, String password,String cardId) {
+	public boolean markTodoItem(String userId, String password,String cardId) {
 		//check if user/cardId is valid
-		User user = userDao.getUserById(userId.toString());
+		User user = userDao.getUserById(userId);
 		if(user==null || cardId==null || cardId.isEmpty()){
 			return false;
 		}
@@ -70,14 +70,17 @@ public class TodoService {
 		//add the card's finished users
 		Card card = cardDao.getCardById(cardId);
 		List<String> finishedUserInCard = card.getFinishedUsersId();
-		finishedUserInCard.add(userId.toString());
-		card.setFinishedUsersId(finishedUserInCard);
+		//check if the user has finished before, just one in the users list
+		if(!finishedUserInCard.contains(user.getUserId())){
+			finishedUserInCard.add(userId);
+			card.setFinishedUsersId(finishedUserInCard);
+		}
 		cardDao.setCard(card);
 		return true;
 	}
 
-	public boolean removeTodoItem(UUID userId, String password,String cardId) {
-		User user = userDao.getUserById(userId.toString());
+	public boolean removeTodoItem(String userId, String password,String cardId) {
+		User user = userDao.getUserById(userId);
 		//check if user/cardId is valid
 		if(user==null || cardId==null || cardId.isEmpty()){
 			return false;
