@@ -32,7 +32,7 @@ public class TodoController {
     
     
     @GetMapping("list")
-    public List<Card> getTodoList(@RequestParam String userId, String password ){
+    public List<Card> getTodoList(@RequestPara("userId") String userId, @RequestPara("password") String password ){
         return todoService.getTodoList(java.util.UUID.fromString(userId),password);
     }
 
@@ -45,6 +45,17 @@ public class TodoController {
             this.cardId = cardId;
         }
     }
+
+    /*
+		{
+			"userCred":{
+				"userId": "fe96f7ec-7e8a-431f-9a3c-3298cd55238b",
+				"password": "xxx"
+			},
+			"cardId": "5"
+		}
+    */
+    //I'm really not sure who added @Response body here. I believe it should not be added but if someone else did, I'm not going to touch it. But just add here as a reminder if any bugs happen in the future
     @PostMapping("add")
     public @ResponseBody boolean addTodoItem(@RequestBody TargetItemWrapper wrapper){
         //may need to use @RequestParam("CardId") UUID cardId
@@ -57,7 +68,7 @@ public class TodoController {
         //if completed, set to incompleted. If incompleted, set to completed
         
     }
-
+    //Front end make it "post". Consider remake it delete in the future
     @PostMapping("remove")
     public boolean removeTodoItem(@RequestBody TargetItemWrapper wrapper){
         return todoService.removeTodoItem(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), wrapper.cardId);

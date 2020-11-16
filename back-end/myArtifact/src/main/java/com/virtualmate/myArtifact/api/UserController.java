@@ -29,7 +29,7 @@ public class UserController {
 		return userService.registerUser(user);
 	}
 	@PostMapping("login")
-	public boolean loginUser(@RequestBody UserCredentials userCredentials) {
+	public String loginUser(@RequestBody UserCredentials userCredentials) {
 		// return true;
 		return userService.loginUser(userCredentials.getUserId(), userCredentials.getPassword());
 
@@ -85,7 +85,7 @@ public class UserController {
 	
 	//the front end call both the functions below and process the info himself
 	@GetMapping("cards")
-	public List<Card> getSharedCardsOther(@RequestParam String userId, String userId_other) {
+	public List<Card> getSharedCardsOther(@RequestParam("userId") String userId, @RequestParam("userId_other") String userId_other) {
 		return userService.getSharedCardsOther(java.util.UUID.fromString(userId), java.util.UUID.fromString(userId_other));
 	}
 
