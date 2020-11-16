@@ -45,8 +45,8 @@ public class UserService {
 		//set the user
 		return userDao.setUser(user) == 1;
 	}
-	public boolean loginUser(UUID uuid, String password){
-		User user = userDao.getUserById(uuid.toString());
+	public boolean loginUser(String uuid, String password){
+		User user = userDao.getUserById(uuid);
 		//validate user: 1. if null 2. if online
 		if(user==null || user.isOnline()){
 			return false;
@@ -61,10 +61,10 @@ public class UserService {
 		else
 			return false;
 	}
-	public boolean logoutUser(UUID UUID, String password){
+	public boolean logoutUser(String UUID, String password){
 		//TODO does loginout requires password?
 		//validate user: 1. if null 2. if online
-		User user = userDao.getUserById(UUID.toString());
+		User user = userDao.getUserById(UUID);
 		if(user==null || !user.isOnline()){
 			return false;
 		}
@@ -75,8 +75,8 @@ public class UserService {
 	}
 	
 	//delete the indicated image (by idx) from the album of the indicated user (by UUID)
-	public boolean deleteAlbumAt(UUID UUID, String password, int idx){
-		User user = userDao.getUserById(UUID.toString());
+	public boolean deleteAlbumAt(String UUID, String password, int idx){
+		User user = userDao.getUserById(UUID);
 		//validate user credential		
 		if (!validate(UUID, password)) 
 			return false;
@@ -89,9 +89,9 @@ public class UserService {
 	}
 	
 	//create an image using given imageUrl and put it into this user's album
-	public boolean addAlbum(UUID UUID, String password, String imageUrl)
+	public boolean addAlbum(String UUID, String password, String imageUrl)
 	{
-		User user = userDao.getUserById(UUID.toString());
+		User user = userDao.getUserById(UUID);
 		//validate user credential		
 		if (!validate(UUID, password)) 
 			return false;
@@ -106,10 +106,10 @@ public class UserService {
 	}
 
 	//return the list of cards completed by the other user and is in the list of the current user
-	public List<Card> getSharedCardsOther(UUID user, UUID other){
+	public List<Card> getSharedCardsOther(String user, String other){
 		List<Card> cards = new ArrayList<>();
-		User u = userDao.getUserById(user.toString());
-		User o = userDao.getUserById(other.toString());
+		User u = userDao.getUserById(user);
+		User o = userDao.getUserById(other);
 		/* 	we use integer to represent an card's state in a user's to-do list
 		1,2,3 means to-do, done, done and would like to do again
 		 */
@@ -122,15 +122,15 @@ public class UserService {
 		return cards;
 	}
 	
-	public User getInfoUserOther(UUID other){
-		User o = userDao.getUserById(other.toString());
+	public User getInfoUserOther(String other){
+		User o = userDao.getUserById(other);
 		return o;
 	}
 	
 	
-	public boolean validate(UUID UUID, String password)
+	public boolean validate(String UUID, String password)
 	{
-		if (password.equals(userDao.getUserById(UUID.toString()).getPassword()))
+		if (password.equals(userDao.getUserById(UUID).getPassword()))
 			return true;
 		else
 			return false;
