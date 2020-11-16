@@ -58,7 +58,6 @@ public class CardController {
     @PostMapping("create")
     public Card createCard(@RequestBody CardWrapper cardWrapper){
         //The reason I incorporate user credential here is to make sure that only admins could create cards
-
         return cardService.createCard(cardWrapper.userCredentials.getUserId(), cardWrapper.userCredentials.getPassword(),
             cardWrapper.myCard,
             cardWrapper.tagNames
@@ -85,11 +84,15 @@ public class CardController {
         // To service guy, grab the card object first, then iterate the "finishedUsersId"
     }
 
+    /************************** */
+    //TODO: added a new api
     @GetMapping("{cardId}")
     public Card getCardById(@PathVariable String cardId){
         return cardService.getCardById(cardId);
         // To service guy, grab the card object first, then iterate the "finishedUsersId"
     }
+    //**************** */
+
     @GetMapping("all")
     public List<Card> getAllCards(){
         return cardService.getAllCards();

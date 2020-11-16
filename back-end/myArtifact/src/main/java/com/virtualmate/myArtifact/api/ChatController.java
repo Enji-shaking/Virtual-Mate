@@ -50,7 +50,7 @@ public class ChatController {
     @GetMapping("canchat")
 	public int CheckConnectionWith(@RequestParam("userId") String userId, @RequestParam("password") String password, @RequestParam("userId_other") String userId_other) {
 		// return null;
-        return chatService.getInfoUserOther(java.util.UUID.fromString(userId), password,
+        return chatService.getInfoUserOther(userId, password,
         		userId_other);
     }
     
@@ -62,12 +62,12 @@ public class ChatController {
     
     @GetMapping("list")
 	public List<Chat> getChatList(@RequestParam String userId, String password) {
-        return chatService.getChatList(java.util.UUID.fromString(userId), password);
+        return chatService.getChatList(userId, password);
     }
 
     @GetMapping("request")
 	public List<User> getChatRequest(@RequestParam String userId, String password) {
-        return chatService.getChatRequest(java.util.UUID.fromString(userId), password);
+        return chatService.getChatRequest(userId, password);
     }
 
     //api/chat/acceptance?accepted=1&&requestId=2

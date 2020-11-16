@@ -5,7 +5,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonProperty;
 public class UserCredentials {
 	
-	private UUID userId;
+	private String userId;
 	private String password;
 	
 //	public UserCredentials(UUID userId, String password) {
@@ -16,7 +16,7 @@ public class UserCredentials {
 	
 	public UserCredentials(@JsonProperty("userId") String userIdTemp, 
 						   @JsonProperty("password") String password) {
-		this.userId = java.util.UUID.fromString(userIdTemp);
+		this.userId = userIdTemp;
         this.password = password;
     }
 	
@@ -24,10 +24,10 @@ public class UserCredentials {
 		super();
 	}
 
-	public UUID getUserId() {
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(UUID userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	public String getPassword() {

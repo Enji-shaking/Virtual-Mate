@@ -86,12 +86,12 @@ public class UserController {
 	//the front end call both the functions below and process the info himself
 	@GetMapping("cards")
 	public List<Card> getSharedCardsOther(@RequestParam("userId") String userId, @RequestParam("userId_other") String userId_other) {
-		return userService.getSharedCardsOther(java.util.UUID.fromString(userId), java.util.UUID.fromString(userId_other));
+		return userService.getSharedCardsOther(userId, userId_other);
 	}
 
 	@GetMapping("{userId_other}")
 	public User getInfoUserOther(@PathVariable String userId_other) {
-		return userService.getInfoUserOther(java.util.UUID.fromString(userId_other));
+		return userService.getInfoUserOther(userId_other);
 	}
 	
 	
