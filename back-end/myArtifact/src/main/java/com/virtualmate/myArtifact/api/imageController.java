@@ -2,6 +2,7 @@ package com.virtualmate.myArtifact.api;
 
 import com.virtualmate.myArtifact.model.Image;
 
+import com.virtualmate.myArtifact.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

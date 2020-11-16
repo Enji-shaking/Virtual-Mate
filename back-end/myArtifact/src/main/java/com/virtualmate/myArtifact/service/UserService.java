@@ -38,8 +38,8 @@ public class UserService {
 		return userDao.getUserList();
 	}
 	public boolean registerUser(User user){
-		//validate the user
-		if(user==null){
+		//validate the user 1. if null 2. if already registered
+		if(user==null || userDao.getUserById(user.getUserId())!=null){
 			return false;
 		}
 		//set the user
