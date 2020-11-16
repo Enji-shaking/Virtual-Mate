@@ -61,7 +61,7 @@ public class ChatController {
     }
     
     @GetMapping("list")
-	public List<Chat> getChatList(@RequestParam String userId, String password) {
+	public List<Chat> getChatList(@RequestParam String userId, String   ) {
         return chatService.getChatList(userId, password);
     }
 
@@ -70,10 +70,10 @@ public class ChatController {
         return chatService.getChatRequest(userId, password);
     }
 
-    //api/chat/acceptance?accepted=1&&requestId=2
+    //api/chat/acceptance?accepted=1&&userId_other=2
     @PostMapping("acceptance")
-    public boolean acceptRequest(@RequestBody withOtherWrapper wrapper, @RequestParam("accepted") boolean accepted, @RequestParam("requestId") String requestId){
-        return chatService.acceptRequest(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), accepted, requestId);
+    public boolean acceptRequest(@RequestBody withOtherWrapper wrapper, @RequestParam("accepted") boolean accepted, @RequestParam("userId_other") String userId_other){
+        return chatService.acceptRequest(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), accepted, userId_other);
     }
 
 }

@@ -28,7 +28,7 @@ public class imageController {
     */
     @PostMapping("create")
     public Image createImage(@RequestBody Image image){
-        imageService.addImage(image)l
+        imageService.addImage(image);
         return image;
     }
 
