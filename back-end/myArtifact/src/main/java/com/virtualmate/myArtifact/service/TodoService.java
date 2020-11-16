@@ -25,7 +25,7 @@ public class TodoService {
     	this.cardDao = cardDao;
     }
 
-	public List<Card> getTodoList(UUID userId, String password) {
+	public List<Card> getTodoList(String userId, String password) {
 		User user = userDao.getUserById(userId);
 		//validate user
 		if(user==null){
