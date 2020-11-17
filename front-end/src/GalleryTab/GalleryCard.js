@@ -58,7 +58,7 @@ export default function GalleryCard(props) {
         setTag(response);
     };  
       fetchData();
-  }, []);
+  }, [props.tags]);
 
 
 

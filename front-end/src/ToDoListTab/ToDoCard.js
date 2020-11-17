@@ -25,6 +25,7 @@ export default function ToDoCard(props) {
     position: 'center',
   };
 
+
   let cardName = props.cardName ? props.cardName : 'Title';
   let id = props.id ? props.id : '1';
   let tagIds = props.tags ? props.tags : [];
@@ -45,8 +46,10 @@ export default function ToDoCard(props) {
         const response = await axios.all(request);     
         setTag(response);
     };  
+    
       fetchData();
-  }, []);
+  }, [tagIds]);
+
 
   const [Delete, setDelete] = React.useState(null);
   const [Complete, setComplete] = React.useState(null);
