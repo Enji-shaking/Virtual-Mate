@@ -16,7 +16,7 @@ public class ImageService {
         return imageDao.getImageById(imageId);
     }
     public Image addImage(Image image){
-        if(image==null) return null;
+        if(image==null||image.getImageId().isEmpty()||image.getImageUrl().isEmpty()) return null;
         if(imageDao.setImage(image)==1){
             return image;
         }

@@ -30,9 +30,7 @@ public class UserController {
 	}
 	@PostMapping("login")
 	public boolean loginUser(@RequestBody UserCredentials userCredentials) {
-		// return true;
 		return userService.loginUser(userCredentials.getUserId(), userCredentials.getPassword());
-
 	}
 	@PostMapping("logout")
 	public boolean logoutUser(@RequestBody UserCredentials userCredentials) {
