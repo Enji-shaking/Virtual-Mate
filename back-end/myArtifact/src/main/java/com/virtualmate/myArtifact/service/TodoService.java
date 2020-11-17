@@ -27,7 +27,7 @@ public class TodoService {
 
 	public List<Card> getTodoList(String userId, String password) {
 		User user = userDao.getUserById(userId);
-		//validate users
+		//validate user
 		if(user==null){
 			return null;
 		}
@@ -38,7 +38,7 @@ public class TodoService {
 		for (Map.Entry<String, Integer> entry : map.entrySet()) {
 			//check the card's status, if it is to do card, add to the list
 			if(entry.getValue()==1){
-				list.add(cardDao.getCardById(entry.getKey()));
+				list.add(cardDao.getCardByName(entry.getKey()));
 			}
 		}
 		return list;
