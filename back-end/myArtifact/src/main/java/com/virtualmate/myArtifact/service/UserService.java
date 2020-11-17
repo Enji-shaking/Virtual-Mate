@@ -3,7 +3,6 @@ package com.virtualmate.myArtifact.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,7 +38,7 @@ public class UserService {
 	}
 	public boolean registerUser(User user){
 		//validate the user 1. if null 2. if already registered
-		if(user==null || userDao.getUserById(user.getUserId())!=null){
+		if(user==null || userDao.getUserById(user.getUserId())!=null || userDao.getUserByEmail(user.getEmail())!=null){
 			return false;
 		}
 		//set the user
@@ -47,12 +46,13 @@ public class UserService {
 	}
 	public boolean loginUser(String uuid, String password){
 		User user = userDao.getUserById(uuid);
-		//validate user: 1. if null 2. if online
-		if(user==null || user.isOnline()){
-			return false;
+		//validate user: 1. if null
+		if(user==null){
+			user = userDao.getUserByEmail(uuid);
+			if(user==null)
+				return false;
 		}
 		//login if password is true
-		String x = user.getPassword();
 		if(user.getPassword().equals(password)){
 			user.setOnline(true);
 			userDao.setUser(user);
@@ -110,6 +110,8 @@ public class UserService {
 		List<Card> cards = new ArrayList<>();
 		User u = userDao.getUserById(user);
 		User o = userDao.getUserById(other);
+		if (u == null || o == null)
+			return null;
 		/* 	we use integer to represent an card's state in a user's to-do list
 		1,2,3 means to-do, done, done and would like to do again
 		 */

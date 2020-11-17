@@ -31,6 +31,8 @@ public class ChatService {
 	{
 		User A = userDao.getUserById(UUID);
 		User B = userDao.getUserById(userId_other);
+		if (A == null || B == null)
+			return 0;
 		//validate user credential		
 		if (!validate(UUID, password)) 
 			return 0;
@@ -42,6 +44,8 @@ public class ChatService {
 	{
 		User A = userDao.getUserById(UUID);
 		User B = userDao.getUserById(userId_other);
+		if (A == null || B == null)
+			return false;
 		//validate user credential		
 		if (!validate(UUID, password)) 
 			return false;
@@ -55,6 +59,8 @@ public class ChatService {
 	
 	public List<Chat> getChatList(String UUID, String password)
 	{
+		if (userDao.getUserById(UUID) == null)
+			return null;
 		//validate user credential		
 		if (!validate(UUID, password)) 
 			return null;
@@ -65,6 +71,8 @@ public class ChatService {
 	public List<User> getChatRequest(String UUID, String password)
 	{
 		User user = userDao.getUserById(UUID);
+		if (user == null)
+			return null;
 		List<User> request = new ArrayList<User>();
 		//validate user credential		
 		if (!validate(UUID, password)) 
@@ -81,6 +89,8 @@ public class ChatService {
 	{
 		User A = userDao.getUserById(UUID);
 		User B = userDao.getUserById(userId_other);
+		if (A == null || B == null)
+			return false;
 		//validate user credential		
 		if (!validate(UUID, password)) 
 			return false;
