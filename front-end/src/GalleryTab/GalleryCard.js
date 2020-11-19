@@ -55,7 +55,7 @@ export default function GalleryCard(props) {
 
   let request =[]
   tagIds.forEach(element => {
-    request.push(axios.get(`http://localhost:8080/api/card/tag/${element}`));
+    request.push(axios.get(`http://bmomark.com:8080/api/card/tag/${element}`));
   });
   
   useEffect(() => {
@@ -111,7 +111,7 @@ export default function GalleryCard(props) {
           onClick={(e) => {
             e.preventDefault();
             if(props.canAdd){
-              axios.post('http://localhost:8080/api/user/todo/add', {
+              axios.post('http://bmomark.com:8080/api/user/todo/add', {
                 "cardId":id,
                 "userCred":{"userId":user,
                 "password": pass}

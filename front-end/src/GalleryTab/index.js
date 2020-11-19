@@ -18,7 +18,7 @@ export default function GalleryTab(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios('http://localhost:8080/api/card/all');
+      const result = await axios('http://bmomark.com:8080/api/card/all');
       setData(result.data);
     };
     fetchData();
@@ -32,7 +32,7 @@ export default function GalleryTab(props) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        'http://localhost:8080/api/user/todo/list',
+        'http://bmomark.com:8080/api/user/todo/list',
         { params: { userId: user, password: pass } }
       );
       setCurrent(result.data);
@@ -88,9 +88,10 @@ export default function GalleryTab(props) {
 
     useEffect(() => {
       const fetchData = async () => {
-        const result = await axios('http://localhost:8080/api/cards/list', {
+        const result = await axios('http://bmomark.com:8080/api/cards/list', {
           params: { tag: searchContent },
         });
+        console.log(result);
         changeR(result.data);
       };
       fetchData();
