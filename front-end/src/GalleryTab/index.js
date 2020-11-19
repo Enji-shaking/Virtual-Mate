@@ -24,7 +24,7 @@ export default function GalleryTab(props) {
     fetchData();
   }, []);
 
-  const [currentTodo, setCurrent] = useState(null);
+  const [currentTodo, setCurrent] = useState([]);
 
   let user = 'f3e2a8b4-e95e-45f2-a94e-f88833f07383';
   let pass = '123456';
@@ -35,16 +35,15 @@ export default function GalleryTab(props) {
         'http://localhost:8080/api/user/todo/list',
         { params: { userId: user, password: pass } }
       );
-      // console.log(result);
       setCurrent(result.data);
     };
     if (user && pass) fetchData();
   }, []);
 
   let todo = new Set();
-  // for(let i=0;i<currentTodo.length;i++){
-  //   todo.add(currentTodo[i].cardId);
-  // }
+  for(let i=0;i<currentTodo.length;i++){
+    todo.add(currentTodo[i].cardId);
+  }
 
   function add(id) {
     if (todo.has(id)) {
@@ -56,7 +55,6 @@ export default function GalleryTab(props) {
   const displayStyle = {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center',
     position: 'relative',
     bottom: '1.2vw',
   };
@@ -132,18 +130,12 @@ export default function GalleryTab(props) {
         }}
       >
         <IconButton style={{ padding: '0' }} href="/AddActivity">
-          {' '}
+          
           <AddBoxIcon style={{ color: '#54BEF5' }}></AddBoxIcon>
         </IconButton>
       </div>
       <div className="cardDisplay" style={displayStyle}>
-        <GalleryCard canAdd={true} />
-        <GalleryCard canAdd={true} />
-        <GalleryCard canAdd={false} />
-        <GalleryCard canAdd={true} />
-        <GalleryCard canAdd={true} />
-        <GalleryCard canAdd={false} />
-        <GalleryCard canAdd={true} />
+      
         {data.map((card) => (
           <GalleryCard
             canAdd={add(card.cardId)}
