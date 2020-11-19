@@ -42,7 +42,7 @@ export default function ToDoListTab(props) {
       <div style={{ display: 'hidden', marginTop: '0.7vw' }}>
         <IconButton style={{ padding: '0' }} href="/AddActivity"></IconButton>
       </div>
-      {/*  */}
+    
 
       <div
         className="display"
