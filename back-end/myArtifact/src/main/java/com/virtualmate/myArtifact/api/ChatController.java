@@ -12,6 +12,7 @@ import com.virtualmate.myArtifact.submodel.UserCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,6 +70,11 @@ public class ChatController {
 	public List<User> getChatRequest(@RequestParam String userId, String password) {
         return chatService.getChatRequest(userId, password);
     }
+
+    @GetMapping("{chatId_other}")
+	public Chat getInfoUserOther(@PathVariable String chatId_other) {
+		return chatService.getChatInfo(chatId_other);
+	}
 
     //api/chat/acceptance?accepted=1&&userId_other=2
     @PostMapping("acceptance")

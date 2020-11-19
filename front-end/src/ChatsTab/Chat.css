@@ -1,0 +1,42 @@
+.messageItemRight{
+    width: 100px;
+    height: auto;
+    background-color: #e8e8e8;
+    align-self: flex-end;
+    margin-right: 20px;
+    margin-top: 10px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 0px;
+    color: #203152;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.messageItemLeft{
+    width: 100px;
+    height: auto;
+    background-color: #203152;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: white;
+}
+
+.viewListMessage{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow-y: scroll;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}

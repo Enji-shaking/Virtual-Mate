@@ -111,4 +111,8 @@ public class ChatService {
 		else
 			return false;
 	}
+
+	public Chat getChatInfo(String chatId_other) {
+		return chatDao.getChatById(chatId_other);
+	}
 }
