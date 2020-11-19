@@ -14,11 +14,12 @@ export default function ToDoListTab(props) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        'http://bmomark.com:8080/api/user/todo/list',
+        'http://localhost:8080/api/user/todo/list',
         { params: { userId: user, password: pass } }
       );
      
       setCurrent(result.data);
+      console.log(result);
     };
     if (user && pass) fetchData();
   }, []);
