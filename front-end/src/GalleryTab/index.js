@@ -29,6 +29,9 @@ export default function GalleryTab(props) {
   let user = 'f3e2a8b4-e95e-45f2-a94e-f88833f07383';
   let pass = '123456';
 
+
+  let todo = new Set();
+  
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
@@ -38,12 +41,11 @@ export default function GalleryTab(props) {
       setCurrent(result.data);
     };
     if (user && pass) fetchData();
+    for(let i=0;i<currentTodo.length;i++){
+      todo.add(currentTodo[i].cardId);
+    }
   }, []);
 
-  let todo = new Set();
-  for(let i=0;i<currentTodo.length;i++){
-    todo.add(currentTodo[i].cardId);
-  }
 
   function add(id) {
     if (todo.has(id)) {
