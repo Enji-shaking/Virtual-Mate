@@ -11,26 +11,22 @@ export default function ChatBoard(props){
 
     
     useEffect(()=>{
+        console.log("useEffect");
+        setIsLoading(true)
         getListHistory()
     },[]);
         
     const [inputValue, setInputValue] = useState("");
     const [listMessage, setlistMessage] = useState([]);
-    // const listMessage = [
-    //     {
-    //         content: "Message 4",
-    //         idFrom: "0f1f08d3-8d63-4148-81e4-1d6e1c267f90",
-    //         idTo: "f3e2a8b4-e95e-45f2-a94e-f88833f07383",
-    //         timestamp: "1605779374781",
-    //         type: 0
-    //     }  
-    // ];
-    const [isLoading, setIsLoading] = useState(false);
+    const [uploadPhoto, setUploadPhoto] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     let listener = null;
     
     //scroll to bottom, which uses ref
 
     const getListHistory = ()=>{
+        setIsLoading(true);
+        console.log("getListHistory");
         console.log(listMessage);
         if(listener){
             listener();
@@ -47,11 +43,11 @@ export default function ChatBoard(props){
                     snapshot.docChanges().forEach(change=>{
                         if(change.type === "added"){
                             listMessage.push(change.doc.data());
+                            console.log("change");
                         }
-                    })
-                    setIsLoading(true);     
+                    })  
                     setIsLoading(false);    
-                    console.log(listMessage);
+                    console.log(listMessage, "on snapshot");
                 },
                 err=>{
                     console.log(err);
@@ -68,8 +64,8 @@ export default function ChatBoard(props){
     }
 
     const onSendMessage = (content, type)=>{
-        //type == 0 means message
-        //type == 1 means image
+        //type === 0 means message
+        //type === 1 means image
         console.log(content);
         if (content.trim() === '') {
             return
@@ -91,7 +87,11 @@ export default function ChatBoard(props){
             .doc(timestamp)
             .set(itemMessage)
             .then(()=>{
+                // setInputValue("1");
                 setInputValue("");
+                if(type==1){
+                    setUploadPhoto(null);
+                }
                 console.log("Success sent a message");
             })
             .catch(err=>{
@@ -100,10 +100,10 @@ export default function ChatBoard(props){
 
     }
     const renderListMessage = ()=>{
-        console.log("rendering messages");
-        console.log(listMessage);
+        // console.log("rendering messages");
+        // console.log(listMessage);
         if(listMessage.length == 0){
-            console.log("opt1");
+            console.log("renderListMessage no message available");
             return (
                 <div className="viewWrapSayHi">
                     <span className="textSayHi">Say hi to new friend</span>
@@ -116,7 +116,7 @@ export default function ChatBoard(props){
             )
         }
         else{
-            console.log("opt2");
+            console.log("renderListMessage YES message available");
             let viewListMessage = []
             listMessage.forEach((item, index) => {
                 if(item.idFrom === props.user){
@@ -124,6 +124,13 @@ export default function ChatBoard(props){
                         viewListMessage.push(
                             <div className="messageItemRight" key={item.timestamp}>
                                 <span className="textContentInMessage">{item.content}</span>
+                            </div>
+                        )
+                    }else if(item.type === 1){
+                        //image
+                        viewListMessage.push(
+                            <div className="messageItemRightWithImage" key={item.timestamp}>
+                                <img className="imageContentInMessageRight" src={item.content} alt="user's photo"></img>
                             </div>
                         )
                     }
@@ -134,10 +141,17 @@ export default function ChatBoard(props){
                                 <span className="textContentInMessage">{item.content}</span>
                             </div>
                         )
+                    }else if(item.type === 1){
+                        //image
+                        viewListMessage.push(
+                            <div className="messageItemLeftWithImage" key={item.timestamp}>
+                                <img className="imageContentInMessageLeft" src={item.content} alt="user's photo"></img>
+                            </div>
+                        )
                     }
                 }
             })
-            console.log(viewListMessage);
+            
             return viewListMessage;
         }
     }
@@ -146,10 +160,50 @@ export default function ChatBoard(props){
     // idTo: "f3e2a8b4-e95e-45f2-a94e-f88833f07383"
     // timestamp: "1605779374781"
     // type: 0  
+    const onChoosePhoto = eve =>{
+        if(eve.target.files && eve.target.files[0]){
+            // console.log(eve.target.files[0]);
+            setUploadPhoto(eve.target.files[0]);
+        }else{
+            console.log("Didn't select an image");
+        }
+    }
+
+    const onUploadingPhoto = ()=>{
+        setIsLoading(true);
+        // console.log(uploadPhoto);
+        document.getElementById("onMessageSendImage").value = "";
+        if(uploadPhoto){
+            const timestamp = moment().valueOf().toString();
+            const uploadFileRef = myStorage
+                                    .ref()
+                                    .child(timestamp)
+                                    .put(uploadPhoto);
+
+            uploadFileRef.on("state_changed",
+                null,
+                err =>{
+                    setIsLoading(false);
+                    console.log("Upload failed: ", err);
+                }, 
+                ()=>{
+                    uploadFileRef.snapshot.ref.getDownloadURL().then(url=>{
+                        setIsLoading(false);
+                        // console.log(url);
+                        onSendMessage(url, 1);
+                    })
+                }
+            )
+        }else{
+            console.log("no image available");
+        }
+
+    }
+
     return(
-        <div>
-            {/* {props.chatId} */}
-            {/* <br></br>
+        <div className="viewChatBoard">
+            {/* {props.chatId}
+            <br></br>
             {props.userOtherId} */}
             <div className="viewListMessage">
                 {renderListMessage()}
@@ -164,18 +218,22 @@ export default function ChatBoard(props){
                 }}
                 onKeyPress={onKeyboardPress}
             />
-
+            <div className="viewBottom">
+                <input type="file" id="onMessageSendImage" name="onMessageSendImage"
+                    accept="image/*" onChange={onChoosePhoto}/>
+                <button onClick = {onUploadingPhoto}>Send file</button>
+            </div>
             {/* Loading */}
             {isLoading ? (
                 <div className="viewLoading">
                     <ReactLoading
                         type={'spin'}
                         color={'#203152'}
-                        height={'3%'}
-                        width={'3%'}
+                        height={'10%'}
+                        width={'10%'}
                     />
                 </div>
-            ) : null}
+                ) : null}
         </div>
     )
 }

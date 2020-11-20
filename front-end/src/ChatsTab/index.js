@@ -4,6 +4,8 @@ import Picture from '../Picture.js';
 import {withRouter} from 'react-router-dom'
 import axios from 'axios';
 import ChatBoard from './ChatBoard'
+import ReactLoading from 'react-loading'
+import './Chat.css'
  
 class ChatsTab extends Component{
   constructor(props){
@@ -15,7 +17,8 @@ class ChatsTab extends Component{
     }
     //would be passed in through props later
     // let currentUserId = props.currentUserId; 
-    this.currentUserId = "f3e2a8b4-e95e-45f2-a94e-f88833f07383";
+    // 8b3fd872-5b1c-4d6d-8853-8b943d925d7e
+    this.currentUserId = "8b3fd872-5b1c-4d6d-8853-8b943d925d7e";
     this.userList = [];
     this.chatList = [];
   }
@@ -77,20 +80,36 @@ class ChatsTab extends Component{
 
     render(){
       return(
-        <FixedContainer>
-          Chats
-          <Picture/>
-          {this.chatList?console.log(this.chatList):console.log('nothing')}
-          {this.userList?console.log(this.userList):console.log('nothing')}
-          {
-            this.state.chattingId
-            ?
-            // <h1>{this.state.chattingId}</h1>
-            <ChatBoard chatId={this.state.chattingId} userOtherId={this.state.chattingOther} user={this.currentUserId}/>
-            :
-            this.renderUserList()
-          }
-        </FixedContainer>
+        <div>
+            {
+              this.state.chattingId
+              ?
+              // <h1>{this.state.chattingId}</h1>
+              <div>
+                <button key={0} className={"BackButton"} onClick={()=>{
+                  this.setState({chattingId: null})
+                }}>Back</button>
+                <ChatBoard chatId={this.state.chattingId} userOtherId={this.state.chattingOther} user={this.currentUserId}/>
+              </div>
+              :
+              <FixedContainer>
+                Chats
+                <Picture/>
+                {this.renderUserList()}
+              </FixedContainer>
+            }
+                {/* Loading */}
+                {this.state.isLoading ? (
+                <div className="viewLoading">
+                    <ReactLoading
+                        type={'spin'}
+                        color={'#203152'}
+                        height={'10%'}
+                        width={'10%'}
+                    />
+                </div>
+            ) : null}
+        </div>
       )
     }
 }
