@@ -70,6 +70,11 @@ public class ChatController {
         return chatService.getChatRequest(userId, password);
     }
 
+    @GetMapping("{chatId_other}")
+	public Chat getChatById(@PathVariable String chatId_other) {
+		return chatService.getChatInfo(chatId_other);
+	}
+
     //api/chat/acceptance?accepted=1&&userId_other=2
     @PostMapping("acceptance")
     public boolean acceptRequest(@RequestBody withOtherWrapper wrapper, @RequestParam("accepted") boolean accepted, @RequestParam("userId_other") String userId_other){
