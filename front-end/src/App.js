@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ProfileTab from "./Profiles/PersonalProfile";
 import ToDoListTab from "./ToDoListTab";
 import ChatsTab from "./ChatsTab";
+import ChatBoard from "./ChatsTab/ChatBoard";
 import GalleryTab from "./GalleryTab";
 import { Switch, Route } from "react-router-dom";
 import AddCard from "./AddCard";
@@ -15,33 +16,22 @@ export default function App(props) {
   return (
     <div className="App">
       <Switch>
-        <Route path="/" exact>
-          <GalleryTab />
+        <Route path="/" exact component={GalleryTab}/>
+        <Route path="/AddActivity" exact component={AddCard}/>
+        <Route path="/Profile" exact component={ProfileTab}/>
+        <Route path="/ToDoList" exact component={ToDoListTab}/>
+        <Route path="/Chats" exact component={ChatsTab}>
+          {/* <Switch>
+            <Route path="/:userName" component={ChatBoard} />
+          </Switch> */}
         </Route>
-        <Route path="/AddActivity" exact>
-          <AddCard />
-        </Route>
-        <Route path="/Profile" exact>
-          <ProfileTab />
-        </Route>
-        <Route path="/ToDoList" exact>
-          <ToDoListTab />
-        </Route>
-        <Route path="/Chats" exact>
-          <ChatsTab />
-        </Route>
+        <Route path="/Chats/:ChatId" component={ChatBoard} />
         <Route path='/ActivityCard/:id' component={CardView} />
         <Route path = '/User/:id' component={OtherUserPage} />
-        <Route path="/Login" exact>
-          <Login />
-        </Route>
-        <Route path="/Register" exact>
-          <Register />
-        </Route>
-        <Route path="/Completed/:id" component={Completed}>
-        </Route>
-        <Route path="/Request/:id" component={Request}>
-        </Route>
+        <Route path="/Login" exact component={Login} />
+        <Route path="/Register" exact component={Register} />
+        <Route path="/Completed/:id" component={Completed} />
+        <Route path="/Request/:id" component={Request} />
       </Switch>
     </div>
   );

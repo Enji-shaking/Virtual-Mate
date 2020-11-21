@@ -31,8 +31,8 @@ public class FbDaoChat implements ChatDao {
 //		if(precedence!=null) {
 //			chat.setChatId(precedence.getChatId());
 //		}
-		
-		ApiFuture<WriteResult> future = db.collection("Chats").document(chat.getChatId()).set(chat);
+		//Enji make it from Chats to myChats for now
+		ApiFuture<WriteResult> future = db.collection("myChats").document(chat.getChatId()).set(chat);
 		
 		try {
 			System.out.println("Update time : " + future.get().getUpdateTime() + chat.toString() + " created!");
@@ -45,7 +45,7 @@ public class FbDaoChat implements ChatDao {
 	@Override
 	public Chat getChatById(String chatId) {
 		Firestore db = dbInitializer.getFirebase();
-		ApiFuture<DocumentSnapshot> future = db.collection("Chats").document(chatId).get();
+		ApiFuture<DocumentSnapshot> future = db.collection("myChats").document(chatId).get();
 		Chat myChat = null;
 		try {
 			myChat = future.get().toObject(Chat.class);
@@ -104,7 +104,7 @@ public class FbDaoChat implements ChatDao {
 		Firestore db = dbInitializer.getFirebase();
 		List<Chat> chatList = new ArrayList<Chat>();
 		
-		ApiFuture<QuerySnapshot> future = db.collection("Chats").get();
+		ApiFuture<QuerySnapshot> future = db.collection("myChats").get();
 		List<QueryDocumentSnapshot> documents = null;
 		try {
 			documents = future.get().getDocuments();
