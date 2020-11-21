@@ -48,7 +48,7 @@ export default function Login(props) {
               axios
                 .post('http://localhost:8080/api/user/logout', {
                   userId: sessionStorage.getItem('id'),
-                  password: sessionStorage.getItem('password'),
+                  password: sessionStorage.getItem('pass'),
                 })
                 .then(function (response) {
                   sessionStorage.clear();

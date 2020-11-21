@@ -40,10 +40,8 @@ export default function GalleryCard(props) {
   let cardName=props.cardName?props.cardName:'Title';
   let id=props.id?props.id:'2';
   let tagIds=props.tags?props.tags:[];
-  // let url = axios.get(`http://bmomark.com:8080/api/image/${props.url}`);
-  // let url=props.url?props.url:'/logo192.png';
-  let user='f3e2a8b4-e95e-45f2-a94e-f88833f07383';
-  let pass = '123456';
+  let user=sessionStorage.getItem('id');
+  let pass = sessionStorage.getItem('pass');
  
   const [tags,setTag]=useState([]);
   const [image, setImage] = useState(
@@ -63,7 +61,8 @@ export default function GalleryCard(props) {
       const result = await axios.get(
         `http://localhost:8080/api/image/${props.url}`
       );
-      setImage(result.data);
+      if(result.data!=="")
+        setImage(result.data);
     };
     fetchData();
   }, [props.url]);
@@ -75,7 +74,7 @@ export default function GalleryCard(props) {
   
     };  
       fetchData();
-  }, [props.tags]);
+  }, [props.tags,props.canAdd]);
 
 
 
@@ -100,7 +99,7 @@ export default function GalleryCard(props) {
             textAlign: 'center',
           }}
         >
-          {tags.map((tag)=>tag.data.tagName+' ')}
+          {tags.map((tag)=>"#"+tag.data.tagName+' ')}
         </div>
         <Button
           className={classes.root}
@@ -127,7 +126,7 @@ export default function GalleryCard(props) {
           }}
         >
           <span style={{ fontSize: '3vw'}}>
-            {props.canAdd ? 'Add To My List' : 'View In My List'}
+            {!props.canAdd ? 'Add To My List' : 'View In My List'}
           </span>
         </Button>
       </div>

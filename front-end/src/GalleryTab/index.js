@@ -7,53 +7,41 @@ import axios from 'axios';
 import GalleryCard from './GalleryCard';
 
 export default function GalleryTab(props) {
-  console.log(sessionStorage.getItem('pass'));
-  const [data, setData] = useState([
-    {
-      cardId: 'tester',
-      cardName: 'test',
-      cardImage: '/logo.png',
-      cardTags: ['#test1', '#test2'],
-    },
-  ]);
+  const [currentTodo, setCurrent] = useState([]);
+
+  let user = sessionStorage.getItem('id');
+  let pass = sessionStorage.getItem('pass');
+
+  const [todo, setTodo] = useState(null);
+
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios('http://bmomark.com:8080/api/card/all');
+      let result = await axios('http://bmomark.com:8080/api/card/all');
       setData(result.data);
+
+      console.log(data);
     };
     fetchData();
   }, []);
+  let tmp=new Set();
 
-  const [currentTodo, setCurrent] = useState([]);
-
-  let user = 'f3e2a8b4-e95e-45f2-a94e-f88833f07383';
-  let pass = '123456';
-
-
-  let todo = new Set();
-  
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(
+      let result = await axios.get(
         'http://bmomark.com:8080/api/user/todo/list',
-        { params: { userId: user, password: pass } }
+        {
+          params: { userId: user, password: pass },
+        }
       );
-      setCurrent(result.data);
+      result.data.forEach((t)=>tmp.add(t.cardId));
+      setTodo(tmp);
     };
-    if (user && pass) fetchData();
-    for(let i=0;i<currentTodo.length;i++){
-      todo.add(currentTodo[i].cardId);
-    }
+    
+    fetchData();
+    
   }, []);
-
-
-  function add(id) {
-    if (todo.has(id)) {
-      return false;
-    }
-    return true;
-  }
 
   const displayStyle = {
     display: 'flex',
@@ -102,7 +90,7 @@ export default function GalleryTab(props) {
     return search;
   }
 
-  return (
+  return todo ? (
     <FixedContainer displayType="logo">
       <div
         style={{
@@ -133,15 +121,13 @@ export default function GalleryTab(props) {
         }}
       >
         <IconButton style={{ padding: '0' }} href="/AddActivity">
-          
           <AddBoxIcon style={{ color: '#54BEF5' }}></AddBoxIcon>
         </IconButton>
       </div>
       <div className="cardDisplay" style={displayStyle}>
-      
         {data.map((card) => (
           <GalleryCard
-            canAdd={add(card.cardId)}
+            canAdd={todo.has(card.cardId)}
             key={card.cardId}
             id={card.cardId}
             url={card.activityImageId}
@@ -151,5 +137,7 @@ export default function GalleryTab(props) {
         ))}
       </div>
     </FixedContainer>
+  ) : (
+    <div></div>
   );
 }

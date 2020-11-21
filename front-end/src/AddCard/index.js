@@ -3,6 +3,8 @@ import FixedContainer from '../FixedContainer';
 import { Box, Button, Icon } from '@material-ui/core';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import ReactLoading from 'react-loading';
+import { myFirestore, myStorage } from '../Config/MyFirebase';
 
 export default function AddCard(props) {
   const history = useHistory();
@@ -45,17 +47,24 @@ export default function AddCard(props) {
     changeImg(null);
   }
   const [error, setError] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   function post() {
     let tags = [];
+
     try {
-      if (tag.trim.length != 0) tags = tag.trim().split(',');
+      if (tag.trim().length != 0) tags = tag.trim().split(',');
     } catch (e) {
       setError(true);
       return;
     }
     let tagLength = 0;
-    tags.forEach((t) => (tagLength += t.length));
+    tags.forEach((t) => {
+      if (t === '') {
+        setError(true);
+        return;
+      }
+      tagLength += t.length;
+    });
 
     if (
       img == null ||
@@ -66,28 +75,47 @@ export default function AddCard(props) {
       setError(true);
       return;
     }
-    const userId='f3e2a8b4-e95e-45f2-a94e-f88833f07383';
-    const password='123456'
-    
-    const photoFormData = JSON.stringify(
-      {userCred:{userId:userId,password:password},card:{"cardName":name},
-    "tags": {tags}});
-    console.log(photoFormData);
 
-    // axios({
-    //   method: "POST",
-    //   url: 'http://localhost:8080/api/cards/create',
-    //   data: photoFormData,
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data; boundary=${form._boundary}'
-    //   }
-    // });
+    setIsLoading(true);
+    myFirestore
+      .collection('Images')
+      .add({})
+      .then((result) => {
+        const uploadFileRef = myStorage.ref().child(result.id).put(img);
+        uploadFileRef.on(
+          'state_changed',
+          null,
+          () => {
+            setIsLoading(false);
+            setError(true);
+          },
+          () => {
+            uploadFileRef.snapshot.ref.getDownloadURL().then((url) => {
+              myFirestore
+                .collection('Images')
+                .doc(result.id)
+                .set({ imageId: result.id, imageUrl: url });
 
-    // history.push('/');
+              axios.post(
+                'http://localhost:8080/api/card/create',
+                {
+                  userCred: {
+                    userId: sessionStorage.getItem('id'),
+                    password: sessionStorage.getItem('pass'),
+                  },
+                  card: { cardName: name, imageId: result.id },
+                  tags: tags
+                }).then(()=> history.push('/')).catch(()=>{setError(true);setIsLoading(false)});
+            });
+          }
+        );
+      })
+      .catch(() => setError(true));
   }
   const [img, changeImg] = useState(null);
+
   function handleChange(e) {
-    changeImg(URL.createObjectURL(e.target.files[0]));
+    changeImg(e.target.files[0]);
   }
   return (
     <FixedContainer displayType="return">
@@ -121,7 +149,10 @@ export default function AddCard(props) {
             }}
           >
             {img ? (
-              <img src={img} style={{ width: '100%', height: '100%' }}></img>
+              <img
+                src={URL.createObjectURL(img)}
+                style={{ width: '100%', height: '100%' }}
+              ></img>
             ) : (
               <input
                 accept="image/*"
@@ -160,9 +191,20 @@ export default function AddCard(props) {
         <div style={{ fontSize: '2.5vw' }}>
           {' '}
           Note:<br></br> Card Name has to be within 15 charaters; Tags shall be
-          entered seperated by ',' no white space after comma, and the characters shall be within 35 (excluding comma)
+          entered seperated by ',' no white space after comma, and the
+          characters shall be within 35 (excluding comma)
         </div>
       </div>
+      {isLoading ? (
+        <div className="viewLoading">
+          <ReactLoading
+            type={'spin'}
+            color={'#203152'}
+            height={'10%'}
+            width={'10%'}
+          />
+        </div>
+      ) : null}
     </FixedContainer>
   );
 }
