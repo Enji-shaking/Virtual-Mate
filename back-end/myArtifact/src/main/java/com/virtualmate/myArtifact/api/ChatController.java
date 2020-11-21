@@ -72,7 +72,7 @@ public class ChatController {
     }
 
     @GetMapping("{chatId_other}")
-	public Chat getInfoUserOther(@PathVariable String chatId_other) {
+	public Chat getChatById(@PathVariable String chatId_other) {
 		return chatService.getChatInfo(chatId_other);
 	}
 
