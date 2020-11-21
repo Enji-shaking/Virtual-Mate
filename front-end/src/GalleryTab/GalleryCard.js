@@ -64,7 +64,6 @@ export default function GalleryCard(props) {
       const result = await axios.get(
         `http://localhost:8080/api/image/${props.url}`
       );
-      // console.log(result.data);
       setImage(result.data);
       console.log("imageUrl: " + image.imageUrl);
     };
