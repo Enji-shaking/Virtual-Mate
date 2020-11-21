@@ -38,7 +38,7 @@ export default function ToDoCard(props) {
 
   let request =[]
   tagIds.forEach(element => {
-    request.push(axios.get(`http://localhost:8080/api/card/tag/${element}`));
+    request.push(axios.get(`http://bmomark.com:8080/api/card/tag/${element}`));
   });
   
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function ToDoCard(props) {
 
   function deleteTodo() {
     axios
-      .post('http://localhost:8080/api/user/todo/remove', {
+      .post('http://bmomark.com:8080/api/user/todo/remove', {
         cardId:id,
         userCred:{"userId":user,
           "password": pass}})
@@ -81,7 +81,7 @@ export default function ToDoCard(props) {
       });
   }
   function complete(){
-    axios.post('http://localhost:8080/api/user/todo/mark',{
+    axios.post('http://bmomark.com:8080/api/user/todo/mark',{
       cardId:id,
       userCred:{"userId":user,
         "password": pass}}).then((response)=>{

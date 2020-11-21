@@ -40,22 +40,42 @@ export default function GalleryCard(props) {
   let cardName=props.cardName?props.cardName:'Title';
   let id=props.id?props.id:'2';
   let tagIds=props.tags?props.tags:[];
-  let url=props.url?props.url:'/logo192.png';
-
+  // let url = axios.get(`http://bmomark.com:8080/api/image/${props.url}`);
+  // let url=props.url?props.url:'/logo192.png';
   let user='f3e2a8b4-e95e-45f2-a94e-f88833f07383';
   let pass = '123456';
  
   const [tags,setTag]=useState([]);
+  const [image, setImage] = useState(
+    {
+      imageUrl: 'https://images.pexels.com/photos/5075068/pexels-photo-5075068.jpeg?cs=srgb&dl=pexels-max-avans-5075068.jpg&fm=jpg',
+      imageId: 'imageId'
+    }
+  );
 
   let request =[]
   tagIds.forEach(element => {
-    request.push(axios.get(`http://localhost:8080/api/card/tag/${element}`));
+    request.push(axios.get(`http://bmomark.com:8080/api/card/tag/${element}`));
   });
   
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("imageUrl: " + image.imageUrl);
+      const result = await axios.get(
+        `http://localhost:8080/api/image/${props.url}`
+      );
+      // console.log(result.data);
+      setImage(result.data);
+      console.log("imageUrl: " + image.imageUrl);
+    };
+    fetchData();
+  }, [props.url]);
+
   useEffect(() => {
     const fetchData = async function() {
         const response = await axios.all(request);     
         setTag(response);
+  
     };  
       fetchData();
   }, [props.tags]);
@@ -71,7 +91,7 @@ export default function GalleryCard(props) {
         <div className="title" style={{ fontSize: '4.3vw' }}>
           {cardName}
         </div>
-        <img src={url} style={imgStyle}></img>
+        <img src={image.imageUrl} style={imgStyle}></img>
         <div
           className="tags"
           style={{
@@ -91,13 +111,13 @@ export default function GalleryCard(props) {
           onClick={(e) => {
             e.preventDefault();
             if(props.canAdd){
-              axios.post('http://localhost:8080/api/user/todo/add', {
+              axios.post('http://bmomark.com:8080/api/user/todo/add', {
                 "cardId":id,
                 "userCred":{"userId":user,
                 "password": pass}
               })
               .then(function (response) {
-                console.log(response);
+                // console.log(response);
                 history.push('/ToDoList');
               })
               .catch(function(error){
