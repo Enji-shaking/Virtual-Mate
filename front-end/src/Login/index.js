@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import FixedContainer from '../FixedContainer';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Login1 from './Login';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import { Autorenew } from '@material-ui/icons';
 
 export default function Login(props) {
   const middle = {
@@ -17,127 +21,45 @@ export default function Login(props) {
     textAlign: 'center',
     border: 'none',
   };
-  const [email, setEmail] = useState('Username/Email');
-  const [pass, setPass] = useState('Password');
-  const [error, setError] = useState(false);
+
+  const history = useHistory();
+  
+  const useStyles = makeStyles({
+    root: {
+      background: '#54BEF5',
+      width: '28vw',
+      fontSize: '0.75em',
+      color: 'white',
+      padding: '3px',
+      height:'3vh',
+      margin:'auto',
+    },
+  });
+  const classes = useStyles();
   return (
     <FixedContainer>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          height: '65vh',
-          justifyContent: 'center',
-        }}
-      >
-        <div style={{ textAlign: 'center', fontSize: '1.5em' }}>Log In</div>
-        <form
-          style={{ color: 'white', padding: '0px 5px', textAlign: 'center' }}
-        >
-          <input
-            type="text"
-            value={email}
-            name="username"
-            style={inputSize}
-            id="username"
+      {sessionStorage.getItem('id') === null ? (
+        <Login1 />
+      ) : (
+        <div style={{margin:'auto',height:'60vh',display:"flex",justifyContent:'center'}}>
+          <Button
+            className={classes.root}
             onClick={() => {
-              if (email === 'Username/Email') {
-                setEmail('');
-              }
-            }}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <input
-            type="text"
-            value={pass}
-            name="password"
-            style={inputSize}
-            id="password"
-            onClick={() => {
-              if (pass === 'Password') {
-                setPass('');
-              }
-            }}
-            onChange={(e) => setPass(e.target.value)}
-          />
-          <div
-            style={
-              error
-                ? { color: 'red', textAlign: 'center' }
-                : { visibility: 'hidden' }
-            }
-          >
-            Invalid Password or Username
-          </div>
-
-          <input
-            type="submit"
-            value="Log In"
-            style={{
-              marginTop: '40px',
-              backgroundColor: '#54BEF5',
-              padding: '5px',
-              border: 'none',
-              color: 'white',
-              width: '28vw',
-              height: '4vh',
-            }}
-            onClick={(e) => {
-              e.preventDefault();
-              if (email !== 'Username/Email' && pass !== 'Password') {
-                axios
-                  .post('http://bmomark.com:8080/api/user/login', {
-                    "userId": email,
-                    "password": pass,
-                  })
-                  .then(function (response) {
-                    console.log(response);
-                    if (response.data) {
-                      console.log('isLoggedIn');
-                    } else {
-                      setError(true);
-                    }
-                  }).catch(function(error){
-                    setError(true);
-                  })
-              } else {
-                setError(true);
-              }
-            }}
-          />
-        </form>
-        <div
-          style={{
-            width: '55vw',
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginTop: '36px',
-          }}
-        >
-          <Link
-            to="/register"
-            style={{
-              color: 'black',
-              textDecoration: 'none',
-              fontSize: '3.5vw',
+              axios
+                .post('http://localhost:8080/api/user/logout', {
+                  userId: sessionStorage.getItem('id'),
+                  password: sessionStorage.getItem('password'),
+                })
+                .then(function (response) {
+                  sessionStorage.clear();
+                  history.push('/');
+                });
             }}
           >
-            Register
-          </Link>
-          <Link
-            to="#"
-            style={{
-              color: 'black',
-              textDecoration: 'none',
-              fontSize: '3.5vw',
-            }}
-          >
-            Forget Password
-          </Link>
+            Log Out
+          </Button>
         </div>
-      </div>
+      )}
     </FixedContainer>
   );
 }

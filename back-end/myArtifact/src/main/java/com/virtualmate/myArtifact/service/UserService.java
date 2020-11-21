@@ -44,22 +44,22 @@ public class UserService {
 		//set the user
 		return userDao.setUser(user) == 1;
 	}
-	public boolean loginUser(String uuid, String password){
+	public String loginUser(String uuid, String password){
 		User user = userDao.getUserById(uuid);
 		//validate user: 1. if null
 		if(user==null){
 			user = userDao.getUserByEmail(uuid);
 			if(user==null)
-				return false;
+				return null;
 		}
 		//login if password is true
 		if(user.getPassword().equals(password)){
 			user.setOnline(true);
 			userDao.setUser(user);
-			return true;
+			return user.getUserId();
 		}
 		else
-			return false;
+			return null;
 	}
 	public boolean logoutUser(String UUID, String password){
 		//TODO does loginout requires password?

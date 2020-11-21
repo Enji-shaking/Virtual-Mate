@@ -60,12 +60,10 @@ export default function GalleryCard(props) {
   
   useEffect(() => {
     const fetchData = async () => {
-      console.log("imageUrl: " + image.imageUrl);
       const result = await axios.get(
         `http://localhost:8080/api/image/${props.url}`
       );
       setImage(result.data);
-      console.log("imageUrl: " + image.imageUrl);
     };
     fetchData();
   }, [props.url]);
@@ -116,7 +114,7 @@ export default function GalleryCard(props) {
                 "password": pass}
               })
               .then(function (response) {
-                // console.log(response);
+              
                 history.push('/ToDoList');
               })
               .catch(function(error){

@@ -7,6 +7,7 @@ import axios from 'axios';
 import GalleryCard from './GalleryCard';
 
 export default function GalleryTab(props) {
+  console.log(sessionStorage.getItem('pass'));
   const [data, setData] = useState([
     {
       cardId: 'tester',
@@ -93,7 +94,6 @@ export default function GalleryTab(props) {
         const result = await axios('http://bmomark.com:8080/api/cards/list', {
           params: { tag: searchContent },
         });
-        console.log(result);
         changeR(result.data);
       };
       fetchData();
