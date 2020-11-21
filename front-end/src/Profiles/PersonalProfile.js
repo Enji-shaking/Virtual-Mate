@@ -10,13 +10,15 @@ export default function ProfilePage(props) {
   let user='f3e2a8b4-e95e-45f2-a94e-f88833f07383';
   
   let pass = '123456';
-  const [profile, setOther] = useState();
+  const [profile, setOther] = useState({
+    album:[]
+  });
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        'http://localhost:8080/api/user/'+user,
+        'http://bmomark.com:8080/api/user/'+user,
       );
-      console.log(result);
+      // console.log(result);
       setOther(result.data);
     };
     fetchData();
@@ -46,7 +48,7 @@ export default function ProfilePage(props) {
         Your page
         <div style={{ width: '85vw', marginTop: '5vh' }}>
           Your Album
-          <Album />
+          <Album profile={profile} />
         </div>
         <div>
           <div style={{ margin: '2.5vh 0' }}>Your Footprints</div>
