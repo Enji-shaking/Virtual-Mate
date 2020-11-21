@@ -19,7 +19,6 @@ export default function ToDoListTab(props) {
       );
      
       setCurrent(result.data);
-      console.log(result);
     };
     if (user && pass) fetchData();
   }, []);
@@ -42,7 +41,7 @@ export default function ToDoListTab(props) {
       <div style={{ display: 'hidden', marginTop: '0.7vw' }}>
         <IconButton style={{ padding: '0' }} href="/AddActivity"></IconButton>
       </div>
-    
+      {/*  */}
 
       <div
         className="display"

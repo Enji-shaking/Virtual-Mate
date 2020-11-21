@@ -88,7 +88,7 @@ export default function Login(props) {
               e.preventDefault();
               if (email !== 'Username/Email' && pass !== 'Password') {
                 axios
-                  .post('http://bmomark.com:8080/api/user/login', {
+                  .post('http://localhost:8080/api/user/login', {
                     "userId": email,
                     "password": pass,
                   })
