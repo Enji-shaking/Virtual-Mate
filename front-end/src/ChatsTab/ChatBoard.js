@@ -84,16 +84,29 @@ export default function ChatBoard(props) {
       .doc(timestamp)
       .set(itemMessage)
       .then(() => {
-        // setInputValue("1");
         setInputValue('');
         if (type == 1) {
           setUploadPhoto(null);
         }
         console.log('Success sent a message');
       })
+      .then(
+        // console.log(new Date().toLocaleDateString())
+        myFirestore
+          .collection('myChats')
+          .doc(props.chatId)
+          .update({
+            lastActiveTimeStamp: new Date().toLocaleDateString(),
+            lastMessage: content.trim()
+          })
+      )
       .catch((err) => {
         console.log(err);
       });
+    
+    
+
+
   };
   const renderListMessage = () => {
     // console.log("rendering messages");

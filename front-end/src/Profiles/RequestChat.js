@@ -20,11 +20,17 @@ export default function Request(props) {
   let pass = sessionStorage.getItem('pass');
   let id = props.match.params.id;
   function send(){
+    console.log(user);
+    console.log(pass);
+    console.log(id);
      axios.post(
-      `http://localhost:8080/api/chat/request`,{params:{userId: user,
-      userHashedPass: pass,
-      userId_other: id
-      }}
+      `http://localhost:8080/api/chat/request`,{
+        userCred:{
+          userId: user,
+          password: pass,
+        },
+        userId_other: id
+      }
     ).then(history.goBack());
   }
   

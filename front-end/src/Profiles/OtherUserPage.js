@@ -38,8 +38,11 @@ export default function OtherUserPage(props) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        `http://bmomark.com:8080/api/user/${id}`,{params:{"userId":user}}
+        `http://localhost:8080/api/user/${id}`,{params:{"userId":user}}
       );
+      // const result = await axios(
+      //   `http://bmomark.com:8080/api/user/${id}`,{params:{"userId":user}}
+      // );
       setOther(result.data);
     };
     fetchData();
@@ -49,17 +52,28 @@ export default function OtherUserPage(props) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        `http://bmomark.com:8080/api/chat/canchat`,{params:{"userId":user,
+        `http://localhost:8080/api/chat/canchat`,{params:{"userId":user,
         "password": pass,
         "userId_other": id
         }}
       );
+      // const result = await axios.get(
+      //   `http://bmomark.com:8080/api/chat/canchat`,{params:{"userId":user,
+      //   "password": pass,
+      //   "userId_other": id
+      //   }}
+      // );
       setResult(result.data);
     };
     if(id!=user)fetchData();
   }, []);
 
   function requestButton(){
+    // 1 -> A request B
+		// 2 -> A receive request from B
+		// 3 -> A reject B
+		// 4 -> A is rejected by B
+		// 5 -> A and B are friends
     if(result===0){
       return(<Button
         className={classes.root}
@@ -73,9 +87,9 @@ export default function OtherUserPage(props) {
       return(<Button
         className={classes.root}
         style={{ maxWidth: '90%' ,position:'fixed',top:'2.5vh',right:'3vh'}}
-        onClick={()=>history.push(`/Chats`)}
+        disabled
       >
-      Go Chat
+      Requested
       </Button>)
     }
     if(result===2){
@@ -84,9 +98,37 @@ export default function OtherUserPage(props) {
         style={{ maxWidth: '90%' ,position:'fixed',top:'2.5vh',right:'3vh'}}
         disabled
       >
-      Requested
+      View in request list
       </Button>)
     }
+    if(result===3){
+      return(<Button
+        className={classes.root}
+        style={{ maxWidth: '90%' ,position:'fixed',top:'2.5vh',right:'3vh'}}
+        onClick={()=>history.push(`/Request/${id}`)}
+      >
+      Rejected (request?)
+      </Button>)
+    }
+    if(result===4){
+      return(<Button
+        className={classes.root}
+        style={{ maxWidth: '90%' ,position:'fixed',top:'2.5vh',right:'3vh'}}
+        disabled
+      >
+      Rejected
+      </Button>)
+    }
+    if(result===5){
+      return(<Button
+        className={classes.root}
+        style={{ maxWidth: '90%' ,position:'fixed',top:'2.5vh',right:'3vh'}}
+        onClick={()=>history.push(`/Chats`)}
+      >
+      Go Chat
+      </Button>)
+    }
+    
 
   }
  
@@ -94,9 +136,13 @@ export default function OtherUserPage(props) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        'http://bmomark.com:8080/api/user/cards',{params:{"userId":user,"userId_other":id
+        'http://localhost:8080/api/user/cards',{params:{"userId":user,"userId_other":id
         }}
       );
+      // const result = await axios.get(
+      //   'http://bmomark.com:8080/api/user/cards',{params:{"userId":user,"userId_other":id
+      //   }}
+      // );
       console.log(result);
       setactivity(result.data);
     };

@@ -51,9 +51,9 @@ public class ChatController {
 		}
 	*/
     @GetMapping("canchat")
-    public int CheckConnectionWith(@RequestParam("userId") String userId, @RequestParam("password") String password, @RequestParam("userId_other") String userId_other) {
+    public int checkConnectionWith(@RequestParam("userId") String userId, @RequestParam("password") String password, @RequestParam("userId_other") String userId_other) {
         // return null;
-        return chatService.getInfoUserOther(userId, password,
+        return chatService.checkConnectionWith(userId, password,
                 userId_other);
     }
 

@@ -26,6 +26,7 @@ class ChatsTab extends Component {
     this.currentUserId = sessionStorage.getItem('id');
     this.userList = [];
     this.chatList = [];
+    this.chatInfoList = [];
     // this.history = useHistory();
   }
   componentDidMount() {
@@ -58,7 +59,7 @@ class ChatsTab extends Component {
         );
       }
       this.userList.push(userOther.data);
-      // //console.log("x");
+      this.chatInfoList.push({lastActiveTimeStamp: Chat.data.lastActiveTimeStamp, lastMessage:Chat.data.lastMessage})
     }
     this.setState({ isLoading: false });
   };
@@ -80,6 +81,7 @@ class ChatsTab extends Component {
               });
             }}
           >
+            <div>{item.userName}</div>
             <Avatar
               alt={item.avatar.toString()}
               src={
@@ -94,7 +96,8 @@ class ChatsTab extends Component {
                 marginRight: '5vw',
               }}
             ></Avatar>
-            {item.userName}
+            <p>{this.chatInfoList[index]["lastActiveTimeStamp"]}</p>
+            <p>{this.chatInfoList[index]["lastMessage"]}</p>
           </div>
         );
       });
@@ -113,7 +116,7 @@ class ChatsTab extends Component {
                 paddingTop: '5px',
                 position: 'fixed',
                 zIndex: '10',
-                height: '9vh',
+                height: '6vh',
                 width: '100%',
               }}
             >

@@ -64,6 +64,7 @@ public class User {
 		this.album = new ArrayList<String>();
 		this.chats = new ArrayList<String>();
 		this.cardsTime = new ArrayList<Map<String, String>>();
+		friendStatus = new HashMap<>();
 	}
 	
 	@Override

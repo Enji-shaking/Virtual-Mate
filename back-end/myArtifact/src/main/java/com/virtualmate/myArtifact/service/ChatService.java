@@ -27,7 +27,7 @@ public class ChatService {
 		this.userDao = userDao;       
     }
 
-	public int getInfoUserOther(String UUID, String password, String userId_other)
+	public int checkConnectionWith(String UUID, String password, String userId_other)
 	{
 		User A = userDao.getUserById(UUID);
 		User B = userDao.getUserById(userId_other);
@@ -37,7 +37,9 @@ public class ChatService {
 		if (!validate(UUID, password)) 
 			return 0;
 		//check user's connection with the other user
+		A.getFriendStatus().putIfAbsent(B.getUserId(), 0);
 		return A.getFriendStatus().get(B.getUserId());
+
 	}
 	
 	public boolean requestChat(String UUID, String password, String userId_other)
@@ -54,6 +56,8 @@ public class ChatService {
 		//B receives request from A
 		B.getFriendStatus().put(A.getUserId(), 2);
 		//succeed
+		userDao.setUser(A);
+		userDao.setUser(B);
 		return true;
 	}
 	
@@ -94,12 +98,21 @@ public class ChatService {
 		//validate user credential		
 		if (!validate(UUID, password)) 
 			return false;
-		if (!accepted)
-			return false;
-		//A accept B's request
-		A.getFriendStatus().replace(B.getUserId(), 5);
-		B.getFriendStatus().replace(A.getUserId(), 5);
-		chatDao.getChatList().add(new Chat(UUID, userId_other));
+		if (!accepted){
+			A.getFriendStatus().put(B.getUserId(), 3);
+			B.getFriendStatus().put(A.getUserId(), 4);
+		}else{
+			//A accept B's request
+			A.getFriendStatus().replace(B.getUserId(), 5);
+			B.getFriendStatus().replace(A.getUserId(), 5);
+			Chat c = new Chat(UUID, userId_other);
+			chatDao.setChat(c);
+			String chatId = c.getChatId();
+			A.getChats().add(chatId);
+			B.getChats().add(chatId);
+			userDao.setUser(A);
+			userDao.setUser(B);
+		}
 		//success
 		return true;
 	}
