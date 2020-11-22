@@ -1,28 +1,30 @@
 package com.virtualmate.myArtifact.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import com.virtualmate.myArtifact.dao.CardDao;
+import com.virtualmate.myArtifact.dao.ImageDao;
 import com.virtualmate.myArtifact.dao.UserDao;
 import com.virtualmate.myArtifact.model.Card;
 
+import com.virtualmate.myArtifact.model.Image;
 import com.virtualmate.myArtifact.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
 @Service
 public class TodoService {
 
 	private final UserDao userDao;
 	private final CardDao cardDao;
+	private final ImageDao imageDao;
 	@Autowired
-    public TodoService(@Qualifier("fbDaoUser") UserDao userDao, @Qualifier("fbDaoCard") CardDao cardDao) {
+    public TodoService(@Qualifier("fbDaoImage") ImageDao imageDao,@Qualifier("fbDaoUser") UserDao userDao, @Qualifier("fbDaoCard") CardDao cardDao) {
     	this.userDao = userDao;
     	this.cardDao = cardDao;
+    	this.imageDao = imageDao;
     }
 
 	public List<Card> getTodoList(String userId, String password) {
@@ -65,6 +67,33 @@ public class TodoService {
 		}
 		//update the card's status
 		user.getCardsTodo().replace(cardId,2);
+		//update the user's finished cards
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String dateString = format.format(date);
+		List<Map<String,String>> cardsTime = user.getCardsTime();
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("pic",imageDao.getImageById(cardDao.getCardById(cardId).getActivityImageId()).getImageUrl());
+		map.put("date",dateString);
+		map.put("id",cardDao.getCardById(cardId).getActivityName());
+		cardsTime.add(map);
+		if(cardsTime.size()>3){//add
+			//sort the top three, pop the last one, reset the cardTime
+			cardsTime.sort(new Comparator<Map<String, String>>() {
+				@Override
+				public int compare(Map<String, String> first, Map<String, String> second) {
+					try {
+						Date date1 = format.parse(first.get("date"));
+						Date date2 = format.parse(second.get("date"));
+						return date1.compareTo(date2);
+					} catch (ParseException e) {
+						return 0;
+					}
+				}
+			});
+			cardsTime.remove(cardsTime.size()-1);
+		}
+		user.setCardsTime(cardsTime);
 		//update the user
 		userDao.setUser(user);
 		//add the card's finished users
@@ -91,5 +120,5 @@ public class TodoService {
 		userDao.setUser(user);
 		return true;
 	}
-    
+
 }

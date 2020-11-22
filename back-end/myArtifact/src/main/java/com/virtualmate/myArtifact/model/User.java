@@ -3,11 +3,7 @@ package com.virtualmate.myArtifact.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.virtualmate.myArtifact.markUtil.MarkUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,10 +21,22 @@ public class User {
 		we use integer to represent an card's state in a user's to-do list
 		1,2,3 means to-do, done, done and would like to do again
 	 */ 
-	private Map<String,Integer> cardsTodo; 
+	private Map<String,Integer> cardsTodo;
+
+	public List<Map<String, String>> getCardsTime() {
+		return cardsTime;
+	}
+
+	public void setCardsTime(List<Map<String, String>> cardsTime) {
+		this.cardsTime = cardsTime;
+	}
+
+	private List<Map<String,String>> cardsTime;
 	private String avatar;
 	private List<String> album;
 	private List<String> chats;
+
+
 	/*
 		use integer to represent friend's status.
 		<String,Integer> = <userId, friend's status>
@@ -55,6 +63,7 @@ public class User {
 		this.avatar = "f9396883-8b6b-449f-97db-4ce4929b97fe";
 		this.album = new ArrayList<String>();
 		this.chats = new ArrayList<String>();
+		this.cardsTime = new ArrayList<Map<String, String>>();
 	}
 	
 	@Override
@@ -165,6 +174,5 @@ public class User {
 	public void setChats(List<String> chats) {
 		this.chats = chats;
 	}
-
 	
 }

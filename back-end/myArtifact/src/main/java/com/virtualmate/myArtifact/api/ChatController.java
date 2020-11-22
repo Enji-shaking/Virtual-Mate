@@ -31,14 +31,16 @@ public class ChatController {
     }
 
 
-    public static class withOtherWrapper{
+    public static class withOtherWrapper {
         public UserCredentials userCredentials;
         public String userId_other;
+
         public withOtherWrapper(@JsonProperty("userCred") UserCredentials userCredentials, @JsonProperty("userId_other") String userId_other) {
             this.userCredentials = userCredentials;
             this.userId_other = userId_other;
         }
     }
+
     /*
 		{
 			"userCred":{
@@ -49,39 +51,36 @@ public class ChatController {
 		}
 	*/
     @GetMapping("canchat")
-	public int CheckConnectionWith(@RequestParam("userId") String userId, @RequestParam("password") String password, @RequestParam("userId_other") String userId_other) {
-		// return null;
+    public int CheckConnectionWith(@RequestParam("userId") String userId, @RequestParam("password") String password, @RequestParam("userId_other") String userId_other) {
+        // return null;
         return chatService.getInfoUserOther(userId, password,
-        		userId_other);
+                userId_other);
     }
-    
+
     @PostMapping("request")
-    public boolean requestChat(@RequestBody withOtherWrapper wrapper){
+    public boolean requestChat(@RequestBody withOtherWrapper wrapper) {
         return chatService.requestChat(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(),
-        wrapper.userId_other);
+                wrapper.userId_other);
     }
-    
+
     @GetMapping("list")
-	public List<Chat> getChatList(@RequestParam("userId") String userId, @RequestParam("password") String password ) {
+    public List<Chat> getChatList(@RequestParam("userId") String userId, @RequestParam("password") String password) {
         return chatService.getChatList(userId, password);
     }
 
     @GetMapping("request")
-	public List<User> getChatRequest(@RequestParam("userId") String userId, @RequestParam("password") String password) {
+    public List<User> getChatRequest(@RequestParam("userId") String userId, @RequestParam("password") String password) {
         return chatService.getChatRequest(userId, password);
     }
 
     @GetMapping("{chatId_other}")
-	public Chat getChatById(@PathVariable String chatId_other) {
-		return chatService.getChatInfo(chatId_other);
-	}
+    public Chat getChatById(@PathVariable String chatId_other) {
+        return chatService.getChatInfo(chatId_other);
+    }
 
     //api/chat/acceptance?accepted=1&&userId_other=2
     @PostMapping("acceptance")
-    public boolean acceptRequest(@RequestBody UserCredentials userCredentials, @RequestParam("accepted") boolean accepted, @RequestParam("userId_other") String userId_other){
+    public boolean acceptRequest(@RequestBody UserCredentials userCredentials, @RequestParam("accepted") boolean accepted, @RequestParam("userId_other") String userId_other) {
         return chatService.acceptRequest(userCredentials.getUserId(), userCredentials.getPassword(), accepted, userId_other);
     }
-
 }
-
-    
