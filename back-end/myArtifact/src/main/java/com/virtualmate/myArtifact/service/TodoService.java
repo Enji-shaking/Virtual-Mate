@@ -53,13 +53,18 @@ public class TodoService {
 			return false;
 		}
 		//add the To do item
-		user.getCardsTodo().put(cardId,1);
+		if(user.getCardsTodo().get(cardId) != null){
+			user.getCardsTodo().put(cardId,3);
+		}else{
+			user.getCardsTodo().put(cardId,1);
+		}
 		//userDao has checked the previous user
 		userDao.setUser(user);
 		return true;
 	}
 
 	public boolean markTodoItem(String userId, String password,String cardId) {
+
 		//check if user/cardId is valid
 		User user = userDao.getUserById(userId);
 		if(user==null || cardId==null || cardId.isEmpty()){
@@ -68,14 +73,16 @@ public class TodoService {
 		//update the card's status
 		user.getCardsTodo().replace(cardId,2);
 		//update the user's finished cards
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 		Date date = new Date();
 		String dateString = format.format(date);
 		List<Map<String,String>> cardsTime = user.getCardsTime();
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("pic",imageDao.getImageById(cardDao.getCardById(cardId).getActivityImageId()).getImageUrl());
 		map.put("date",dateString);
-		map.put("id",cardDao.getCardById(cardId).getActivityName());
+		map.put("id",cardDao.getCardById(cardId).getCardId());
+		map.put("name",cardDao.getCardById(cardId).getActivityName());
+		System.out.println(map);
 		cardsTime.add(map);
 		if(cardsTime.size()>3){//add
 			//sort the top three, pop the last one, reset the cardTime

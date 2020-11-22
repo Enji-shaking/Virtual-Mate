@@ -10,28 +10,42 @@ import { useHistory } from 'react-router-dom';
 import { myFirestore, myStorage } from '../Config/MyFirebase';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import IndeterminateCheckBoxOutlinedIcon from '@material-ui/icons/IndeterminateCheckBoxOutlined';
+import ReactLoading from 'react-loading';
 import moment from 'moment';
 
 export default function ProfilePage(props) {
   let user = sessionStorage.getItem('id');
   let pass = sessionStorage.getItem('pass');
   const history = useHistory();
-  const [profile, setOther] = useState();
+  const [profile, setProfile] = useState({
+    userName:"username",
+    album:["url"],
+    avatar:"avatar",
+    cardsTime:[{
+      pic:"logo192.png",
+      date:'2000-08-10',
+      id:"3",
+      name: "test"
+    }]
+  });
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get('http://localhost:8080/api/user/' + user);
       console.log(result);
-      setOther(result.data);
+      setProfile(result.data);
       avatarEdit(result.data.avatar);
     };
     fetchData();
   }, []);
 
-  const activities = [
-    { pic: 'logo192.png', date: '2000-08-10', id: '1' },
-    { pic: 'logo192.png', date: '2000-08-10', id: '2' },
-    { pic: 'logo192.png', date: '2000-08-10', id: '3' },
-  ];
+  // const activities = [
+  //   { pic: 'logo192.png', name:'', date: '2000-08-10', id: '1' },
+  //   { pic: 'logo192.png', name:'', date: '2000-08-10', id: '2' },
+  //   { pic: 'logo192.png', name:'', date: '2000-08-10', id: '3' },
+  // ];
+  const activities = profile.cardsTime;
+  console.log(profile.cardsTime);
   const [av, avatarEdit] = useState(null);
 
   function avatarUpload(e) {
@@ -50,9 +64,9 @@ export default function ProfilePage(props) {
       }
     );
   }
-  const [al, albumEdit] = useState();
+  // const [al, albumEdit] = useState();
   function albumUpload(e) {
-    albumEdit(e.target.files[0]);
+    setIsLoading(true);
     const uploadFileRef = myStorage
       .ref()
       .child(user + '/' + e.target.files[0].name)
@@ -73,24 +87,28 @@ export default function ProfilePage(props) {
             .update({ album: profile.album })
             .then(() => history.push(0));
         });
+        setIsLoading(false);
       }
     );
   }
 
   function albumDelete(e) {
+    //not deleting file from the storage. Fix later enji
     console.log(e.target.id);
+    console.log(e.target.id);
+    setIsLoading(true);
     let newAlbum = [];
     profile.album.forEach((element) => {
       if (element !== e.target.id) newAlbum.push(element);
     });
-    while (newAlbum.length === 0) {}
     myFirestore
       .collection('Users')
       .doc(user)
       .update({ album: newAlbum })
       .then((response) => {
+        profile.album = newAlbum;
         console.log(response);
-        window.location.reload();
+        setIsLoading(false);
       })
       .catch((error) => console.log(error));
   }
@@ -211,9 +229,26 @@ export default function ProfilePage(props) {
             <FootPrint activities={activities} />
           </div>
         </div>
+        {isLoading ? (
+            <div className="viewLoading">
+                <ReactLoading
+                type={'spin'}
+                color={'#203152'}
+                height={'10%'}
+                width={'10%'}
+                />
+            </div>
+        ) : null}
       </FixedContainer>
     ) : (
-      <div>loading</div>
+      <div className="viewLoading">
+          <ReactLoading
+          type={'spin'}
+          color={'#203152'}
+          height={'10%'}
+          width={'10%'}
+          />
+      </div>
     )
   ) : (
     <FixedContainer>

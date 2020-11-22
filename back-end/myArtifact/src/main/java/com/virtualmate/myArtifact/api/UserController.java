@@ -2,6 +2,7 @@ package com.virtualmate.myArtifact.api;
 
 import java.util.List;
 // import java.util.UUID;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -83,7 +84,7 @@ public class UserController {
 	
 	//the front end call both the functions below and process the info himself
 	@GetMapping("cards")
-	public List<Card> getSharedCardsOther(@RequestParam("userId") String userId, @RequestParam("userId_other") String userId_other) {
+	public  List<Map<String, String>> getSharedCardsOther(@RequestParam("userId") String userId, @RequestParam("userId_other") String userId_other) {
 		return userService.getSharedCardsOther(userId, userId_other);
 	}
 

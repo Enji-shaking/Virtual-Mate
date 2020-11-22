@@ -29,7 +29,7 @@ class FootPrint extends React.Component {
               style={{ padding: '0px 5vw', fontSize: '1em', fontWeight: '500' }}
             >
               {' '}
-              {activity.id}
+              {activity.name}
             </div>
           </div>
           <div style={{ fontSize: '0.6em' }}> {activity.date}</div>

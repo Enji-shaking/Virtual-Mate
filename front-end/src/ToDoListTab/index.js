@@ -25,7 +25,7 @@ export default function ToDoListTab(props) {
   }, []);
 
   return user !== null ? (
-    currentTodo != undefined ? (
+    currentTodo != undefined && currentTodo != null ? (
       <FixedContainer>
         <div
           style={{

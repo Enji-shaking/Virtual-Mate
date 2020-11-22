@@ -4,24 +4,52 @@ import { Link, useParams } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import LockOpenRoundedIcon from '@material-ui/icons/LockOpenRounded';
 import axios from 'axios';
+import ReactLoading from 'react-loading';
 
 export default function CardView(props) {
   let { id } = useParams();
 
-  const [avatars, setUsers] = useState([]);
+  const [usersAvatars, setUsersAvatars] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [card, setCard] = useState({
+    activityImageId: "f7b48590-8101-491e-b971-62366576f51d",
+    activityName: "Say Hello World!"
+  });
+  const [activityImageUrl, setActivityImageUrl] = useState("https://firebasestorage.googleapis.com/v0/b/mark-test-11011.appspot.com/o/0f3e2a8b4-e95e-45f2-a94e-f88833f07383?alt=media&token=2584f6ff-2525-4274-8fa3-522e92549c18");
+  
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       const result = await axios(`http://localhost:8080/api/card/${id}/users`);
-      setUsers(result.data);
+      setUsersAvatars(result.data);
+      setIsLoading(false);
     };
+    const fetchCardInfo = async () => {
+      setIsLoading(true);
+      const result = await axios(`http://localhost:8080/api/card/${id}`);
+      setCard(result.data);
+      setIsLoading(false);
+    };
+
     fetchData();
+    fetchCardInfo();
   }, []);
+
+  useEffect(async () => {
+    setIsLoading(true);
+    console.log(card.activityImageId);
+    const result = await axios(`http://localhost:8080/api/image/${card.activityImageId}`);
+        // .then(setIsLoading(false));
+    setActivityImageUrl(result.data.imageUrl);
+    setIsLoading(false);
+  }, [card]);
+
   let user = sessionStorage.getItem('id');
   let pass = sessionStorage.getItem('pass');
 
   let done = false;
-  for (let i = 0; i < avatars.length; i++) {
-    if (avatars[i].userId === user) {
+  for (let i = 0; i < usersAvatars.length; i++) {
+    if (usersAvatars[i].userId === user) {
       done = true;
       break;
     }
@@ -36,20 +64,20 @@ export default function CardView(props) {
           alignItems: 'center',
         }}
       >
-        <div style={{ textAlign: 'center', fontSize: '1.3em' }}>Card Name</div>
+        <div style={{ textAlign: 'center', fontSize: '1.3em' }}>{ card.activityName } </div>
         <img
           style={{ maxWidth: '78.5vw', height: 'auto', margin: '15px 0px' }}
-          src="/logo192.png"
+          src={activityImageUrl}
         ></img>
         <div style={{ textAlign: 'center', fontSize: '1em' }}>
-          Completed By {avatars.length} People
+          Completed By {usersAvatars.length} People
         </div>
         {done ? (
           <div
             className="avatars"
             style={{ display: 'flex', flexWrap: 'wrap' }}
           >
-            {avatars.map((avatar) => {
+            {usersAvatars.map((avatar) => {
               return (
                 <Link
                   to={
@@ -101,6 +129,17 @@ export default function CardView(props) {
           </div>
         )}
       </div>
+        {/* Loading */}
+        {isLoading ? (
+          <div className="viewLoading">
+            <ReactLoading
+              type={'spin'}
+              color={'#203152'}
+              height={'10%'}
+              width={'10%'}
+            />
+          </div>
+        ) : null}
     </FixedContainer>
   );
 }

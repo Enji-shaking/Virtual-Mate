@@ -84,7 +84,7 @@ export default function ToDoCard(props) {
   function deleteTodo() {
 
     axios
-      .post('http://bmomark.com:8080/api/user/todo/remove', {
+      .post('http://localhost:8080/api/user/todo/remove', {
         cardId:id,
         userCred:{"userId":user,
           "password": pass}})
@@ -96,14 +96,16 @@ export default function ToDoCard(props) {
       }).catch((error)=>console.log(error));
   }
   function complete(){
-    axios.post('http://bmomark.com:8080/api/user/todo/mark',{
+    axios.post('http://localhost:8080/api/user/todo/mark',{
       cardId:id,
       userCred:{"userId":user,
-        "password": pass}}).then((response)=>{
-      if(!response){
-        alert('something is wrong');
-      }
-    });
+        "password": pass}
+      })
+      .then((response)=>{
+        if(!response){
+          alert('something is wrong');
+        }
+      });
     history.push(`/Completed/${id}`);
   }
   

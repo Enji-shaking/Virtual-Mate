@@ -2,6 +2,7 @@ package com.virtualmate.myArtifact.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,8 +107,8 @@ public class UserService {
 	}
 
 	//return the list of cards completed by the other user and is in the list of the current user
-	public List<Card> getSharedCardsOther(String user, String other){
-		List<Card> cards = new ArrayList<>();
+	public List<Map<String, String>> getSharedCardsOther(String user, String other){
+		List<Map<String, String>> sharedCardsInfo = new ArrayList<>();
 		User u = userDao.getUserById(user);
 		User o = userDao.getUserById(other);
 		if (u == null || o == null)
@@ -115,13 +116,17 @@ public class UserService {
 		/* 	we use integer to represent an card's state in a user's to-do list
 		1,2,3 means to-do, done, done and would like to do again
 		 */
-		for (Entry<String, Integer> uEntry : u.getCardsTodo().entrySet()){
-			for (Entry<String, Integer> oEntry : o.getCardsTodo().entrySet()){
-				if (uEntry.getKey().equals(oEntry.getKey()) && (oEntry.getValue() == 2 || oEntry.getValue() == 3)){
-					cards.add(cardDao.getCardById(uEntry.getKey()));} 
+		for (Map<String, String> uEntry : u.getCardsTime()){
+			for (Map<String, String> oEntry : o.getCardsTime()){
+				// if (uEntry.getKey().equals(oEntry.getKey()) && (uEntry.getValue() == 2 || uEntry.getValue() == 3) && (oEntry.getValue() == 2 || oEntry.getValue() == 3)){
+				// 	sharedCardsInfo
+				// }
+				if(uEntry.get("id").equals(oEntry.get("id")) ) {
+					sharedCardsInfo.add(oEntry);
+				}
 			}		
 		}
-		return cards;
+		return sharedCardsInfo;
 	}
 	
 	public User getInfoUserOther(String other){
