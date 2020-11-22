@@ -1,7 +1,7 @@
 .messageItemLeft{
     width: 100px;
     height: auto;
-    background-color: #203152;
+    background-color:white;
     margin-right: 20px;
     margin-top: 10px;
     border-top-left-radius: 8px;
@@ -12,20 +12,21 @@
     padding-right: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
-    color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color:black;
 }
 .messageItemRight{
     width: 100px;
     height: auto;
-    background-color: #e8e8e8;
-    align-self: flex-end;
+    background-color: #54BEF5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     margin-right: 20px;
     margin-top: 10px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 0px;
-    color: #203152;
+    color:white;
     text-align: left;
     padding-left: 10px;
     padding-right: 10px;
@@ -38,18 +39,18 @@
     width: 100px;
     height: auto;
     margin-top: 10px;
-    background-color: #203152;
+    background-color:white;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 8px;
-    color: white;
+    color:black;
 }
 
 .messageItemRightWithImage {
     width: 100px;
     height: auto;
-    background-color: #e8e8e8;
+    background-color: #54BEF5;
     align-self: flex-end;
     margin-right: 20px;
     margin-top: 10px;
@@ -57,7 +58,7 @@
     border-top-right-radius: 8px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 0px;
-    color: #203152;
+    color:white;
     text-align: left;
 }
 
@@ -106,6 +107,7 @@
     flex-direction: column;
     width: 100%;
     position: relative;
+    background-color: rgba(196, 196, 196, 0.12);
 }
 
 .viewBottom {
@@ -115,7 +117,7 @@
     align-items: center;
     justify-content: center;
     height: 50px;
-    border-top: 1px solid #e8e8e8;
+    border-top: 1px solid ##54BEF5;
 }
 
 
@@ -140,7 +142,7 @@
 .viewListMessage::-webkit-scrollbar-thumb {
     border-radius: 10px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #e8e8e8;
+    background-color: ##54BEF5;
 }
 
 .viewListMessage div:last-child {

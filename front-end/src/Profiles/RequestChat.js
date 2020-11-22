@@ -16,7 +16,6 @@ export default function Request(props) {
   };
 
   const history=useHistory();
-  
   let user=sessionStorage.getItem('id');
   let pass = sessionStorage.getItem('pass');
   let id = props.match.params.id;

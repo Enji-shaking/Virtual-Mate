@@ -15,31 +15,33 @@ export default function GalleryTab(props) {
   const [todo, setTodo] = useState(null);
 
   const [data, setData] = useState([]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
-      let result = sessionStorage.getItem('search')!==null?await axios.get('http://localhost:8080/api/card/list',{"tagName":sessionStorage.getItem('search')}): await axios('http://bmomark.com:8080/api/card/all');
+      let result =
+        sessionStorage.getItem('search') !== null
+          ? await axios.get('http://localhost:8080/api/card/list', {
+              tagName: sessionStorage.getItem('search'),
+            })
+          : await axios('http://localhost:8080/api/card/all');
       setData(result.data);
       sessionStorage.removeItem('search');
     };
     fetchData();
   }, []);
-  let tmp=new Set();
+  let tmp = new Set();
 
   useEffect(() => {
     const fetchData = async () => {
-      let result = await axios.get(
-        'http://bmomark.com:8080/api/user/todo/list',
-        {
-          params: { userId: user, password: pass },
-        }
-      );
-      result.data.forEach((t)=>tmp.add(t.cardId));
+      let result = await axios.get('http://localhost:8080/api/user/todo/list', {
+        params: { userId: user, password: pass },
+      });
+      result.data.forEach((t) => tmp.add(t.cardId));
       setTodo(tmp);
     };
-    
-    fetchData();
-    
+
+   if(user!==null)fetchData();
   }, []);
 
   const displayStyle = {
@@ -61,11 +63,11 @@ export default function GalleryTab(props) {
   const [search, changeR] = useState([]);
 
   function Search() {
-    sessionStorage.setItem('search',searchContent);
+    sessionStorage.setItem('search', searchContent);
     window.location.reload();
   }
 
-  return todo ? (
+  return user===null||todo ? (
     <FixedContainer displayType="logo">
       <div
         style={{
@@ -102,7 +104,7 @@ export default function GalleryTab(props) {
       <div className="cardDisplay" style={displayStyle}>
         {data.map((card) => (
           <GalleryCard
-            canAdd={!todo.has(card.cardId)}
+            canAdd={todo?!todo.has(card.cardId):true}
             key={card.cardId}
             id={card.cardId}
             url={card.activityImageId}
