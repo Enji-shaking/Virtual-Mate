@@ -29,10 +29,8 @@ export default function ToDoCard(props) {
   let cardName = props.cardName ? props.cardName : 'Title';
   let id = props.id ? props.id : '1';
   let tagIds = props.tags ? props.tags : [];
-  let url = props.url ? props.url : '/logo192.png';
-
-  let user='f3e2a8b4-e95e-45f2-a94e-f88833f07383';
-  let pass = '123456';
+  let user=sessionStorage.getItem('id');
+  let pass = sessionStorage.getItem('pass');
 
   const [tags,setTag]=useState([]);
 
@@ -50,6 +48,22 @@ export default function ToDoCard(props) {
       fetchData();
   }, [tagIds]);
 
+  const [image, setImage] = useState(
+    {
+      imageUrl: 'https://images.pexels.com/photos/5075068/pexels-photo-5075068.jpeg?cs=srgb&dl=pexels-max-avans-5075068.jpg&fm=jpg',
+      imageId: 'imageId'
+    }
+  );
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get(
+        `http://localhost:8080/api/image/${props.url}`
+      );
+      if(result.data!=="")
+        setImage(result.data.imageUrl);
+    };
+    fetchData();
+  }, [props.url]);
 
   const [Delete, setDelete] = React.useState(null);
   const [Complete, setComplete] = React.useState(null);
@@ -68,6 +82,7 @@ export default function ToDoCard(props) {
   const completeId = Completeopen ? 'complete' : undefined;
 
   function deleteTodo() {
+
     axios
       .post('http://bmomark.com:8080/api/user/todo/remove', {
         cardId:id,
@@ -77,8 +92,8 @@ export default function ToDoCard(props) {
         if (!response) {
           alert('something is wrong');
         }
-        history.push('/ToDoList');
-      });
+        window.location.reload();
+      }).catch((error)=>console.log(error));
   }
   function complete(){
     axios.post('http://bmomark.com:8080/api/user/todo/mark',{
@@ -91,6 +106,7 @@ export default function ToDoCard(props) {
     });
     history.push(`/Completed/${id}`);
   }
+  
   return (
     <Link
       to={`/ActivityCard/${id}`}
@@ -100,7 +116,7 @@ export default function ToDoCard(props) {
         <div className="title" style={{ fontSize: '4.3vw' }}>
           {cardName}
         </div>
-        <img src={url} style={imgStyle}></img>
+        <img src={image} style={imgStyle}></img>
         <div
           className="tags"
           style={{
@@ -112,7 +128,7 @@ export default function ToDoCard(props) {
             textAlign: 'center',
           }}
         >
-          {tags.map((tag)=>tag.data.tagName+' ')}
+          {tags.map((tag)=>'#'+tag.data.tagName+' ')}
         </div>
         <div
           style={{

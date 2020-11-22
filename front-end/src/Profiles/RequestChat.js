@@ -17,12 +17,12 @@ export default function Request(props) {
 
   const history=useHistory();
   
-  const curr=null;
-  const pass=null;
+  let user=sessionStorage.getItem('id');
+  let pass = sessionStorage.getItem('pass');
   let id = props.match.params.id;
   function send(){
      axios.post(
-      `http://localhost:8080/api/chat/request`,{params:{userId: curr,
+      `http://localhost:8080/api/chat/request`,{params:{userId: user,
       userHashedPass: pass,
       userId_other: id
       }}

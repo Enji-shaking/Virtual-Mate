@@ -6,11 +6,9 @@ import LockOpenRoundedIcon from '@material-ui/icons/LockOpenRounded';
 import axios from 'axios';
 
 export default function CardView(props) {
- 
   let { id } = useParams();
 
-  const [avatars, setUsers] = useState([
-  ]);
+  const [avatars, setUsers] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(`http://localhost:8080/api/card/${id}/users`);
@@ -18,29 +16,16 @@ export default function CardView(props) {
     };
     fetchData();
   }, []);
-
-  let set=new Set();
-  // let list =[];
-  // avatars.forEach((avatar)=>{
-  //   if(!set.has(avatar.userId)){
-  //     list.push(Avatar);
-  //     set.add(avatar.userId);
-  //   }  
-  // })
- 
-  let user='f3e2a8b4-e95e-45f2-a94e-f88833f07383';
-  let pass = '123456';
-
+  let user = sessionStorage.getItem('id');
+  let pass = sessionStorage.getItem('pass');
 
   let done = false;
-  for(let i=0;i<avatars.length;i++) {
+  for (let i = 0; i < avatars.length; i++) {
     if (avatars[i].userId === user) {
       done = true;
       break;
     }
-  };
-
-
+  }
 
   return (
     <FixedContainer>
@@ -65,26 +50,29 @@ export default function CardView(props) {
             style={{ display: 'flex', flexWrap: 'wrap' }}
           >
             {avatars.map((avatar) => {
-          
-              if(!set.has(avatar.userId)){
-              set.add(avatar.userId);
-              return(
+              return (
                 <Link
-                  to={avatar.userId!=user?`/User/${
-                    avatar.userId ? avatar.userId : avatar.toString()
-                  }`:'/Profile'}
+                  to={
+                    avatar.userId != user
+                      ? `/User/${
+                          avatar.userId ? avatar.userId : avatar.toString()
+                        }`
+                      : '/Profile'
+                  }
                   key={avatar.userId ? avatar.userId : avatar.toString()}
                 >
                   <Avatar
                     alt={avatar.avatar.toString()}
-                    src={avatar.avatar?avatar.avatar:"https://material-ui.com/static/images/avatar/1.jpg"}
+                    src={
+                      avatar.avatar
+                        ? avatar.avatar
+                        : 'https://material-ui.com/static/images/avatar/1.jpg'
+                    }
                     style={{ width: '20vw', height: '20vw', margin: '5vw' }}
                   ></Avatar>
                 </Link>
-              );}
-             
+              );
             })}
-            
           </div>
         ) : (
           <div>

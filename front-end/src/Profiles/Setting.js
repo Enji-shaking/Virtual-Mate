@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SettingsIcon from '@material-ui/icons/Settings';
+import FixedContainer from '../FixedContainer';
 
-class Setting extends React.Component{
-    
-    handlePageChange(){
-        window.location.href = "#"
-    }
-    render(){
-        return <SettingsIcon onClick={this.handlePageChange} style={{position: 'absolute', top: '4%', right: '4%'}}/>
-    }
+function Setting(props) {
+  return (
+    <FixedContainer displayType="return">
+      
+    </FixedContainer>
+  );
 }
-
-export default Setting
+export default Setting;
+{/* <SettingsIcon onClick={()=>history.push(`/Setting`)}/> */}

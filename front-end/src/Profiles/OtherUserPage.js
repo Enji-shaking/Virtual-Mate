@@ -21,8 +21,8 @@ const useStyles = makeStyles({
 export default function OtherUserPage(props) {
   const history=useHistory();
   let id = props.match.params.id;
-  let user='f9396883-8b6b-449f-97db-4ce4929b97fe';
-  let pass = '123456';
+  let user=sessionStorage.getItem('id');
+  let pass = sessionStorage.getItem('pass');
   const [profile, setOther] = useState();
   useEffect(() => {
     const fetchData = async () => {

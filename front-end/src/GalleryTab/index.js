@@ -18,10 +18,9 @@ export default function GalleryTab(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      let result = await axios('http://bmomark.com:8080/api/card/all');
+      let result = sessionStorage.getItem('search')!==null?await axios.get('http://localhost:8080/api/card/list',{"tagName":sessionStorage.getItem('search')}): await axios('http://bmomark.com:8080/api/card/all');
       setData(result.data);
-
-      console.log(data);
+      sessionStorage.removeItem('search');
     };
     fetchData();
   }, []);
@@ -59,35 +58,11 @@ export default function GalleryTab(props) {
 
   const [searchContent, changeSearch] = useState('');
 
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [search, changeR] = useState([]);
 
   function Search() {
-    const [search, changeR] = useState([
-      {
-        cardId: 'tester',
-        cardName: 'testCard',
-        cardImage: '/logo.png',
-        cardTags: ['#test1', '#test2'],
-      },
-      {
-        cardId: 'tester2',
-        cardName: 'testCard2',
-        cardImage: '/logo.png',
-        cardTags: ['#test1', '#test2'],
-      },
-    ]);
-
-    useEffect(() => {
-      const fetchData = async () => {
-        const result = await axios('http://bmomark.com:8080/api/cards/list', {
-          params: { tag: searchContent },
-        });
-        changeR(result.data);
-      };
-      fetchData();
-    }, []);
-
-    return search;
+    sessionStorage.setItem('search',searchContent);
+    window.location.reload();
   }
 
   return todo ? (
@@ -127,7 +102,7 @@ export default function GalleryTab(props) {
       <div className="cardDisplay" style={displayStyle}>
         {data.map((card) => (
           <GalleryCard
-            canAdd={todo.has(card.cardId)}
+            canAdd={!todo.has(card.cardId)}
             key={card.cardId}
             id={card.cardId}
             url={card.activityImageId}
@@ -138,6 +113,6 @@ export default function GalleryTab(props) {
       </div>
     </FixedContainer>
   ) : (
-    <div></div>
+    <div>Loading</div>
   );
 }

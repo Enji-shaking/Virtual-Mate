@@ -44,18 +44,17 @@ export default function GalleryCard(props) {
   let pass = sessionStorage.getItem('pass');
  
   const [tags,setTag]=useState([]);
+  let request =[]
+  tagIds.forEach(element => {
+    request.push(axios.get(`http://bmomark.com:8080/api/card/tag/${element}`));
+  });
+
   const [image, setImage] = useState(
     {
       imageUrl: 'https://images.pexels.com/photos/5075068/pexels-photo-5075068.jpeg?cs=srgb&dl=pexels-max-avans-5075068.jpg&fm=jpg',
       imageId: 'imageId'
     }
   );
-
-  let request =[]
-  tagIds.forEach(element => {
-    request.push(axios.get(`http://bmomark.com:8080/api/card/tag/${element}`));
-  });
-  
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
@@ -126,7 +125,7 @@ export default function GalleryCard(props) {
           }}
         >
           <span style={{ fontSize: '3vw'}}>
-            {!props.canAdd ? 'Add To My List' : 'View In My List'}
+            {props.canAdd ? 'Add To My List' : 'View In My List'}
           </span>
         </Button>
       </div>

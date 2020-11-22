@@ -12,6 +12,7 @@ import Register from "./Register";
 import OtherUserPage from './Profiles/OtherUserPage';
 import Completed from './ToDoListTab/Completed';
 import Request from './Profiles/RequestChat';
+import Setting from './Profiles/Setting';
 export default function App(props) {
   return (
     <div className="App">
@@ -20,11 +21,7 @@ export default function App(props) {
         <Route path="/AddActivity" exact component={AddCard}/>
         <Route path="/Profile" exact component={ProfileTab}/>
         <Route path="/ToDoList" exact component={ToDoListTab}/>
-        <Route path="/Chats" exact component={ChatsTab}>
-          {/* <Switch>
-            <Route path="/:userName" component={ChatBoard} />
-          </Switch> */}
-        </Route>
+        <Route path="/Chats" exact component={ChatsTab}/>
         <Route path="/Chats/:ChatId" component={ChatBoard} />
         <Route path='/ActivityCard/:id' component={CardView} />
         <Route path = '/User/:id' component={OtherUserPage} />
@@ -32,6 +29,7 @@ export default function App(props) {
         <Route path="/Register" exact component={Register} />
         <Route path="/Completed/:id" component={Completed} />
         <Route path="/Request/:id" component={Request} />
+        <Route path="/Setting" component={Setting} />
       </Switch>
     </div>
   );
