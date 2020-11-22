@@ -262,7 +262,7 @@ export default function ChatBoard(props) {
         }
       );
     } else {
-        onSendMessage(inputValue, 0);
+      onSendMessage(inputValue, 0);
     }
   };
 
@@ -279,9 +279,9 @@ export default function ChatBoard(props) {
           width: '100%',
           height: '10vh',
           backgroundColor: '#54BEF5',
-          display:'flex',
-          alignItems:'center',
-          justifyContent:'space-evenly'
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
         }}
       >
         <input
@@ -295,7 +295,10 @@ export default function ChatBoard(props) {
           onKeyPress={onKeyboardPress}
         />
         <div className="image-upload">
-          <label htmlFor="onMessageSendImage" style={{position:'relative',top:'2px'}}>
+          <label
+            htmlFor="onMessageSendImage"
+            style={{ position: 'relative', top: '2px' }}
+          >
             <PanoramaIcon style={{ color: 'white' }}></PanoramaIcon>
           </label>
           <input
@@ -307,7 +310,10 @@ export default function ChatBoard(props) {
             onChange={onChoosePhoto}
           />
         </div>
-        <SendIcon onClick={onUploadingPhoto} style={{color:'white',height:'3.6vh',}}></SendIcon>
+        <SendIcon
+          onClick={onUploadingPhoto}
+          style={{ color: 'white', height: '3.6vh' }}
+        ></SendIcon>
 
         {/* Loading */}
         {isLoading ? (
