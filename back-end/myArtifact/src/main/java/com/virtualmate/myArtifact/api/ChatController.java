@@ -62,12 +62,12 @@ public class ChatController {
     }
     
     @GetMapping("list")
-	public List<Chat> getChatList(@RequestParam String userId, String password ) {
+	public List<Chat> getChatList(@RequestParam("userId") String userId, @RequestParam("password") String password ) {
         return chatService.getChatList(userId, password);
     }
 
     @GetMapping("request")
-	public List<User> getChatRequest(@RequestParam String userId, String password) {
+	public List<User> getChatRequest(@RequestParam("userId") String userId, @RequestParam("password") String password) {
         return chatService.getChatRequest(userId, password);
     }
 

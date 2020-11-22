@@ -120,15 +120,13 @@
     border-top: 1px solid ##54BEF5;
 }
 
-
-
 .viewListMessage {
     display: flex;
     flex: 1;
     flex-direction: column;
     overflow-y: scroll;
     padding-top: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 10vh;
 }
 
 .viewListMessage::-webkit-scrollbar-track {

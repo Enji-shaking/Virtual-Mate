@@ -10,6 +10,7 @@ import ReplyIcon from '@material-ui/icons/Reply';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 
+
 class ChatsTab extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +26,7 @@ class ChatsTab extends Component {
     this.currentUserId = sessionStorage.getItem('id');
     this.userList = [];
     this.chatList = [];
+    // this.history = useHistory();
   }
   componentDidMount() {
     if (this.currentUserId !== null) this.fetchData();
@@ -143,6 +145,10 @@ class ChatsTab extends Component {
               }}
             >
               <strong>Chat</strong>
+              
+              <IconButton onClick={()=>{
+                this.props.history.push('/Chats/Request');
+              }} > <Avatar alt="1" src="1"></Avatar> </IconButton>
             </div>
             <br></br>
             {this.renderUserList()}

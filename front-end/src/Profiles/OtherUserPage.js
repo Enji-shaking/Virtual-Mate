@@ -44,6 +44,7 @@ export default function OtherUserPage(props) {
         }}
       );
       setResult(result.data);
+      console.log(result);
     };
     if(id!=user)fetchData();
   }, []);

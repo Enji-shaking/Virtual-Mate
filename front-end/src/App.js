@@ -13,6 +13,8 @@ import OtherUserPage from './Profiles/OtherUserPage';
 import Completed from './ToDoListTab/Completed';
 import Request from './Profiles/RequestChat';
 import Setting from './Profiles/Setting';
+import RequestList from './ChatsTab/RequestList';
+
 export default function App(props) {
   return (
     <div className="App">
@@ -22,6 +24,7 @@ export default function App(props) {
         <Route path="/Profile" exact component={ProfileTab}/>
         <Route path="/ToDoList" exact component={ToDoListTab}/>
         <Route path="/Chats" exact component={ChatsTab}/>
+        <Route path="/Chats/Request" component={RequestList} />
         <Route path="/Chats/:ChatId" component={ChatBoard} />
         <Route path='/ActivityCard/:id' component={CardView} />
         <Route path = '/User/:id' component={OtherUserPage} />
