@@ -78,8 +78,8 @@ public class ChatController {
 
     //api/chat/acceptance?accepted=1&&userId_other=2
     @PostMapping("acceptance")
-    public boolean acceptRequest(@RequestBody withOtherWrapper wrapper, @RequestParam("accepted") boolean accepted, @RequestParam("userId_other") String userId_other){
-        return chatService.acceptRequest(wrapper.userCredentials.getUserId(), wrapper.userCredentials.getPassword(), accepted, userId_other);
+    public boolean acceptRequest(@RequestBody UserCredentials userCredentials, @RequestParam("accepted") boolean accepted, @RequestParam("userId_other") String userId_other){
+        return chatService.acceptRequest(userCredentials.getUserId(), userCredentials.getPassword(), accepted, userId_other);
     }
 
 }

@@ -3,31 +3,56 @@ import { useHistory } from 'react-router-dom';
 import FixedContainer from '../FixedContainer.js';
 import Avatar from '@material-ui/core/Avatar';
 import axios from 'axios';
+import ReactLoading from 'react-loading';
 
 export default function RequestList(props){
 
-    
+    // userId = sessionStorage.getItem("id");
+    //     userPass = sessionStorage.getItem("pass")
     useEffect(()=>{
-        const userId = sessionStorage.getItem("id");
-        const userPass = sessionStorage.getItem("pass");
-        if(!userId || !userPass){
-            history.push("/");
-        }
+        setIsLoading(true);
+        setUserId(sessionStorage.getItem("id"));
+        console.log(sessionStorage.getItem("id"));
+        setUserPass(sessionStorage.getItem("pass"));
+        console.log(sessionStorage.getItem("pass"));
+        console.log(userId);
+        console.log(userPass);
+        // if(userId==="" || userPass===""){
+        //     history.push("/");
+        // }
         const fetchData = async () => {
             const result = await axios.get(
-              `http://localhost:8080/api/chat/request?userId=${userId}&password=${userPass}`
+              `http://localhost:8080/api/chat/request?userId=${sessionStorage.getItem("id")}&password=${sessionStorage.getItem("pass")}`
             );
             if(result.data!==""){
-                console.log(result);
+                console.log(result.data);
+                setUserList(result.data);
+                setIsLoading(false);
             }
         };
         fetchData();
           
     },[])
     const history = useHistory();
+    const [userId, setUserId] = useState("");
+    const [userPass, setUserPass] = useState("");
     const [userList, setUserList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    // public boolean acceptRequest(@RequestBody withOtherWrapper wrapper, @RequestParam("accepted") boolean accepted, @RequestParam("userId_other") String userId_other){
     
+    
+    const acceptRequest = async (accept, userId_other,index)=>{
+        setIsLoading(true);
+        await axios.post(`http://localhost:8080/api/chat/acceptance?accepted=${accept}&userId_other=${userId_other}`, 
+            {
+                userId: userId,
+                password: userPass
+            })
+        let newArray = [...userList];
+        newArray.splice(index,1);
+        setUserList(newArray);
+        setIsLoading(false);
+    }
 
     const renderUserList = () => {
         if (userList.length > 0) {
@@ -37,14 +62,6 @@ export default function RequestList(props){
               <div
                 style={{ display: 'flex', alignItems: 'center' }}
                 key={index}
-                // onClick={() => {
-                //   setState({
-                //     chattingOther: item.userId,
-                //     chattingId: chatList[index],
-                //     otherAvatar: item.avatar,
-                //     chatName: item.userName,
-                //   });
-                // }}
               >
                 <Avatar
                   alt={item.avatar.toString()}
@@ -61,8 +78,12 @@ export default function RequestList(props){
                   }}
                 ></Avatar>
                 {item.userName}
-                <button>Yes</button>
-                <button>No</button>
+                <button onClick={e=>{
+                    acceptRequest(1,item.userId,index)
+                }}>Yes</button>
+                <button onClick={e=>{
+                    acceptRequest(0,item.userId,index)
+                }}>No</button>
               </div>
             );
           });
@@ -72,10 +93,24 @@ export default function RequestList(props){
 
 
     return (
-        <FixedContainer>
-            <h1>All Your Request</h1>
-            {/* {userId}
-            {userPass} */}
-        </FixedContainer>
+        <div>
+
+            <FixedContainer>
+                <h1>All Your Request</h1>
+                {renderUserList()}
+            </FixedContainer>
+             {/* Loading */}
+            {isLoading ? (
+            <div className="viewLoading">
+                <ReactLoading
+                type={'spin'}
+                color={'#203152'}
+                height={'10%'}
+                width={'10%'}
+                />
+            </div>
+            ) : null}
+        </div>
+        
     )
 }
