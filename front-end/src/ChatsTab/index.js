@@ -76,7 +76,6 @@ class ChatsTab extends Component {
                 otherAvatar: item.avatar,
                 chatName: item.userName,
               });
-             
             }}
           >
             <Avatar
@@ -105,8 +104,17 @@ class ChatsTab extends Component {
     return this.currentUserId !== null ? (
       <div>
         {this.state.chattingId ? (
-          <div >
-            <div style={{ backgroundColor: '#F8F8F8',paddingTop:'5px',position:'fixed',zIndex:'10',height:'9vh',width:'100%'}}>
+          <div>
+            <div
+              style={{
+                backgroundColor: '#F8F8F8',
+                paddingTop: '5px',
+                position: 'fixed',
+                zIndex: '10',
+                height: '9vh',
+                width: '100%',
+              }}
+            >
               <IconButton
                 onClick={() => {
                   this.setState({
@@ -119,9 +127,9 @@ class ChatsTab extends Component {
               >
                 <ReplyIcon style={{ color: '#54BEF5', fontSize: '7vw' }} />
               </IconButton>
-              <span style={{marginLeft:'35vw'}}>{this.state.chatName}</span>
+              <span style={{ marginLeft: '35vw' }}>{this.state.chatName}</span>
             </div>
-       
+
             <ChatBoard
               chatId={this.state.chattingId}
               userOtherId={this.state.chattingOther}
@@ -162,7 +170,29 @@ class ChatsTab extends Component {
       </div>
     ) : (
       <FixedContainer>
-        <button onClick={() => (window.location = '/Login')}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '90vw',
+            fontSize: '1.4em',
+          }}
+        >
+          <strong>Chat</strong>
+        </div>
+        <button
+          onClick={() => (window.location = '/Login')}
+          style={{
+            backgroundColor: '#54BEF5',
+            fontSize: '1em',
+            color: 'white',
+            padding: '3vw',
+            border: 'none',
+            marginTop: '30vh',
+            width: '100%',
+          }}
+        >
           You Haven't Logged In, Please Click Me To Log In
         </button>
       </FixedContainer>

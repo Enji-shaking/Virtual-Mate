@@ -96,16 +96,20 @@ export default function AddCard(props) {
                 .doc(result.id)
                 .set({ imageId: result.id, imageUrl: url });
 
-              axios.post(
-                'http://localhost:8080/api/card/create',
-                {
+              axios
+                .post('http://localhost:8080/api/card/create', {
                   userCred: {
                     userId: sessionStorage.getItem('id'),
                     password: sessionStorage.getItem('pass'),
                   },
                   card: { cardName: name, imageId: result.id },
-                  tags: tags
-                }).then(()=> history.push('/')).catch(()=>{setError(true);setIsLoading(false)});
+                  tags: tags,
+                })
+                .then(() => history.push('/'))
+                .catch(() => {
+                  setError(true);
+                  setIsLoading(false);
+                });
             });
           }
         );
@@ -117,7 +121,7 @@ export default function AddCard(props) {
   function handleChange(e) {
     changeImg(e.target.files[0]);
   }
-  return (
+  return sessionStorage.getItem('id') !== null ? (
     <FixedContainer displayType="return">
       <div
         style={{
@@ -205,6 +209,34 @@ export default function AddCard(props) {
           />
         </div>
       ) : null}
+    </FixedContainer>
+  ) : (
+    <FixedContainer>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '90vw',
+          fontSize: '1.4em',
+        }}
+      >
+        <strong>Add Activity Card</strong>
+      </div>
+      <button
+        onClick={() => (window.location = '/Login')}
+        style={{
+          backgroundColor: '#54BEF5',
+          fontSize: '1em',
+          color: 'white',
+          padding: '3vw',
+          border: 'none',
+          marginTop: '30vh',
+          width: '100%',
+        }}
+      >
+        You Haven't Logged In, Please Click Me To Log In
+      </button>
     </FixedContainer>
   );
 }
