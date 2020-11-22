@@ -78,9 +78,9 @@ export default function RequestList(props) {
             <Avatar
               alt={item.avatar.toString()}
               src={
-                item.avatar
-                  ? item.avatar
-                  : 'https://material-ui.com/static/images/avatar/1.jpg'
+                item.avatar!=='f9396883-8b6b-449f-97db-4ce4929b97fe'
+                ? item.avatar
+                : null
               }
               style={{
                 width: '15vw',

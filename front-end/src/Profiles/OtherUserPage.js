@@ -162,7 +162,9 @@ export default function OtherUserPage(props) {
         }}
       >
         <Avatar
-          src={profile.avatar}
+          src={profile.avatar!=='f9396883-8b6b-449f-97db-4ce4929b97fe'
+          ? profile.avatar
+          : null}
           style={{ width: '17vw', height: '17vw', margin: '1.5vh' }}
         ></Avatar>
         {profile&&profile.userName?profile.userName+ "'s page":''}

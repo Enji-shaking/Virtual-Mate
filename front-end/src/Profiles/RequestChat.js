@@ -20,9 +20,6 @@ export default function Request(props) {
   let pass = sessionStorage.getItem('pass');
   let id = props.match.params.id;
   function send(){
-    console.log(user);
-    console.log(pass);
-    console.log(id);
      axios.post(
       `http://localhost:8080/api/chat/request`,{
         userCred:{
@@ -31,17 +28,15 @@ export default function Request(props) {
         },
         userId_other: id
       }
-    ).then(history.goBack());
+    ).then(history.go('/Chats'));
   }
   
   return (
 
     <div style={{display:"flex",flexDirection:'column',alignItems:'center',justifyContent:'center',height:'80vh',width:'80vw',margin:'auto'}}>
       <div style={{fontSize:'7vw'}}>Request Chat</div>
-      <input type='text' placeholder='Send her/him a short introduction' style={{textAlign: 'center',
-        width:'70%',height:'10vh',margin:'2vh 0'
-      }}>
-      </input>
+      <div style={{fontSize:'3.6vw',textAlign:'center',margin:'20px'}}>You'll see this user in your chat list once he/she accepts your request.</div>
+
       <div
         style={{
           display: 'flex',

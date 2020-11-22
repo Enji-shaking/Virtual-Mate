@@ -17,7 +17,7 @@ class ChatsTab extends Component {
       isLoading: true,
       chattingOther: null,
       chattingId: null,
-      otherAvatar: 'https://material-ui.com/static/images/avatar/1.jpg',
+      otherAvatar: null,
       myAvatar: 'I',
       chatName: null,
     };
@@ -107,9 +107,9 @@ class ChatsTab extends Component {
               <Avatar
                 alt={item.avatar.toString()}
                 src={
-                  item.avatar
-                    ? item.avatar
-                    : 'https://material-ui.com/static/images/avatar/1.jpg'
+                  item.avatar!=='f9396883-8b6b-449f-97db-4ce4929b97fe'
+                  ? item.avatar
+                  : null
                 }
                 style={{
                   width: '15vw',

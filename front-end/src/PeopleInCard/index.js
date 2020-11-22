@@ -15,7 +15,7 @@ export default function CardView(props) {
     activityImageId: "f7b48590-8101-491e-b971-62366576f51d",
     activityName: "Say Hello World!"
   });
-  const [activityImageUrl, setActivityImageUrl] = useState("https://firebasestorage.googleapis.com/v0/b/mark-test-11011.appspot.com/o/0f3e2a8b4-e95e-45f2-a94e-f88833f07383?alt=media&token=2584f6ff-2525-4274-8fa3-522e92549c18");
+  const [activityImageUrl, setActivityImageUrl] = useState('/logo192.png');
   
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +37,7 @@ export default function CardView(props) {
 
   useEffect(async () => {
     setIsLoading(true);
-    console.log(card.activityImageId);
+  
     const result = await axios(`http://localhost:8080/api/image/${card.activityImageId}`);
         // .then(setIsLoading(false));
     setActivityImageUrl(result.data.imageUrl);
@@ -92,9 +92,9 @@ export default function CardView(props) {
                   <Avatar
                     alt={avatar.avatar.toString()}
                     src={
-                      avatar.avatar
+                      avatar.avatar !=='f9396883-8b6b-449f-97db-4ce4929b97fe'
                         ? avatar.avatar
-                        : 'https://material-ui.com/static/images/avatar/1.jpg'
+                        : null
                     }
                     style={{ width: '20vw', height: '20vw', margin: '5vw' }}
                   ></Avatar>

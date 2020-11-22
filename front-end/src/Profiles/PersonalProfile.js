@@ -46,9 +46,8 @@ export default function ProfilePage(props) {
   //   { pic: 'logo192.png', name:'', date: '2000-08-10', id: '3' },
   // ];
   const activities = profile.cardsTime;
-  console.log(profile.cardsTime);
+  
   const [av, avatarEdit] = useState(null);
-
   function avatarUpload(e) {
     avatarEdit(URL.createObjectURL(e.target.files[0]));
     const uploadFileRef = myStorage.ref().child(user).put(e.target.files[0]);
@@ -165,7 +164,7 @@ export default function ProfilePage(props) {
               src={
                 av
                   ? av
-                  : 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSeKZbcVtvtJKKvj5jnN11zgX82gll4TsnmFg&usqp=CAU'
+                  : null
               }
               style={{ width: '17vw', height: '17vw', margin: '1.5vh' }}
             ></Avatar>

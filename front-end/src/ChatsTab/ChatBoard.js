@@ -141,9 +141,9 @@ export default function ChatBoard(props) {
                 <Avatar
                   alt={props.myAvatar}
                   src={
-                    props.myAvatar
-                      ? props.myAvatar
-                      : 'https://material-ui.com/static/images/avatar/1.jpg'
+                    props.myAvatar !=='f9396883-8b6b-449f-97db-4ce4929b97fe'
+                    ? props.myAvatar
+                    : null
                   }
                   style={{ width: '10vw', height: '10vw', marginRight: '5vw' }}
                 ></Avatar>
@@ -166,9 +166,9 @@ export default function ChatBoard(props) {
                 <Avatar
                   alt={props.myAvatar}
                   src={
-                    props.myAvatar
-                      ? props.myAvatar
-                      : 'https://material-ui.com/static/images/avatar/1.jpg'
+                    props.myAvatar !=='f9396883-8b6b-449f-97db-4ce4929b97fe'
+                    ? props.myAvatar
+                    : null
                   }
                   style={{ width: '10vw', height: '10vw', marginRight: '5vw' }}
                 ></Avatar>
@@ -196,8 +196,8 @@ export default function ChatBoard(props) {
                   alt={props.otherAvatar}
                   src={
                     props.otherAvatar
-                      ? props.otherAvatar
-                      : 'https://material-ui.com/static/images/avatar/1.jpg'
+                      ? props.otherAvatar!=='f9396883-8b6b-449f-97db-4ce4929b97fe'
+                      : null
                   }
                   style={{ width: '10vw', height: '10vw', margin: '5vw' }}
                 ></Avatar>
@@ -219,9 +219,9 @@ export default function ChatBoard(props) {
                 <Avatar
                   alt={props.otherAvatar}
                   src={
-                    props.otherAvatar
+                    props.otherAvatar !=='f9396883-8b6b-449f-97db-4ce4929b97fe'
                       ? props.otherAvatar
-                      : 'https://material-ui.com/static/images/avatar/1.jpg'
+                      : null
                   }
                   style={{ width: '10vw', height: '10vw', margin: '0 5vw' }}
                 ></Avatar>
