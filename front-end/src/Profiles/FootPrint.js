@@ -12,7 +12,7 @@ class FootPrint extends React.Component {
     const activities = this.props.activities;
 
     const list = activities.map((activity) => (
-      <Link to={`/ActivityCard/${activity.id}`} style={{ textDecoration: 'none',color:'black'}}>
+      <Link key={activity.id} to={`/ActivityCard/${activity.id}`} style={{ textDecoration: 'none',color:'black'}}>
         <div
           key={activity.id}
           style={{

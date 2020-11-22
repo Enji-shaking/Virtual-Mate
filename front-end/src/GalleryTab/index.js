@@ -7,18 +7,19 @@ import axios from 'axios';
 import GalleryCard from './GalleryCard';
 
 export default function GalleryTab(props) {
-  const [data, setData] = useState([
-    {
-      cardId: 'tester',
-      cardName: 'test',
-      cardImage: '/logo.png',
-      cardTags: ['#test1', '#test2'],
-    },
-  ]);
+  const [currentTodo, setCurrent] = useState([]);
+
+  // let user = sessionStorage.getItem('id');
+  // let pass = sessionStorage.getItem('pass');
+  let user = "f3e2a8b4-e95e-45f2-a94e-f88833f07383";
+  let pass = "123456";
+  const [todo, setTodo] = useState(null);
+
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios('http://localhost:8080/api/card/all');
+      let result = sessionStorage.getItem('search')!==null?await axios.get('http://bmomark.com:8080/api/card/list',{"tagName":sessionStorage.getItem('search')}): await axios('http://bmomark.com:8080/api/card/all');
       setData(result.data);
     };
     fetchData();

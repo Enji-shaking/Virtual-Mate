@@ -50,6 +50,22 @@ export default function ToDoCard(props) {
       fetchData();
   }, [tagIds]);
 
+  const [image, setImage] = useState(
+    {
+      imageUrl: 'https://images.pexels.com/photos/5075068/pexels-photo-5075068.jpeg?cs=srgb&dl=pexels-max-avans-5075068.jpg&fm=jpg',
+      imageId: 'imageId'
+    }
+  );
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get(
+        `http://bmomark.com:8080/api/image/${props.url}`
+      );
+      if(result.data!=="")
+        setImage(result.data.imageUrl);
+    };
+    fetchData();
+  }, [props.url]);
 
   const [Delete, setDelete] = React.useState(null);
   const [Complete, setComplete] = React.useState(null);
