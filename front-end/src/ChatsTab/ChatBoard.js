@@ -7,7 +7,8 @@ import { useParams } from 'react-router-dom';
 import { myFirestore, myStorage } from '../Config/MyFirebase';
 import './Chat.css';
 import Avatar from '@material-ui/core/Avatar';
-
+import PanoramaIcon from '@material-ui/icons/Panorama';
+import SendIcon from '@material-ui/icons/Send';
 export default function ChatBoard(props) {
   useEffect(() => {
     console.log('useEffect');
@@ -227,11 +228,7 @@ export default function ChatBoard(props) {
       return viewListMessage;
     }
   };
-  // content: "Message 4"
-  // idFrom: "0f1f08d3-8d63-4148-81e4-1d6e1c267f90"
-  // idTo: "f3e2a8b4-e95e-45f2-a94e-f88833f07383"
-  // timestamp: "1605779374781"
-  // type: 0
+
   const onChoosePhoto = (eve) => {
     if (eve.target.files && eve.target.files[0]) {
       // console.log(eve.target.files[0]);
@@ -265,7 +262,7 @@ export default function ChatBoard(props) {
         }
       );
     } else {
-      console.log('no image available');
+      onSendMessage(inputValue, 0);
     }
   };
 
@@ -275,7 +272,18 @@ export default function ChatBoard(props) {
             <br></br>
             {props.userOtherId} */}
       <div className="viewListMessage">{renderListMessage()}</div>
-      <div style={{position: 'fixed', bottom: '0', width: '100%', height:'10vh',backgroundColor: '#54BEF5'}}>
+      <div
+        style={{
+          position: 'fixed',
+          bottom: '0',
+          width: '100%',
+          height: '10vh',
+          backgroundColor: '#54BEF5',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
+        }}
+      >
         <input
           className="viewInput"
           placeholder="Type your message..."
@@ -283,19 +291,30 @@ export default function ChatBoard(props) {
           onChange={(event) => {
             setInputValue(event.target.value);
           }}
-          style={{border:'none', height:'3.6vh'}}
+          style={{ border: 'none', height: '3.9vh', width: '50vw' }}
           onKeyPress={onKeyboardPress}
         />
-        <div className="viewBottom">
+        <div className="image-upload">
+          <label
+            htmlFor="onMessageSendImage"
+            style={{ position: 'relative', top: '2px' }}
+          >
+            <PanoramaIcon style={{ color: 'white' }}></PanoramaIcon>
+          </label>
           <input
             type="file"
             id="onMessageSendImage"
             name="onMessageSendImage"
             accept="image/*"
+            style={{ display: 'none' }}
             onChange={onChoosePhoto}
           />
-          <button onClick={onUploadingPhoto}>Send file</button>
         </div>
+        <SendIcon
+          onClick={onUploadingPhoto}
+          style={{ color: 'white', height: '3.6vh' }}
+        ></SendIcon>
+
         {/* Loading */}
         {isLoading ? (
           <div className="viewLoading">

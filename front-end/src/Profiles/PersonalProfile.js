@@ -53,7 +53,10 @@ export default function ProfilePage(props) {
   const [al, albumEdit] = useState();
   function albumUpload(e) {
     albumEdit(e.target.files[0]);
-    const uploadFileRef = myStorage.ref().child(user+'/'+e.target.files[0].name).put(e.target.files[0]);
+    const uploadFileRef = myStorage
+      .ref()
+      .child(user + '/' + e.target.files[0].name)
+      .put(e.target.files[0]);
     uploadFileRef.on(
       'state_changed',
       null,
@@ -72,139 +75,173 @@ export default function ProfilePage(props) {
         });
       }
     );
- 
   }
 
   function albumDelete(e) {
     console.log(e.target.id);
-    let newAlbum=[];
-    profile.album.forEach(element => {
-      if(element!==e.target.id)
-        newAlbum.push(element);
+    let newAlbum = [];
+    profile.album.forEach((element) => {
+      if (element !== e.target.id) newAlbum.push(element);
     });
-    while(newAlbum.length===0){
-      
-    }
-    myFirestore.collection('Users').doc(user).update({album:newAlbum}).then((response) =>{ console.log(response);window.location.reload()}).catch((error)=>console.log(error));
+    while (newAlbum.length === 0) {}
+    myFirestore
+      .collection('Users')
+      .doc(user)
+      .update({ album: newAlbum })
+      .then((response) => {
+        console.log(response);
+        window.location.reload();
+      })
+      .catch((error) => console.log(error));
   }
-  return profile ? (
-    <FixedContainer>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Badge
-          overlap="circle"
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
+  return user !== null ? (
+    profile ? (
+      <FixedContainer>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
-          badgeContent={
-            <div className="image-upload">
-              <label htmlFor="file-input">
-                <SettingsIcon></SettingsIcon>
-              </label>
-              <input
-                id="file-input"
-                type="file"
-                accept="image/*"
-                style={{ display: 'none' }}
-                onChange={avatarUpload}
-              />
-            </div>
-          }
         >
-          <Avatar
-            src={
-              av
-                ? av
-                : 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSeKZbcVtvtJKKvj5jnN11zgX82gll4TsnmFg&usqp=CAU'
-            }
-            style={{ width: '17vw', height: '17vw', margin: '1.5vh' }}
-          ></Avatar>
-        </Badge>
-        Your page
-        <div style={{ width: '85vw', margin: '3vh 0' }}>
-          Your Album
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              width: '100%',
-              height: '60vw',
+          <Badge
+            overlap="circle"
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
             }}
-          >
-            {profile.album ? (
-              profile.album.map((photo) => (
-                <div
-                key={photo}
-                  style={{
-                    width: '30%',
-                    height: '50%',
-                    margin: '5px',
-                    textAlign:'right'
-                  }}
-                >
-                  <img
-                    style={{
-                      width: '100%',
-                      height: '80%',
-                    }}
-                    src={photo}
-                  ></img>
-                  <IndeterminateCheckBoxOutlinedIcon
-                    id={photo}
-                    onClick={albumDelete}
-                    fontSize="small"
-                    style={{fontSize:'4vw', marginTop:'-5px'}}
-                  ></IndeterminateCheckBoxOutlinedIcon>
-                </div>
-              ))
-            ) : (
-              <div></div>
-            )}
-            {(profile && profile.album && profile.album.length < 6) ||
-            !profile.album ? (
-              <div
-                style={{
-                  backgroundColor: '#C4C4C4',
-                  width: '30%',
-                  height: '40%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: '3%',
-                  margin: '5px',
-                }}
-              >
-                <label htmlFor="album-input">
-                  <AddBoxOutlinedIcon
-                    style={{ color: 'white', marginTop: '5px' }}
-                  />
+            badgeContent={
+              <div className="image-upload">
+                <label htmlFor="file-input">
+                  <SettingsIcon></SettingsIcon>
                 </label>
                 <input
-                  id="album-input"
+                  id="file-input"
                   type="file"
                   accept="image/*"
                   style={{ display: 'none' }}
-                  onChange={albumUpload}
+                  onChange={avatarUpload}
                 />
               </div>
-            ) : (
-              <div></div>
-            )}
+            }
+          >
+            <Avatar
+              src={
+                av
+                  ? av
+                  : 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSeKZbcVtvtJKKvj5jnN11zgX82gll4TsnmFg&usqp=CAU'
+              }
+              style={{ width: '17vw', height: '17vw', margin: '1.5vh' }}
+            ></Avatar>
+          </Badge>
+          Your page
+          <div style={{ width: '85vw', margin: '3vh 0' }}>
+            Your Album
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                width: '100%',
+                height: '60vw',
+              }}
+            >
+              {profile.album ? (
+                profile.album.map((photo) => (
+                  <div
+                    key={photo}
+                    style={{
+                      width: '30%',
+                      height: '50%',
+                      margin: '5px',
+                      textAlign: 'right',
+                    }}
+                  >
+                    <img
+                      style={{
+                        width: '100%',
+                        height: '80%',
+                      }}
+                      src={photo}
+                    ></img>
+                    <IndeterminateCheckBoxOutlinedIcon
+                      id={photo}
+                      onClick={albumDelete}
+                      fontSize="small"
+                      style={{ fontSize: '4vw', marginTop: '-5px' }}
+                    ></IndeterminateCheckBoxOutlinedIcon>
+                  </div>
+                ))
+              ) : (
+                <div></div>
+              )}
+              {(profile && profile.album && profile.album.length < 6) ||
+              !profile.album ? (
+                <div
+                  style={{
+                    backgroundColor: '#C4C4C4',
+                    width: '30%',
+                    height: '40%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '3%',
+                    margin: '5px',
+                  }}
+                >
+                  <label htmlFor="album-input">
+                    <AddBoxOutlinedIcon
+                      style={{ color: 'white', marginTop: '5px' }}
+                    />
+                  </label>
+                  <input
+                    id="album-input"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={albumUpload}
+                  />
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
+          </div>
+          <div>
+            <div style={{ margin: '2.5vh 0' }}>Your Footprints</div>
+            <FootPrint activities={activities} />
           </div>
         </div>
-        <div>
-          <div style={{ margin: '2.5vh 0' }}>Your Footprints</div>
-          <FootPrint activities={activities} />
-        </div>
-      </div>
-    </FixedContainer>
+      </FixedContainer>
+    ) : (
+      <div>loading</div>
+    )
   ) : (
-    <div>loading</div>
+    <FixedContainer>
+      <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '90vw',
+                fontSize: '1.4em',
+              }}
+            >
+              <strong>Profile Page</strong>
+            </div>
+      <button
+        onClick={() => (window.location = '/Login')}
+        style={{
+          backgroundColor: '#54BEF5',
+          fontSize: '1em',
+          color: 'white',
+          padding: '3vw',
+          border: 'none',
+          marginTop: '30vh',
+          width: '100%',
+        }}
+      >
+        You Haven't Logged In, Please Click Me To Log In
+      </button>
+    </FixedContainer>
   );
 }

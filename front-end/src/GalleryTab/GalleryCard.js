@@ -100,6 +100,7 @@ export default function GalleryCard(props) {
         >
           {tags.map((tag)=>"#"+tag.data.tagName+' ')}
         </div>
+        {user!==null?
         <Button
           className={classes.root}
           style={{ maxWidth: '90%' }}
@@ -127,7 +128,13 @@ export default function GalleryCard(props) {
           <span style={{ fontSize: '3vw'}}>
             {props.canAdd ? 'Add To My List' : 'View In My List'}
           </span>
-        </Button>
+        </Button>:<Button className={classes.root}
+          style={{ maxWidth: '90%',fontSize:'0.8em' }}
+          onClick={(e) => {
+            e.preventDefault();
+                history.push('/Login');
+            }
+          }>Log In To Add</Button>}
       </div>
     </Link>
   );
