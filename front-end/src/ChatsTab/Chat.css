@@ -128,7 +128,7 @@
     flex-direction: column;
     overflow-y: scroll;
     padding-top: 10px;
-    padding-bottom: 20px;
+    margin-bottom: 10vh;
 }
 
 .viewListMessage::-webkit-scrollbar-track {
