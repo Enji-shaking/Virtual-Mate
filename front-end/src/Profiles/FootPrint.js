@@ -12,7 +12,7 @@ class FootPrint extends React.Component {
     const activities = this.props.activities;
 
     const list = activities.map((activity) => (
-      <Link to={`/ActivityCard/${activity.id}`} style={{ textDecoration: 'none',color:'black'}}>
+      <Link key={activity.id} to={`/ActivityCard/${activity.id}`} style={{ textDecoration: 'none',color:'black'}}>
         <div
           key={activity.id}
           style={{
@@ -20,6 +20,7 @@ class FootPrint extends React.Component {
             alignItems: 'center',
             justifyContent: 'space-between',
             width: '85vw',
+            marginTop: '5vw',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -28,7 +29,7 @@ class FootPrint extends React.Component {
               style={{ padding: '0px 5vw', fontSize: '1em', fontWeight: '500' }}
             >
               {' '}
-              {'Activity' + activity.id}
+              {activity.id}
             </div>
           </div>
           <div style={{ fontSize: '0.6em' }}> {activity.date}</div>
