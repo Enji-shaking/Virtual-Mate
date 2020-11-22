@@ -5,112 +5,141 @@ import Avatar from '@material-ui/core/Avatar';
 import axios from 'axios';
 import ReactLoading from 'react-loading';
 
-export default function RequestList(props){
-
-    // userId = sessionStorage.getItem("id");
-    //     userPass = sessionStorage.getItem("pass")
-    useEffect(()=>{
-        setIsLoading(true);
-        setUserId(sessionStorage.getItem("id"));
-        console.log(sessionStorage.getItem("id"));
-        setUserPass(sessionStorage.getItem("pass"));
-        console.log(sessionStorage.getItem("pass"));
-        console.log(userId);
-        console.log(userPass);
-        // if(userId==="" || userPass===""){
-        //     history.push("/");
-        // }
-        const fetchData = async () => {
-            const result = await axios.get(
-              `http://localhost:8080/api/chat/request?userId=${sessionStorage.getItem("id")}&password=${sessionStorage.getItem("pass")}`
-            );
-            if(result.data!==""){
-                console.log(result.data);
-                setUserList(result.data);
-                setIsLoading(false);
-            }
-        };
-        fetchData();
-          
-    },[])
-    const history = useHistory();
-    const [userId, setUserId] = useState("");
-    const [userPass, setUserPass] = useState("");
-    const [userList, setUserList] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    // public boolean acceptRequest(@RequestBody withOtherWrapper wrapper, @RequestParam("accepted") boolean accepted, @RequestParam("userId_other") String userId_other){
-    
-    
-    const acceptRequest = async (accept, userId_other,index)=>{
-        setIsLoading(true);
-        await axios.post(`http://localhost:8080/api/chat/acceptance?accepted=${accept}&userId_other=${userId_other}`, 
-            {
-                userId: userId,
-                password: userPass
-            })
-        let newArray = [...userList];
-        newArray.splice(index,1);
-        setUserList(newArray);
+export default function RequestList(props) {
+  // userId = sessionStorage.getItem("id");
+  //     userPass = sessionStorage.getItem("pass")
+  useEffect(() => {
+    setIsLoading(true);
+    setUserId(sessionStorage.getItem('id'));
+    console.log(sessionStorage.getItem('id'));
+    setUserPass(sessionStorage.getItem('pass'));
+    console.log(sessionStorage.getItem('pass'));
+    console.log(userId);
+    console.log(userPass);
+    // if(userId==="" || userPass===""){
+    //     history.push("/");
+    // }
+    const fetchData = async () => {
+      const result = await axios.get(
+        `http://localhost:8080/api/chat/request?userId=${sessionStorage.getItem(
+          'id'
+        )}&password=${sessionStorage.getItem('pass')}`
+      );
+      if (result.data !== '') {
+        console.log(result.data);
+        setUserList(result.data);
         setIsLoading(false);
-    }
-
-    const renderUserList = () => {
-        if (userList.length > 0) {
-          let viewListUser = [];
-          userList.forEach((item, index) => {
-            viewListUser.push(
-              <div
-                style={{ display: 'flex', alignItems: 'center' }}
-                key={index}
-              >
-                <Avatar
-                  alt={item.avatar.toString()}
-                  src={
-                    item.avatar
-                      ? item.avatar
-                      : 'https://material-ui.com/static/images/avatar/1.jpg'
-                  }
-                  style={{
-                    width: '15vw',
-                    height: '15vw',
-                    margin: '5vw',
-                    marginRight: '5vw',
-                  }}
-                ></Avatar>
-                {item.userName}
-                <button onClick={e=>{
-                    acceptRequest(1,item.userId,index)
-                }}>Yes</button>
-                <button onClick={e=>{
-                    acceptRequest(0,item.userId,index)
-                }}>No</button>
-              </div>
-            );
-          });
-          return viewListUser;
-        }
       }
+    };
+    fetchData();
+  }, []);
+  const history = useHistory();
+  const [userId, setUserId] = useState('');
+  const [userPass, setUserPass] = useState('');
+  const [userList, setUserList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  // public boolean acceptRequest(@RequestBody withOtherWrapper wrapper, @RequestParam("accepted") boolean accepted, @RequestParam("userId_other") String userId_other){
 
+  const acceptRequest = async (accept, userId_other, index) => {
+    setIsLoading(true);
+    await axios.post(
+      `http://localhost:8080/api/chat/acceptance?accepted=${accept}&userId_other=${userId_other}`,
+      {
+        userId: userId,
+        password: userPass,
+      }
+    );
+    let newArray = [...userList];
+    newArray.splice(index, 1);
+    setUserList(newArray);
+    setIsLoading(false);
+  };
+  const buttonStyle = {
+    backgroundColor: '#54BEF5',
+    fontSize: '1em',
+    color: 'white',
+    padding: '2vw 5vw',
+    border: 'none',
+  };
 
-    return (
-        <div>
+  const renderUserList = () => {
+    if (userList.length > 0) {
+      let viewListUser = [];
+      userList.forEach((item, index) => {
+        viewListUser.push(
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+            }}
+            key={index}
+          >
+            <Avatar
+              alt={item.avatar.toString()}
+              src={
+                item.avatar
+                  ? item.avatar
+                  : 'https://material-ui.com/static/images/avatar/1.jpg'
+              }
+              style={{
+                width: '15vw',
+                height: '15vw',
+              }}
+            ></Avatar>
+            <strong>{item.userName}</strong>
+            <button
+              onClick={(e) => {
+                acceptRequest(1, item.userId, index);
+              }}
+              style={buttonStyle}
+            >
+              Yes
+            </button>
+            <button
+              style={buttonStyle}
+              onClick={(e) => {
+                acceptRequest(0, item.userId, index);
+              }}
+            >
+              No
+            </button>
+          </div>
+        );
+      });
+      return viewListUser;
+    }
+  };
 
-            <FixedContainer>
-                <h1>All Your Request</h1>
-                {renderUserList()}
-            </FixedContainer>
-             {/* Loading */}
-            {isLoading ? (
-            <div className="viewLoading">
-                <ReactLoading
-                type={'spin'}
-                color={'#203152'}
-                height={'10%'}
-                width={'10%'}
-                />
-            </div>
-            ) : null}
+  return (
+    <div>
+      <FixedContainer>
+      <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '90vw',
+            fontSize: '1.4em',
+            marginBottom:'5vh'
+          }}
+        >
+          <strong>All Your Requests</strong>
         </div>
-        
-    )
+
+        {renderUserList()}
+      </FixedContainer>
+      {/* Loading */}
+      {isLoading ? (
+        <div className="viewLoading">
+          <ReactLoading
+            type={'spin'}
+            color={'#203152'}
+            height={'10%'}
+            width={'10%'}
+          />
+        </div>
+      ) : null}
+    </div>
+  );
 }

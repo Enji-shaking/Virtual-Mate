@@ -10,7 +10,6 @@ import ReplyIcon from '@material-ui/icons/Reply';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 
-
 class ChatsTab extends Component {
   constructor(props) {
     super(props);
@@ -27,11 +26,25 @@ class ChatsTab extends Component {
     this.userList = [];
     this.chatList = [];
     this.chatInfoList = [];
+    this.requestList = '0';
     // this.history = useHistory();
   }
   componentDidMount() {
     if (this.currentUserId !== null) this.fetchData();
+    if (this.currentUserId !== null) this.fatchRequests();
   }
+
+  fatchRequests = async () => {
+    const result = await axios.get(
+      `http://localhost:8080/api/chat/request?userId=${sessionStorage.getItem(
+        'id'
+      )}&password=${sessionStorage.getItem('pass')}`
+    );
+    if (result.data !== '') {
+      this.requestList = result.data.length.toString();
+      this.setState({ isLoading: false });
+    }
+  };
 
   fetchData = async () => {
     const result = await axios(
@@ -59,7 +72,10 @@ class ChatsTab extends Component {
         );
       }
       this.userList.push(userOther.data);
-      this.chatInfoList.push({lastActiveTimeStamp: Chat.data.lastActiveTimeStamp, lastMessage:Chat.data.lastMessage})
+      this.chatInfoList.push({
+        lastActiveTimeStamp: Chat.data.lastActiveTimeStamp,
+        lastMessage: Chat.data.lastMessage,
+      });
     }
     this.setState({ isLoading: false });
   };
@@ -70,7 +86,13 @@ class ChatsTab extends Component {
       this.userList.forEach((item, index) => {
         viewListUser.push(
           <div
-            style={{ display: 'flex', alignItems: 'center' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              margin:'5px',
+              height:'9vh'
+            }}
             key={index}
             onClick={() => {
               this.setState({
@@ -81,23 +103,28 @@ class ChatsTab extends Component {
               });
             }}
           >
-            <div>{item.userName}</div>
-            <Avatar
-              alt={item.avatar.toString()}
-              src={
-                item.avatar
-                  ? item.avatar
-                  : 'https://material-ui.com/static/images/avatar/1.jpg'
-              }
-              style={{
-                width: '15vw',
-                height: '15vw',
-                margin: '5vw',
-                marginRight: '5vw',
-              }}
-            ></Avatar>
-            <p>{this.chatInfoList[index]["lastActiveTimeStamp"]}</p>
-            <p>{this.chatInfoList[index]["lastMessage"]}</p>
+            
+              <Avatar
+                alt={item.avatar.toString()}
+                src={
+                  item.avatar
+                    ? item.avatar
+                    : 'https://material-ui.com/static/images/avatar/1.jpg'
+                }
+                style={{
+                  width: '15vw',
+                  height: '15vw',
+              
+                  
+                }}
+              ></Avatar>
+              <strong>{item.userName}</strong>
+              <div style={{ marginLeft: '10px',width:'35%',overflow:'hidden'}}>{this.chatInfoList[index]['lastMessage']} </div>
+
+              <span style={{ marginLeft: '30px', fontSize: '0.8em',color:'grey' }}>
+                {this.chatInfoList[index]['lastActiveTimeStamp']}
+              </span>
+            
           </div>
         );
       });
@@ -156,10 +183,27 @@ class ChatsTab extends Component {
               }}
             >
               <strong>Chat</strong>
-              
-              <IconButton onClick={()=>{
-                this.props.history.push('/Chats/Request');
-              }} > <Avatar alt="1" src="1"></Avatar> </IconButton>
+
+              <IconButton
+                onClick={() => {
+                  this.props.history.push('/Chats/Request');
+                }}
+              >
+                {' '}
+                <Avatar
+                  style={this.requestList!=='0'?{
+                    backgroundColor: 'red',
+                    width: '7.6vw',
+                    height: '7.6vw',
+                  }:{
+                  backgroundColor: 'grey',
+                  width: '7.6vw',
+                  height: '7.6vw',
+                }}
+                >
+                  {this.requestList}
+                </Avatar>{' '}
+              </IconButton>
             </div>
             <br></br>
             {this.renderUserList()}

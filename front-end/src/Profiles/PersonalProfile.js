@@ -11,22 +11,23 @@ import { myFirestore, myStorage } from '../Config/MyFirebase';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import IndeterminateCheckBoxOutlinedIcon from '@material-ui/icons/IndeterminateCheckBoxOutlined';
 import ReactLoading from 'react-loading';
-import moment from 'moment';
 
 export default function ProfilePage(props) {
   let user = sessionStorage.getItem('id');
   let pass = sessionStorage.getItem('pass');
   const history = useHistory();
   const [profile, setProfile] = useState({
-    userName:"username",
-    album:["url"],
-    avatar:"avatar",
-    cardsTime:[{
-      pic:"logo192.png",
-      date:'2000-08-10',
-      id:"3",
-      name: "test"
-    }]
+    userName: 'username',
+    album: ['url'],
+    avatar: 'avatar',
+    cardsTime: [
+      {
+        pic: 'logo192.png',
+        date: '2000-08-10',
+        id: '3',
+        name: 'test',
+      },
+    ],
   });
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -115,6 +116,23 @@ export default function ProfilePage(props) {
   return user !== null ? (
     profile ? (
       <FixedContainer>
+        <button
+          style={{
+            maxWidth: '90%',
+            position: 'fixed',
+            top: '2.5vh',
+            right: '3vh',
+            background: '#54BEF5',
+            fontSize: '0.75em',
+            color: 'white',
+            padding: '1vw 3vw',
+            textTransform: 'none',
+            border:'none'
+          }}
+          onClick={() => history.push(`/Login`)}
+        >
+          Log Out
+        </button>
         <div
           style={{
             display: 'flex',
@@ -230,39 +248,39 @@ export default function ProfilePage(props) {
           </div>
         </div>
         {isLoading ? (
-            <div className="viewLoading">
-                <ReactLoading
-                type={'spin'}
-                color={'#203152'}
-                height={'10%'}
-                width={'10%'}
-                />
-            </div>
+          <div className="viewLoading">
+            <ReactLoading
+              type={'spin'}
+              color={'#203152'}
+              height={'10%'}
+              width={'10%'}
+            />
+          </div>
         ) : null}
       </FixedContainer>
     ) : (
       <div className="viewLoading">
-          <ReactLoading
+        <ReactLoading
           type={'spin'}
           color={'#203152'}
           height={'10%'}
           width={'10%'}
-          />
+        />
       </div>
     )
   ) : (
     <FixedContainer>
       <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                width: '90vw',
-                fontSize: '1.4em',
-              }}
-            >
-              <strong>Profile Page</strong>
-            </div>
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '90vw',
+          fontSize: '1.4em',
+        }}
+      >
+        <strong>Profile Page</strong>
+      </div>
       <button
         onClick={() => (window.location = '/Login')}
         style={{
