@@ -12,7 +12,7 @@ export default function CardView(props) {
   const [usersAvatars, setUsersAvatars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [card, setCard] = useState({
-    activityImageId: "f7b48590-8101-491e-b971-62366576f51d",
+    activityImageId: "SeSKDXz9nS57iRajFZAO",
     activityName: "Say Hello World!"
   });
   const [activityImageUrl, setActivityImageUrl] = useState('/logo192.png');

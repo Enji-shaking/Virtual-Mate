@@ -106,6 +106,7 @@
     flex: 1;
     flex-direction: column;
     width: 100%;
+    min-height: 100vh;
     position: relative;
     background-color: rgba(196, 196, 196, 0.12);
 }
@@ -117,7 +118,7 @@
     align-items: center;
     justify-content: center;
     height: 50px;
-    border-top: 1px solid ##54BEF5;
+    border-top: 1px solid #54BEF5;
 }
 
 .viewListMessage {

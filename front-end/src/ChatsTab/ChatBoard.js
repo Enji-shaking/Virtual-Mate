@@ -112,19 +112,14 @@ export default function ChatBoard(props) {
     // console.log("rendering messages");
     // console.log(listMessage);
     if (listMessage.length == 0) {
-      console.log('renderListMessage no message available');
+      // console.log('renderListMessage no message available');
       return (
-        <div className="viewWrapSayHi">
-          <span className="textSayHi">Say hi to new friend</span>
-          {/* <img
-                        className="imgWaveHand"
-                        src={}
-                        alt="wave hand"
-                    /> */}
+        <div style={{marginTop:'5vh',textAlign:'center'}}>
+          <div >Say hi to new friend</div>
         </div>
       );
     } else {
-      console.log('renderListMessage YES message available');
+      // console.log('renderListMessage YES message available');
       let viewListMessage = [];
       listMessage.forEach((item, index) => {
         if (item.idFrom === props.user) {
@@ -281,9 +276,6 @@ export default function ChatBoard(props) {
 
   return (
     <div className="viewChatBoard">
-      {/* {props.chatId}
-            <br></br>
-            {props.userOtherId} */}
       <div className="viewListMessage">{renderListMessage()}</div>
       <div
         style={{

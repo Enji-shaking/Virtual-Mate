@@ -83,18 +83,18 @@ export default function Register(props) {
           <div
             style={
               error
-                ? { color: 'red', textAlign: 'center' }
+                ? { color: 'red', textAlign: 'center',marginTop:'2vh',fontSize:'3vw' }
                 : { visibility: 'hidden' }
             }
           >
-            Invalid inputs, You might have already registered
+            Invalid inputs, You might have already registered or your username has exceeded the 20-character limit
           </div>
 
           <input
             type="submit"
             value="Register"
             style={{
-              marginTop: '30px',
+              marginTop: '2vh',
               backgroundColor: '#54BEF5',
               padding: '5px',
               border: 'none',
@@ -107,7 +107,7 @@ export default function Register(props) {
               if (
                 email !== 'Email' &&
                 pass !== 'Password' &&
-                user != 'Username'
+                user != 'Username' && user.length< 20
               ) {
                 axios
                   .post('http://localhost:8080/api/user/register', {

@@ -72,8 +72,10 @@ export default function RequestList(props) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-around',
+              marginTop:'10px'
             }}
             key={index}
+            
           >
             <Avatar
               alt={item.avatar.toString()}
@@ -86,10 +88,12 @@ export default function RequestList(props) {
                 width: '15vw',
                 height: '15vw',
               }}
+              onClick={()=>history.push(`/User/${item.userId}`)}
             ></Avatar>
-            <strong>{item.userName}</strong>
+            <div style={{width:'30vw'}}><strong>{item.userName}</strong></div>
             <button
               onClick={(e) => {
+                e.preventDefault();
                 acceptRequest(1, item.userId, index);
               }}
               style={buttonStyle}
@@ -99,6 +103,7 @@ export default function RequestList(props) {
             <button
               style={buttonStyle}
               onClick={(e) => {
+                e.preventDefault();
                 acceptRequest(0, item.userId, index);
               }}
             >
@@ -113,7 +118,7 @@ export default function RequestList(props) {
 
   return (
     <div>
-      <FixedContainer>
+      <FixedContainer displayType='return'>
       <div
           style={{
             display: 'flex',
