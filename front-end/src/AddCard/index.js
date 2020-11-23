@@ -58,7 +58,9 @@ export default function AddCard(props) {
       return;
     }
     let tagLength = 0;
-    tags.forEach((t) => {
+    tags.forEach((t,index,tags) => {
+      tags[index] = t.trim();
+      t = t.trim();
       if (t === '') {
         setError(true);
         return;
