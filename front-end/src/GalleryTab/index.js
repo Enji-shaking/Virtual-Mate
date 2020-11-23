@@ -21,7 +21,7 @@ export default function GalleryTab(props) {
     const fetchData = async () => {
       let result =
         sessionStorage.getItem('search') !== null && sessionStorage.getItem('search') !== ""
-          ? await axios.get('http://localhost:8080/api/card/list', {
+          ? await axios.get('http://bmomark.com:8080/api/card/list', {
               params:{tagName: sessionStorage.getItem('search').trim()}
             })
           : await axios('http://bmomark.com:8080/api/card/all');
