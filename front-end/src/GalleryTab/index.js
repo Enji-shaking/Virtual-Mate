@@ -20,15 +20,14 @@ export default function GalleryTab(props) {
   useEffect(() => {
     const fetchData = async () => {
       let result =
-        sessionStorage.getItem('search') !== null
+        sessionStorage.getItem('search') !== null && sessionStorage.getItem('search') !== ""
           ? await axios.get('http://localhost:8080/api/card/list', {
-              params:{tagName: sessionStorage.getItem('search')}
+              params:{tagName: sessionStorage.getItem('search').trim()}
             })
           : await axios('http://bmomark.com:8080/api/card/all');
       setData(result.data);
-      console.log(result.data);
-      console.log(sessionStorage.getItem('search'));
-      sessionStorage.removeItem('search');
+      // console.log(result.data);
+      // console.log(sessionStorage.getItem('search'));
     };
     fetchData();
   }, []);
@@ -114,6 +113,15 @@ export default function GalleryTab(props) {
           />
         ))}
       </div>
+      {sessionStorage.getItem('search')!==null?<button style={{
+          backgroundColor: '#54BEF5',
+          fontSize: '1em',
+          color: 'white',
+          padding: '3vw',
+          border: 'none',
+          width: '100%',
+          margin:'auto'
+        }} onClick={()=>{ sessionStorage.removeItem('search');window.location.reload();}}>Show All Cards</button>:<div></div>}
     </FixedContainer>
   ) : (
     <div>Loading</div>
