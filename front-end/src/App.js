@@ -17,19 +17,7 @@ import RequestList from './ChatsTab/RequestList';
 
 import axios from 'axios';
 export default function App(props) {
-  useEffect(() => {
-    window.onbeforeunload = () => {
-      axios
-        .post('http://bmomark.com:8080/api/user/logout', {
-          userId: sessionStorage.getItem('id'),
-          password: sessionStorage.getItem('pass'),
-        })
-        .then(function (response) {
-          sessionStorage.clear();
-          alert('goodbye');
-        });
-    };
-  });
+ 
   return (
     <div className="App">
       <Switch>
