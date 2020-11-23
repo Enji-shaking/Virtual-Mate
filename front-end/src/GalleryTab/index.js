@@ -20,12 +20,14 @@ export default function GalleryTab(props) {
   useEffect(() => {
     const fetchData = async () => {
       let result =
-        sessionStorage.getItem('search') !== null && sessionStorage.getItem('search') !== ""
-          ? await axios.get('http://bmomark.com:8080/api/card/list', {
-              tagName: sessionStorage.getItem('search'),
+        sessionStorage.getItem('search') !== null
+          ? await axios.get('http://localhost:8080/api/card/list', {
+              params:{tagName: sessionStorage.getItem('search')}
             })
           : await axios('http://bmomark.com:8080/api/card/all');
       setData(result.data);
+      console.log(result.data);
+      console.log(sessionStorage.getItem('search'));
       sessionStorage.removeItem('search');
     };
     fetchData();

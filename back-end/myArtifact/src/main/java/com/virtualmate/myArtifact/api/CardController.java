@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("api/card")
@@ -73,7 +74,7 @@ public class CardController {
         { tagName: xxx }
     */
     @GetMapping("list")
-    public List<Card> getCardsByTag(@JsonProperty("tagName") String tagName){
+    public List<Card> getCardsByTag(@RequestParam("tagName") String tagName){
         return cardService.getCardsByTag(tagName);
         // To service guy, go get the Tag object first, then grab the "relatedCardsId" arraylist and then grab all the related cards in a loop
     }

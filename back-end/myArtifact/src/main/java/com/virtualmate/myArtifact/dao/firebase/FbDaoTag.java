@@ -67,7 +67,7 @@ public class FbDaoTag implements TagDao {
 		} catch (InterruptedException | ExecutionException e1) {
 			e1.printStackTrace();
 		}
-		if (documents.size()==0) {
+		if (documents == null || documents.size() == 0) {
 			return null;
 		}
 		else if (documents.size()>1) {
