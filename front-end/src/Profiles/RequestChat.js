@@ -22,7 +22,7 @@ export default function Request(props) {
   const [error, setError] = useState(false);
   function send() {
     axios
-      .post(`http://localhost:8080/api/chat/request`, {
+      .post(`http://bmomark.com:8080/api/chat/request`, {
         userCred: {
           userId: user,
           password: pass,

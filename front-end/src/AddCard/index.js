@@ -97,7 +97,7 @@ export default function AddCard(props) {
                 .set({ imageId: result.id, imageUrl: url });
 
               axios
-                .post('http://localhost:8080/api/card/create', {
+                .post('http://bmomark.com:8080/api/card/create', {
                   userCred: {
                     userId: sessionStorage.getItem('id'),
                     password: sessionStorage.getItem('pass'),

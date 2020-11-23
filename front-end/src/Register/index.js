@@ -110,7 +110,7 @@ export default function Register(props) {
                 user != 'Username' && user.length< 20
               ) {
                 axios
-                  .post('http://localhost:8080/api/user/register', {
+                  .post('http://bmomark.com:8080/api/user/register', {
                     userName: user,
                     password: pass,
                     email: email,

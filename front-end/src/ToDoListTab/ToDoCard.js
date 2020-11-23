@@ -57,7 +57,7 @@ export default function ToDoCard(props) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        `http://localhost:8080/api/image/${props.url}`
+        `http://bmomark.com:8080/api/image/${props.url}`
       );
       if(result.data!=="")
         setImage(result.data.imageUrl);
@@ -84,7 +84,7 @@ export default function ToDoCard(props) {
   function deleteTodo() {
 
     axios
-      .post('http://localhost:8080/api/user/todo/remove', {
+      .post('http://bmomark.com:8080/api/user/todo/remove', {
         cardId:id,
         userCred:{"userId":user,
           "password": pass}})
@@ -96,7 +96,7 @@ export default function ToDoCard(props) {
       }).catch((error)=>console.log(error));
   }
   function complete(){
-    axios.post('http://localhost:8080/api/user/todo/mark',{
+    axios.post('http://bmomark.com:8080/api/user/todo/mark',{
       cardId:id,
       userCred:{"userId":user,
         "password": pass}

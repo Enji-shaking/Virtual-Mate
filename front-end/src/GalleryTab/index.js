@@ -20,11 +20,11 @@ export default function GalleryTab(props) {
   useEffect(() => {
     const fetchData = async () => {
       let result =
-        sessionStorage.getItem('search') !== null
-          ? await axios.get('http://localhost:8080/api/card/list', {
+        sessionStorage.getItem('search') !== null && sessionStorage.getItem('search') !== ""
+          ? await axios.get('http://bmomark.com:8080/api/card/list', {
               tagName: sessionStorage.getItem('search'),
             })
-          : await axios('http://localhost:8080/api/card/all');
+          : await axios('http://bmomark.com:8080/api/card/all');
       setData(result.data);
       sessionStorage.removeItem('search');
     };
@@ -34,7 +34,7 @@ export default function GalleryTab(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      let result = await axios.get('http://localhost:8080/api/user/todo/list', {
+      let result = await axios.get('http://bmomark.com:8080/api/user/todo/list', {
         params: { userId: user, password: pass },
       });
       result.data.forEach((t) => tmp.add(t.cardId));
@@ -60,7 +60,6 @@ export default function GalleryTab(props) {
 
   const [searchContent, changeSearch] = useState('');
 
-  const [search, changeR] = useState([]);
 
   function Search() {
     sessionStorage.setItem('search', searchContent);

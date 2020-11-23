@@ -58,7 +58,7 @@ export default function GalleryCard(props) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        `http://localhost:8080/api/image/${props.url}`
+        `http://bmomark.com:8080/api/image/${props.url}`
       );
       if(result.data!=="")
         setImage(result.data);

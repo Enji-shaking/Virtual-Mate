@@ -46,7 +46,7 @@ export default function Login(props) {
             className={classes.root}
             onClick={() => {
               axios
-                .post('http://localhost:8080/api/user/logout', {
+                .post('http://bmomark.com:8080/api/user/logout', {
                   userId: sessionStorage.getItem('id'),
                   password: sessionStorage.getItem('pass'),
                 })

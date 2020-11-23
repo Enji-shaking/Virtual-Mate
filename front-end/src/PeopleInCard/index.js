@@ -20,13 +20,13 @@ export default function CardView(props) {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const result = await axios(`http://localhost:8080/api/card/${id}/users`);
+      const result = await axios(`http://bmomark.com:8080/api/card/${id}/users`);
       setUsersAvatars(result.data);
       setIsLoading(false);
     };
     const fetchCardInfo = async () => {
       setIsLoading(true);
-      const result = await axios(`http://localhost:8080/api/card/${id}`);
+      const result = await axios(`http://bmomark.com:8080/api/card/${id}`);
       setCard(result.data);
       setIsLoading(false);
     };
@@ -38,7 +38,7 @@ export default function CardView(props) {
   useEffect(async () => {
     setIsLoading(true);
   
-    const result = await axios(`http://localhost:8080/api/image/${card.activityImageId}`);
+    const result = await axios(`http://bmomark.com:8080/api/image/${card.activityImageId}`);
         // .then(setIsLoading(false));
     setActivityImageUrl(result.data.imageUrl);
     setIsLoading(false);

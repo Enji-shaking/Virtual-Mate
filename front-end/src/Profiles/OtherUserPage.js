@@ -38,7 +38,7 @@ export default function OtherUserPage(props) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        `http://localhost:8080/api/user/${id}`,{params:{"userId":user}}
+        `http://bmomark.com:8080/api/user/${id}`,{params:{"userId":user}}
       );
       // const result = await axios(
       //   `http://bmomark.com:8080/api/user/${id}`,{params:{"userId":user}}
@@ -52,7 +52,7 @@ export default function OtherUserPage(props) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        `http://localhost:8080/api/chat/canchat`,{params:{"userId":user,
+        `http://bmomark.com:8080/api/chat/canchat`,{params:{"userId":user,
         "password": pass,
         "userId_other": id
         }}
@@ -136,7 +136,7 @@ export default function OtherUserPage(props) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(
-        'http://localhost:8080/api/user/cards',{params:{"userId":user,"userId_other":id
+        'http://bmomark.com:8080/api/user/cards',{params:{"userId":user,"userId_other":id
         }}
       );
       // const result = await axios.get(

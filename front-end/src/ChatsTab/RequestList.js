@@ -21,7 +21,8 @@ export default function RequestList(props) {
     // }
     const fetchData = async () => {
       const result = await axios.get(
-        `http://localhost:8080/api/chat/request?userId=${sessionStorage.getItem(
+        `http://
+        bmomark.com:8080/api/chat/request?userId=${sessionStorage.getItem(
           'id'
         )}&password=${sessionStorage.getItem('pass')}`
       );
@@ -43,7 +44,7 @@ export default function RequestList(props) {
   const acceptRequest = async (accept, userId_other, index) => {
     setIsLoading(true);
     await axios.post(
-      `http://localhost:8080/api/chat/acceptance?accepted=${accept}&userId_other=${userId_other}`,
+      `http://bmomark.com:8080/api/chat/acceptance?accepted=${accept}&userId_other=${userId_other}`,
       {
         userId: userId,
         password: userPass,

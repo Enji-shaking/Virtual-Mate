@@ -20,7 +20,7 @@ export default function App(props) {
   useEffect(() => {
     window.onbeforeunload = () => {
       axios
-        .post('http://localhost:8080/api/user/logout', {
+        .post('http://bmomark.com:8080/api/user/logout', {
           userId: sessionStorage.getItem('id'),
           password: sessionStorage.getItem('pass'),
         })

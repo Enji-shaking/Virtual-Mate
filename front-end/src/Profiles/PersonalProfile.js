@@ -32,7 +32,7 @@ export default function ProfilePage(props) {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get('http://localhost:8080/api/user/' + user);
+      const result = await axios.get('http://bmomark.com:8080/api/user/' + user);
       console.log(result);
       setProfile(result.data);
       avatarEdit(result.data.avatar);

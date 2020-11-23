@@ -36,7 +36,7 @@ class ChatsTab extends Component {
 
   fatchRequests = async () => {
     const result = await axios.get(
-      `http://localhost:8080/api/chat/request?userId=${sessionStorage.getItem(
+      `http://bmomark.com:8080/api/chat/request?userId=${sessionStorage.getItem(
         'id'
       )}&password=${sessionStorage.getItem('pass')}`
     );
@@ -48,7 +48,7 @@ class ChatsTab extends Component {
 
   fetchData = async () => {
     const result = await axios(
-      'http://localhost:8080/api/user/' + this.currentUserId
+      'http://bmomark.com:8080/api/user/' + this.currentUserId
     );
     //console.log(result.data.chats);
     // this.setState({chatData: result.data.chats});
@@ -59,16 +59,16 @@ class ChatsTab extends Component {
 
   fecthUserBasedOnChat = async () => {
     for (let ele of this.chatList) {
-      const Chat = await axios('http://localhost:8080/api/chat/' + ele);
+      const Chat = await axios('http://bmomark.com:8080/api/chat/' + ele);
       // //console.log(Chat.data.users);
       let userOther = null;
       if (Chat.data.users[0] != this.currentUserId) {
         userOther = await axios(
-          'http://localhost:8080/api/user/' + Chat.data.users[0]
+          'http://bmomark.com:8080/api/user/' + Chat.data.users[0]
         );
       } else {
         userOther = await axios(
-          'http://localhost:8080/api/user/' + Chat.data.users[1]
+          'http://bmomark.com:8080/api/user/' + Chat.data.users[1]
         );
       }
       this.userList.push(userOther.data);
