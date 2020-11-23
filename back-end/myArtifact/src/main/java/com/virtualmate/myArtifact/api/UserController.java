@@ -14,7 +14,8 @@ import com.virtualmate.myArtifact.service.UserService;
 import com.virtualmate.myArtifact.submodel.UserCredentials;
 
 @RequestMapping("api/user")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://virtual-mate-735d0.web.app")
+// @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class UserController {
 	

@@ -77,8 +77,9 @@ export default function AddCard(props) {
       setError(true);
       return;
     }
-
+    // console.log("1");
     setIsLoading(true);
+   
     myFirestore
       .collection('Images')
       .add({})
@@ -97,7 +98,6 @@ export default function AddCard(props) {
                 .collection('Images')
                 .doc(result.id)
                 .set({ imageId: result.id, imageUrl: url });
-
               axios
                 .post('http://bmomark.com:8080/api/card/create', {
                   userCred: {
@@ -109,14 +109,14 @@ export default function AddCard(props) {
                 })
                 .then(() => history.push('/'))
                 .catch(() => {
-                  setError(true);
                   setIsLoading(false);
+                  setError(true);
                 });
             });
           }
         );
       })
-      .catch(() => setError(true));
+      .catch((e) => {setError(true); setIsLoading(false); console.log(e);});
   }
   const [img, changeImg] = useState(null);
 

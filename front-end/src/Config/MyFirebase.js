@@ -1,13 +1,13 @@
 import firebase from 'firebase'
 
 const config = {
-    apiKey: "AIzaSyAyyNkWhlDDw7Jb_U9xkUZt5NTbPWeTIZc",
-    authDomain: "mark-test-11011.firebaseapp.com",
-    databaseURL: "https://mark-test-11011.firebaseio.com",
-    projectId: "mark-test-11011",
-    storageBucket: "mark-test-11011.appspot.com",
-    messagingSenderId: "458194135945",
-    appId: "1:458194135945:web:e29fe96b944877f83ccf58",
+    apiKey: "AIzaSyDcmQtOje_yTFxq6_aIiMhsB1yVyx-yZB4",
+    authDomain: "virtual-mate-735d0.firebaseapp.com",
+    databaseURL: "https://virtual-mate-735d0.firebaseio.com",
+    projectId: "virtual-mate-735d0",
+    storageBucket: "virtual-mate-735d0.appspot.com",
+    messagingSenderId: "604795823558",
+    appId: "1:604795823558:web:46f59c5dda077dd878bec7",
 }
 firebase.initializeApp(config)
 firebase.analytics();

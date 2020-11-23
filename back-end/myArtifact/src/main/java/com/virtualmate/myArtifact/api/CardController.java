@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("api/card")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://virtual-mate-735d0.web.app")
 @RestController
 
 

@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("api/user/todo")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://virtual-mate-735d0.web.app")
+// @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class TodoController {
 	private final TodoService todoService;

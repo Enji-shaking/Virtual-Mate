@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("api/chat")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://virtual-mate-735d0.web.app")
+// @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class ChatController {
     private final ChatService chatService;

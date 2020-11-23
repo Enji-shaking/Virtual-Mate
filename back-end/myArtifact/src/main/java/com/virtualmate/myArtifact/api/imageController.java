@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("api/image")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://virtual-mate-735d0.web.app")
+// @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class imageController {
     public final ImageService imageService;
