@@ -71,7 +71,7 @@ export default function AddCard(props) {
     if (
       img == null ||
       name.trim().length == 0 ||
-      name.trim().length > 15 ||
+      name.trim().length > 12 ||
       tagLength > 35
     ) {
       setError(true);
@@ -196,7 +196,7 @@ export default function AddCard(props) {
         </div>
         <div style={{ fontSize: '2.5vw' }}>
           {' '}
-          Note:<br></br> Card Name has to be within 15 charaters; Tags shall be
+          Note:<br></br> Card Name has to be within 12 charaters; Tags shall be
           entered seperated by ',' no white space after comma, and the
           characters shall be within 35 (excluding comma)
         </div>

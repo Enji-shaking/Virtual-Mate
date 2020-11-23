@@ -39,7 +39,7 @@ public class TodoService {
 		//iterate over users' card map
 		for (Map.Entry<String, Integer> entry : map.entrySet()) {
 			//check the card's status, if it is to do card, add to the list
-			if(entry.getValue()==1){
+			if(entry.getValue()==1 || entry.getValue()==3){
 				list.add(cardDao.getCardById(entry.getKey()));
 			}
 		}
