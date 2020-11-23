@@ -84,8 +84,8 @@ public class TodoService {
 		map.put("name",cardDao.getCardById(cardId).getActivityName());
 		System.out.println(map);
 		cardsTime.add(map);
-		if(cardsTime.size()>3){//add
-			//sort the top three, pop the last one, reset the cardTime
+		if(cardsTime.size()>15){//add
+			//sort the top fifteen, pop the last one, reset the cardTime
 			cardsTime.sort(new Comparator<Map<String, String>>() {
 				@Override
 				public int compare(Map<String, String> first, Map<String, String> second) {
