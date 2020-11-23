@@ -11,23 +11,25 @@ import PanoramaIcon from '@material-ui/icons/Panorama';
 import SendIcon from '@material-ui/icons/Send';
 export default function ChatBoard(props) {
   useEffect(() => {
-    console.log('useEffect');
+    // console.log('useEffect');
     setIsLoading(true);
     getListHistory();
+    scrollToBottom();
   }, []);
 
   const [inputValue, setInputValue] = useState('');
   const [listMessage, setlistMessage] = useState([]);
   const [uploadPhoto, setUploadPhoto] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [messagesEnd, setMessagesEnd] = useState(null);
   let listener = null;
 
   //scroll to bottom, which uses ref
 
   const getListHistory = () => {
     setIsLoading(true);
-    console.log('getListHistory');
-    console.log(listMessage);
+    // console.log('getListHistory');
+    // console.log(listMessage);
     if (listener) {
       listener();
     }
@@ -43,11 +45,12 @@ export default function ChatBoard(props) {
           snapshot.docChanges().forEach((change) => {
             if (change.type === 'added') {
               listMessage.push(change.doc.data());
-              console.log('change');
+              // console.log('change');
             }
           });
+          setIsLoading(true);
           setIsLoading(false);
-          console.log(listMessage, 'on snapshot');
+          // console.log(listMessage, 'on snapshot');
         },
         (err) => {
           console.log(err);
@@ -65,7 +68,7 @@ export default function ChatBoard(props) {
   const onSendMessage = (content, type) => {
     //type === 0 means message
     //type === 1 means image
-    console.log(content);
+    // console.log(content);
     if (content.trim() === '') {
       return;
     }
@@ -88,7 +91,7 @@ export default function ChatBoard(props) {
         if (type == 1) {
           setUploadPhoto(null);
         }
-        console.log('Success sent a message');
+        // console.log('Success sent a message');
       })
       .then(
         // console.log(new Date().toLocaleDateString())
@@ -273,10 +276,23 @@ export default function ChatBoard(props) {
       onSendMessage(inputValue, 0);
     }
   };
-
+  
+  const scrollToBottom = () => {
+    if (messagesEnd) {
+        messagesEnd.scrollIntoView({})
+    }
+  }
   return (
     <div className="viewChatBoard">
-      <div className="viewListMessage">{renderListMessage()}</div>
+      <div className="viewListMessage">
+        {renderListMessage()}
+        <div
+            style={{float: 'left', clear: 'both'}}
+            ref={el => {
+                setMessagesEnd(el)
+            }}
+        />
+      </div>
       <div
         style={{
           position: 'fixed',

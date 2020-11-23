@@ -21,10 +21,7 @@ export default function RequestList(props) {
     // }
     const fetchData = async () => {
       const result = await axios.get(
-        `http://
-        bmomark.com:8080/api/chat/request?userId=${sessionStorage.getItem(
-          'id'
-        )}&password=${sessionStorage.getItem('pass')}`
+        `http://bmomark.com:8080/api/chat/request?userId=${sessionStorage.getItem('id')}&password=${sessionStorage.getItem('pass')}`
       );
       if (result.data !== '') {
         console.log(result.data);
